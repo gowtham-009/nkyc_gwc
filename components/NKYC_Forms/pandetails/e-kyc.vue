@@ -94,7 +94,7 @@ onMounted(() => {
 const emit = defineEmits(['updateDiv']);
 const back = () => {
 
-    emit('updateDiv', 'div2');
+    emit('updateDiv', 'nkyclist');
 }
 
 
@@ -102,7 +102,7 @@ const handleButtonClick = () => {
  isAnimating.value = true;
     setTimeout(() => {
       isAnimating.value = false;
-      emit('updateDiv', 'div5');
+      emit('updateDiv', 'digilockersubmission');
     }, 800); 
 };
 

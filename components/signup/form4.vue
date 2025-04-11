@@ -74,11 +74,14 @@ onMounted(() => {
     }, 1000);
 
 
-
+// Prevent browser/mobile back button from navigating away
+window.history.pushState(null, null, window.location.href);
+  window.addEventListener('popstate', handleBackButton);
 });
 
 onUnmounted(() => {
     clearInterval(timer);
+    window.removeEventListener('popstate', handleBackButton);
 });
 
 watchEffect(() => {
@@ -107,6 +110,12 @@ const nkyclist=()=>{
 const back=()=>{
     emit('updateDiv', 'div3');
 }
+
+const handleBackButton = () => {
+  back();
+  // Prevent further back navigation
+  window.history.pushState(null, null, window.location.href);
+};
 </script>
 
 <style>

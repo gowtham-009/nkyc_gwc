@@ -1,13 +1,15 @@
 <template>
   <div class="flex gap-3">
-    <InputText
+    <div class="w-16">
+      <InputText
       type="text"
-      class="w-16 font-normal"
+      class="w-14 font-normal"
       v-model="countryphonenocode"
       disabled
     />
-
-    <InputText
+    </div>
+    <div class="w-full">
+      <InputText
       id="mobile"
       class="w-full font-normal"
       v-model="localPhoneNo"
@@ -17,6 +19,10 @@
       @input="validateInput"
       maxlength="10"
     />
+    </div>
+    
+
+ 
   </div>
 </template>
 

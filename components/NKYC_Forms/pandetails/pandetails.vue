@@ -15,20 +15,22 @@
                     your Demat account.</p>
 
                 <div class="w-full mt-2">
-                    <paninput v-model="panno" />
+                    <Paninput v-model="panno" />
                 </div>
+
+                <div class="w-full mt-2">
+                    <Aadhar v-model="aadhar" />
+                </div>
+
 
                 <div class="w-full mt-2">
                     <DOB v-model="dateval"/>
                   
                 </div>
 
-                <Divider align="center" type="dotted">
-                    <b class="text-gray-600">OR</b>
-                </Divider>
+             
 
-                <p class=" text-center cursor-pointer text-xl font-medium text-blue-600" @click="panphoto">Upload your
-                    PAN Card</p>
+             
 
                 <div class="w-full mt-2">
                     <Pancheck v-model="checkboxval" />
@@ -42,7 +44,7 @@
             </div>
 
             <div class="w-full p-1" label="Continue">
-                <Button type="button" :disabled="!panno || !dateval || !checkboxval" @click="handleButtonClick"
+                <Button type="button" :disabled="!panno || !aadhar || !dateval || !checkboxval" @click="handleButtonClick"
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
                     {{ buttonText }}
                     <span v-if="isAnimating" class="wave"></span>
@@ -59,14 +61,17 @@
 <script setup>
 import ThemeSwitch from '~/components/darkmode/darkmode.vue'
 import { ref, onMounted } from 'vue';
-import paninput from '~/components/forminputs/paninput.vue';
-import DOB from '~/components/forminputs/dateinput.vue'
-import Pancheck from '~/components/forminputs/pancheck.vue'
+import Paninput from '~/components/NKYC_Forms/pandetails/paninputs/paninput.vue';
+import Aadhar from '~/components/NKYC_Forms/pandetails/paninputs/aadhar.vue';
+
+import DOB from '~/components/NKYC_Forms/pandetails/paninputs/dateinput.vue'
+import Pancheck from '~/components/NKYC_Forms/pandetails/paninputs/pancheck.vue'
 
 const deviceHeight = ref(0);
 const isAnimating = ref(false);
 const buttonText = ref("Continue");
 const panno = ref('')
+const aadhar = ref('')
 const dateval = ref('')
 const checkboxval = ref('')
 
@@ -80,18 +85,16 @@ onMounted(() => {
 const emit = defineEmits(['updateDiv']);
 const back = () => {
 
-    emit('updateDiv', 'div1');
+    emit('updateDiv', 'digilockerconfirmation');
 }
 
-const panphoto = () => {
-    emit('updateDiv', 'div3');
-}
+
 
 const handleButtonClick = () => {
     isAnimating.value = true;
     setTimeout(() => {
         isAnimating.value = false;
-        emit('updateDiv', 'div4');
+       emit('updateDiv', 'submission','1');
     }, 800);
 };
 </script>

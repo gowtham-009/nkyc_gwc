@@ -67,6 +67,9 @@
                     </div>
                 </div>
                 
+                <div class="w-full mt-2">
+                    <Confirmation ref="commAddressRef"/>
+                </div>
 
             </div>
 
@@ -104,12 +107,15 @@
 </template>
 <script setup>
 import ThemeSwitch from '~/components/darkmode/darkmode.vue'
+import Confirmation from '~/components/NKYC_Forms/pandetails/paninputs/confirmcheckbox.vue'
 import { ref, onMounted } from 'vue';
 
 const emit = defineEmits(['updateDiv']);
 const deviceHeight = ref(0);
 const buttonText = ref("Continue");
 const isAnimating = ref(false);
+
+const commAddressRef = ref(null)
 
 onMounted(() => {
     deviceHeight.value = window.innerHeight;
@@ -123,7 +129,14 @@ const handleButtonClick = () => {
  isAnimating.value = true;
     setTimeout(() => {
       isAnimating.value = false;
-      emit('updateDiv', 'submission', '1'); 
+      if(!commAddressRef.value?.confirm){
+ 
+        emit('updateDiv', 'addresscommunication' ); 
+      }
+      else{
+       emit('updateDiv', 'pandetails' ); 
+      }
+    
     }, 800); 
 };
 
@@ -131,7 +144,9 @@ const handleButtonClick = () => {
 
 
 
-
+const back = () => {
+    emit('updateDiv', 'digilockersubmission'); 
+};
 
 
 
@@ -139,3 +154,8 @@ const handleButtonClick = () => {
 
 
 </script>
+<style>
+.p-checkbox-checked .p-checkbox-icon{
+    color: white !important;
+}
+</style>

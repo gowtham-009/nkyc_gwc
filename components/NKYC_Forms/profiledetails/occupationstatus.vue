@@ -34,6 +34,14 @@
                 </div>
             </div>
 
+            <div class="w-full">
+                <Button type="button" @click="handleButtonClick" :disabled="!selected"
+                    class="primary_color wave-btn text-white w-full py-4 text-xl border-0">
+                    {{ buttonText }}
+                    <span v-if="isAnimating" class="wave"></span>
+                </Button>
+            </div>
+
             
           
         </div>
@@ -47,6 +55,8 @@ import ThemeSwitch from '~/components/darkmode/darkmode.vue';
 const deviceHeight = ref(0);
 const activebox = ref('marriedbox');
 const emit=defineEmits(['updateDiv']);
+const buttonText = ref("Continue");
+const isAnimating = ref(false);
 // Marital Status
 const selected = ref(""); 
 const options = [
@@ -64,12 +74,12 @@ const options = [
 
 const selectMaritalStatus = (value) => {
     selected.value = value;
-    emit('updateDiv', 'income');
+    
    
 };
 
 const back = () => {
-    emit('updateDiv', 'married');
+    emit('updateDiv', 'qualification');
 };
 
 
@@ -79,4 +89,12 @@ onMounted(() => {
         deviceHeight.value = window.innerHeight;
     });
 });
+
+const handleButtonClick = () => {
+    isAnimating.value = true;
+    setTimeout(() => {
+        isAnimating.value = false;
+        emit('updateDiv', 'income');
+    }, 800); 
+};
 </script>

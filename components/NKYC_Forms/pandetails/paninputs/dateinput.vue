@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
-    <label for="dob">DOB</label>
-    <DatePicker v-model="date" showIcon dateFormat="dd/mm/yy" class="w-full" placeholder="As per PAN DOB - DD/MM/YYYY"/>
+    <label for="dob" class="text-gray-500">DOB</label>
+    <DatePicker v-model="date" showIcon dateFormat="dd/mm/yy" class="w-full"  variant="filled" placeholder="DD/MM/YYYY"/>
   </div>
 </template>
 

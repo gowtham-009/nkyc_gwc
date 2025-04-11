@@ -59,6 +59,8 @@ onMounted(() => {
   window.addEventListener('resize', () => {
     deviceHeight.value = window.innerHeight;
   });
+
+  
 });
 
 // Function to validate email format

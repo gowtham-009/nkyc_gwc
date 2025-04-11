@@ -112,7 +112,7 @@
         </p>
 
         <div class="w-full mt-3">
-            <Button label="Deny" class="w-full text-blue-600 bg-white" />
+            <Button label="Deny" @click="deny()" class="w-full text-blue-600 bg-white" />
 
             <Button label="Allow" @click="allow()" class="w-full text-white bg-blue-600 mt-3" />
         </div>
@@ -150,14 +150,22 @@ const allow = () => {
 
     setTimeout(() => {
         loading.value = false
-        emit('updateDiv', 'div9');
+        emit('updateDiv', 'digilockerconfirmation');
     }, 2000)
 }
 
 
+const back = () => {
+    emit('updateDiv', 'ekyc');
+}
 
+const deny = () => {
 
-
+    setTimeout(() => {
+        loading.value = false
+        emit('updateDiv', 'failedstatus');
+    }, 2000)
+}
 
 
 

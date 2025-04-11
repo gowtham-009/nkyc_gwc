@@ -2,7 +2,8 @@
     <div>
         <div class="w-full bg-blue-50 dark:bg-black" >
             <div class="w-full p-2 "  :style="{ height: deviceHeight * 0.05 + 'px' }">
-                <div class="w-full flex justify-end">
+                <div class="w-full flex justify-between">
+                    <Button icon="pi pi-angle-left " class="text-white primary_color cursor-pointer" @click="back()"></Button>
                     <ThemeSwitch  />
                 </div>
                 <div class="w-full flex justify-center mt-2">
@@ -90,6 +91,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import ThemeSwitch from '~/components/darkmode/darkmode.vue';
 const emit = defineEmits(['updateDiv']);
 
@@ -110,8 +112,13 @@ const handleButtonClick = () => {
  isAnimating.value = true;
     setTimeout(() => {
       isAnimating.value = false;
-      emit('updateDiv', 'div2');
+      emit('updateDiv', 'ekyc');
     }, 800); 
 };
+
+const router = useRouter();
+function back() {
+    router.push('/');
+}
 
 </script>

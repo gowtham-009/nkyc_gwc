@@ -13,31 +13,17 @@
             <!-- Marital Status -->
             <div class="w-full mt-4 px-2" v-if="activebox === 'marriedbox'">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
-                    Your information
+                  Trading Experience
                 </p>
                 <p class="text-md mt-3 text-gray-500 font-normal leading-6">
                     These details are required by SEBI to open your Demat account.
                 </p>
 
-                <div class="w-full  mt-3">
-                    <p class="text-gray-600 text-xl font-medium mb-1">Gender</p>
-                    <div class="w-full flex gap-2">
-                        <button v-for="option in selectoptions" :key="option.value"
-                        @click="selectGenderStatus(option.value)"
-                        :class="[
-                            'px-6 py-2 rounded-lg border-2 text-lg font-normal w-full transition-all',
-                            selectedgender === option.value
-                                ? 'bg-blue-600 border-blue-600 text-white'
-                                : 'bg-gray-200 border-gray-300 text-black'
-                        ]">
-                        {{ option.label }}
-                    </button>
-                    </div>
-                </div>
+              
                 
                 <div class="w-full  mt-3">
-                    <p class="text-gray-600 text-xl font-medium mb-1">Marital status</p>
-                    <div class="w-full flex gap-2">
+                   
+                    <div class="w-full grid grid-cols-2 gap-4">
                         <button v-for="option in options" :key="option.value"
                         @click="selectMaritalStatus(option.value)"
                         :class="[
@@ -56,7 +42,7 @@
 
 
             <div class="w-full p-1" >
-                <Button type="button"  @click="handleButtonClick" :disabled="!selectedgender || !selected"
+                <Button type="button"  @click="handleButtonClick" :disabled=" !selected"
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
                     {{ buttonText }}
                     <span v-if="isAnimating" class="wave"></span>
@@ -73,29 +59,21 @@ import { ref, onMounted } from 'vue';
 import ThemeSwitch from '~/components/darkmode/darkmode.vue';
 
 const deviceHeight = ref(0);
-
 const buttonText = ref("Continue");
 const isAnimating = ref(false);
-
 const activebox = ref('marriedbox');
 const emit = defineEmits(['updateDiv']);
-// gender status
-const selectedgender = ref(""); 
-const selectoptions = [
-    { label: "Male", value: "Male" },
-    { label: "Female", value: "Female" },
-    { label: "Transgender", value: "Transgender" },
-];
 
-const selectGenderStatus = (value) => {
-    selectedgender.value = value;
-  
-};
-// Marital Status
+
+// qualification Status
 const selected = ref(""); 
 const options = [
-    { label: "Unmarried", value: "unmarried" },
-    { label: "Married", value: "married" },
+    { label: "Illiterate", value: "Illiterate" },
+    { label: "Under high school", value: "Under high school" },
+    { label: "High school", value: "High school" },
+    { label: "Graduate", value: "Graduate" },
+    { label: "Post graduate", value: "Post graduate" },
+    { label: "Professional degree", value: "Professional degree" },
 ];
 
 const selectMaritalStatus = (value) => {
@@ -113,7 +91,7 @@ onMounted(() => {
 });
 
 const back = () => {
-    emit('updateDiv', 'pandetails');
+    emit('updateDiv', 'clientinfo');
 };
 
 const handleButtonClick = () => {
@@ -121,7 +99,7 @@ const handleButtonClick = () => {
     setTimeout(() => {
       isAnimating.value = false;
   
-      emit('updateDiv', 'clientinfo');
+      emit('updateDiv', 'occupation');
     }, 800); 
 };
 

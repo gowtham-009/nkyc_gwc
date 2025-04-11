@@ -129,7 +129,7 @@ const handleButtonClick = () => {
     setTimeout(() => {
         isAnimating.value = false;
         if(props.data==1){
-            emit('updateDiv', 'married');
+            emit('updateDiv', 'info');
         }
        else if(props.data==2){
         emit('updateDiv', 'bank1');
