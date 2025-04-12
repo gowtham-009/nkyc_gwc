@@ -1,12 +1,14 @@
 <template>
     <div class="primary_color">
-        <div class="flex justify-end primary_color items-center px-3" :style="{ height: deviceHeight * 0.08 + 'px' }">
-
+        <div class="flex justify-between primary_color items-center px-3" :style="{ height: deviceHeight * 0.08 + 'px' }">
+            <span @click="back()" >
+          <i class="pi pi-angle-left text-2xl text-white dark:text-gray-500"></i>
+        </span>
             <ThemeSwitch />
         </div>
-        <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black"
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            <div class="w-full mt-4 px-2">
+            <div class="w-full mt-4 px-2 p-1">
 
                 <div class="w-full flex justify-center">
                     <img src="https://cdn-icons-png.flaticon.com/128/2830/2830289.png" alt="">
@@ -37,7 +39,7 @@
                             <p class="text-md text-left text-gray-500 font-normal">Acc.No.</p>
                         </div>
                         <div class="w-full p-1" >
-                            <p class="text-lg text-right text-blue-900 font-medium dark:text-gray-400">{{maskedAccNo}}</p>
+                            <p class="text-lg text-right text-blue-900 font-medium dark:text-gray-400">{{accno}}</p>
                         </div>
                     </div>
                     <div class="w-full flex p-1" >
@@ -68,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="w-full p-1" >
+            <div class="w-full" >
                 <Button type="button"  @click="handleButtonClick" 
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
                     {{ buttontext }}
@@ -108,12 +110,7 @@ const MICR = ref(props.data[0].micr || '');
 const address = ref(props.data[0].address || '');
 
 
-const maskedAccNo = computed(() => {
-  const val = accno.value
-  const last4 = val.slice(-4)
-  const masked = 'x'.repeat(val.length - 4) + last4
-  return masked
-})
+
 const deviceHeight = ref(0);
 const buttontext =ref('Continue')
 const isAnimating = ref(false);
@@ -137,7 +134,9 @@ const handleButtonClick = () => {
 };
 
 
-
+function back(){
+    emit('updateDiv', 'bank1');
+}
 
 
 

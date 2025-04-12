@@ -5,7 +5,7 @@
             <span @click="back()" class="text-white cursor-pointer"><i class="pi pi-angle-left text-3xl"></i></span>
             <ThemeSwitch />
         </div>
-        <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black"
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
             <div class="w-full mt-4 px-2">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
@@ -61,7 +61,7 @@
 
             </div>
 
-            <div class="w-full p-1" >
+            <div class="w-full" >
                 <Button type="button"  @click="handleButtonClick"
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
                     {{ buttonText }}

@@ -8,11 +8,11 @@
             <ThemeSwitch />
         </div>
 
-        <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black"
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
 
             <!-- Marital Status -->
-            <div class="w-full mt-4 px-2">
+            <div class="w-full mt-4 px-2 p-1">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Add nominee
                 </p>
@@ -20,6 +20,13 @@
                     Relationship with nominee
                 </p>
                 <div class="w-full flex flex-col gap-2 mt-3">
+
+                    <div v-if="nomineescard"  class="w-full p-2 bg-gray-200 rounded-lg">
+                        <span class="text-gray-500">Nominee's relationship:{{ relationship_c }}</span> <br>
+                        <span class="text-gray-500">Nominee's name: {{ name_c }}</span><br>
+                        <span class="text-gray-500">Nominee's Date of birth: {{ dob_c }}</span><br>
+                        <span class="text-gray-500">Nominee's Address:{{ address_c }}</span>
+                    </div>
                     <Button @click="visible = true"
                         class="w-full py-3 primary_color text-white">
                     {{ nomineetext }}
@@ -115,6 +122,13 @@ const dob = ref('');
 const aadharpan = ref('');
 const address = ref('');
 
+const nomineescard=ref(false)
+
+const relationship_c=ref('')
+const name_c=ref('')
+const dob_c=ref('')
+const address_c=ref('')
+
 const fileupload = ref();
 const back = () => {
     emit('updateDiv', 'income');
@@ -132,17 +146,17 @@ onMounted(() => {
 
 
 const nomineesave=()=>{
-    console.log("Nominee Details:")
-    console.log("Relationship: ",selectedRelationship.value)
-    console.log("Name: ",name.value)
-    console.log("DOB: ",dob.value)
-    console.log("Aadhar/PAN: ",aadharpan.value)
-    console.log("Address: ",address.value)
 
 
-    nomineetext.value='Nominee Saved'
+
+    relationship_c.value=selectedRelationship.value
+    name_c.value=name.value
+    dob_c.value=dob.value
+    address_c.value=address.value
+
     visible.value=false
     skip.value=false
+    nomineescard.value=true
 }
 
 const handleButtonClick=()=>{

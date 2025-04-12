@@ -1,12 +1,14 @@
 <template>
     <div class="primary_color">
-        <div class="flex justify-end primary_color items-center px-3"
+        <div class="flex justify-between primary_color items-center px-3"
             :style="{ height: deviceHeight * 0.08 + 'px' }">
+            <span @click="back()" class="text-white cursor-pointer"><i class="pi pi-angle-left text-3xl"></i></span>
+
             <ThemeSwitch />
         </div>
-        <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black" 
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black" 
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            <div class="w-full mt-4 px-2">
+            <div class="w-full mt-4 px-2 p-1">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Add your signature
                 </p>
@@ -61,7 +63,7 @@
 
             </div>
 
-            <div class="w-full p-1">
+            <div class="w-full">
                 
                 <Button type="button" @click="handleButtonClick"  
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
@@ -69,9 +71,7 @@
                     <span v-if="isAnimating" class="wave"></span>
                 </Button>
 
-                <p @click="openFilePicker" class="text-blue-600 text-xl py-3 mt-1 font-medium text-center">
-                    Upload from gallery
-                </p>
+               
             </div>
 
         </div>
@@ -105,20 +105,14 @@ onMounted(() => {
 const emit = defineEmits(['updateDiv']);
 const back = () => {
 
-  //  emit('updateDiv', 'div2');
+    emit('updateDiv', 'photoproceed');
 }
 
 const fileInput = ref(null);
 const selectedFile = ref(null);
 const imageUrl = ref(null);
 
-const openFilePicker = () => {
-    if (fileInput.value) {
-        fileInput.value.click();
-       
-       
-    }
-};
+
 
 const handleFileChange = (event) => {
     const file = event.target.files[0]; // Get the selected file
@@ -140,5 +134,6 @@ const handleButtonClick = () => {
       emit('updateDiv', 'signdraw');
     }, 800); 
 };
+
 
 </script>

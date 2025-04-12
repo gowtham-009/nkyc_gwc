@@ -5,11 +5,11 @@
             <span @click="back()" class="text-white cursor-pointer"><i class="pi pi-angle-left text-3xl"></i></span>
             <ThemeSwitch />
         </div>
-        <div class="flex justify-between flex-col bg-white rounded-t-3xl dark:bg-black"
+        <div class="flex p-2 justify-between flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            <div class="w-full mt-4 px-5 p-1">
+            <div class="w-full mt-4 p-1 px-2 ">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
-                   Cofirm your address
+                   Fill your Communication address
                 </p>
 
                 <p class="text-md mt-2 leading-6 text-gray-500 font-normal">
@@ -33,7 +33,7 @@
               
             </div>
 
-            <div class="w-full p-1 bg-gray-100 rounded-t-3xl dark:bg-gray-900">
+            <div class="w-full  bg-gray-100 rounded-t-3xl dark:bg-gray-900">
               
                 <Button type="button"  @click="handleButtonClick" :disabled="!address || !state || !city || !pincode" 
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
@@ -85,7 +85,7 @@ const handleButtonClick = () => {
     setTimeout(() => {
       isAnimating.value = false;
      
-      emit('updateDiv', 'pandetails'); 
+      emit('updateDiv', 'submission','1');
     }, 800); 
 };
 
@@ -94,7 +94,7 @@ const handleButtonClick = () => {
 
 
 const back = () => {
-    emit('updateDiv', 'digilockerconfirmation'); 
+    emit('updateDiv', 'parmanentaddress'); 
 };
 
 

@@ -54,6 +54,16 @@
 
                         <div class="w-full flex items-center gap-5 mt-2">
                             <div class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
+                                <span><i class="pi pi-building-columns text-blue-900 text-xl" ></i></span>
+                            </div>
+                            <div class="p-1">
+                                <p class="text-xl font-medium text-blue-950 dark:text-gray-400">Select your account</p>
+                                <p class="text-md font-normal text-gray-500">Upload proofs, Trading segment, Brokerage details.</p>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex items-center gap-5 mt-2">
+                            <div class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
                                 <span><i class="pi pi-verified text-blue-900 text-xl" ></i></span>
                             </div>
                             <div class="p-1">

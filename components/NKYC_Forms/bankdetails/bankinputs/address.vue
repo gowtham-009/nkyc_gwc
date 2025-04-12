@@ -1,17 +1,12 @@
 <template>
     <div class="w-full">
     
-      <InputText
-       
-       class="w-full font-normal"
-        v-model="address"
-        variant="filled"
-        @input="formatInput"
+     
+
+      <Textarea v-model="address" varient="filled" rows="5" class="w-full" cols="30" placeholder="Eg. No.64, Area, Post, City, State, Country"  @input="formatInput"
         @keypress="allowCustomCharacters"
-        maxlength="100"
-      
-        placeholder="Address "
-      />
+        maxlength="100" />
+
     </div>
   </template>
   

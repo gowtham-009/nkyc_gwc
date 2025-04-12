@@ -1,11 +1,14 @@
 <template>
     <div class="primary_color">
-        <div class="flex justify-end primary_color items-center px-3" :style="{ height: deviceHeight * 0.08 + 'px' }">
+        <div class="flex justify-between primary_color items-center px-3" :style="{ height: deviceHeight * 0.08 + 'px' }">
+            <span @click="back()" >
+          <i class="pi pi-angle-left text-2xl text-white dark:text-gray-500"></i>
+        </span>
             <ThemeSwitch />
         </div>
-        <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black"
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            <div class="w-full mt-4 px-2">
+            <div class="w-full mt-4 px-2 p-1">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Link your bank account
                 </p>
@@ -15,10 +18,7 @@
                 </p>
 
                 <div class="w-full mt-3  p-1">
-                    <div>
-                        <span class="text-gray-500 text-md">Bank name</span>
-                    <Bankname v-model="bankname"/>
-                    </div>
+                    
                     <div class="mt-2">
                         <span class="text-gray-500 text-md">Account no</span>
                     <Accno v-model="accno"/>
@@ -28,6 +28,11 @@
                     <span class="text-gray-500 text-md">IFSC code</span>
                     <IFSC v-model="ifsc" />
                    </div>
+
+                   <div>
+                        <span class="text-gray-500 text-md">Bank name</span>
+                    <Bankname v-model="bankname"/>
+                    </div>
 
                    <div class="mt-2">
                     <span class="text-gray-500 text-md">MICR code</span>
@@ -49,7 +54,7 @@
 
             </div>
 
-            <div class="w-full flex justify-center p-1" >
+            <div class="w-full " >
                 <Button @click="handleButtonClick"   :disabled="!bankname || !accno || !ifsc || !micr || !address"
                  class="primary_color wave-btn w-full text-white  py-4 text-xl border-0">
                     {{ buttonText }}
@@ -121,7 +126,9 @@ const handleButtonClick = () => {
 
 
 
-
+function back(){
+    emit('updateDiv', 'submission','2');
+}
 
 
 </script>

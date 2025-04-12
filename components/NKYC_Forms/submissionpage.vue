@@ -2,8 +2,11 @@
     <div>
         <div class="w-full bg-blue-50 dark:bg-black">
             <div class="w-full p-2 " :style="{ height: deviceHeight * 0.05 + 'px' }">
-                <div class="w-full flex justify-end">
-                    <ThemeSwitch />
+                <div class="w-full flex justify-between">
+                    <Button @click="back()" class="primary_color border-0 cursor-pointer text-white py-3 dark:bg-black">
+          <i class="pi pi-angle-left text-xl dark:text-gray-500"></i>
+        </Button>  
+        <ThemeSwitch />
                 </div>
                 <div class="w-full flex justify-center mt-2">
                     <!-- something -->
@@ -66,6 +69,7 @@
 <script setup>
 import { ref } from 'vue';
 import ThemeSwitch from '~/components/darkmode/darkmode.vue';
+
 const props = defineProps({
     data: {
         type: Object,
@@ -73,7 +77,7 @@ const props = defineProps({
     },
 });
 
-console.log(props.stage)
+console.log(props.data)
 const emit = defineEmits(['updateDiv']);
 
 const buttonText = ref("Continue");
@@ -91,6 +95,7 @@ const steps = [
     { title: "Complete e-KYC", description: "Keep your Aadhaar and PAN card handy" },
     { title: "Set up your profile", description: "Answer a few questions about yourself" },
     { title: "Link your bank a/c", description: "Set the primary account for your transactions" },
+    { title: "Select your account", description: "Upload proofs, Trading segment, Brokerage details." },
     { title: "Confirm it's you", description: "Click a photo and submit your signature" },
     { title: "eSign and Login", description: "Sign your application and start investing" }
 ];
@@ -102,6 +107,7 @@ const stepspending = [
     { icon: "pi-folder-open", title: "Complete e-KYC", description: "Keep your Aadhaar and PAN card handy" },
     { icon: "pi-user", title: "Set up your profile", description: "Answer a few questions about yourself" },
     { icon: "pi-credit-card", title: "Link your bank a/c", description: "Set the primary account for your transactions" },
+    { icon: "pi-building-columns", title: "Select your account", description: "Upload proofs, Trading segment, Brokerage details." },
     { icon: "pi-verified", title: "Confirm it's you", description: "Click a photo and submit your signature" },
     { icon: "pi-pen-to-square", title: "eSign and Login", description: "Sign your application and start investing" }
 ];
@@ -135,13 +141,32 @@ const handleButtonClick = () => {
         emit('updateDiv', 'bank1');
        }
        else if(props.data==3){
-        emit('updateDiv', 'photosign1');
+        emit('updateDiv', 'tradingsegment');
        }
        else if(props.data==4){
+        emit('updateDiv', 'photosign1');
+       }
+       else if(props.data==5){
         emit('updateDiv', 'thankyou');
        }
         
     }, 800);
 };
 
+
+function back(){
+if(props.data==1){
+    emit('updateDiv','parmanentaddress' )
+}
+else if(props.data==2){
+    emit('updateDiv','nominee' )
+}
+else if(props.data==3){
+    emit('updateDiv','bank1' )
+}
+else if(props.data==4){
+    emit('updateDiv','additionalinformation' )
+}
+
+}
 </script>

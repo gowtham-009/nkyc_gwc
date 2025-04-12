@@ -6,6 +6,7 @@
         v-model="pincode"
         inputmode="numeric"
         type="text" 
+        variant='filled'
         placeholder="Eg. 600001"
         @input="validateInput"
         maxlength="6"

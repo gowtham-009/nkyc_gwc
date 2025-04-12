@@ -8,11 +8,11 @@
             <ThemeSwitch />
         </div>
         
-        <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black"
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
             
             <!-- Marital Status -->
-            <div class="w-full mt-4 px-2" v-if="activebox === 'marriedbox'">
+            <div class="w-full mt-4 px-2 p-1" v-if="activebox === 'marriedbox'">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Your occupation 
                 </p>
@@ -55,7 +55,7 @@ import ThemeSwitch from '~/components/darkmode/darkmode.vue';
 const deviceHeight = ref(0);
 const activebox = ref('marriedbox');
 const emit=defineEmits(['updateDiv']);
-const buttonText = ref("Continue");
+const buttonText = ref("Next");
 const isAnimating = ref(false);
 // Marital Status
 const selected = ref(""); 
@@ -79,7 +79,7 @@ const selectMaritalStatus = (value) => {
 };
 
 const back = () => {
-    emit('updateDiv', 'qualification');
+    emit('updateDiv', 'tradingexperience');
 };
 
 

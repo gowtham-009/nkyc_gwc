@@ -67,7 +67,7 @@ const handleButtonClick = () => {
  isAnimating.value = true;
     setTimeout(() => {
       isAnimating.value = false;
-      emit('updateDiv', 'manualfields'); 
+      emit('updateDiv', 'pandetails'); 
     
     }, 800); 
 };

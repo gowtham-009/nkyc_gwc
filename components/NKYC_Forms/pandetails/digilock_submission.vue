@@ -150,7 +150,7 @@ const allow = () => {
 
     setTimeout(() => {
         loading.value = false
-        emit('updateDiv', 'digilockerconfirmation');
+        emit('updateDiv', 'pandetails');
     }, 2000)
 }
 

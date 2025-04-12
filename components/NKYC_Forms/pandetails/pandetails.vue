@@ -5,9 +5,9 @@
             <span @click="back()" class="text-white cursor-pointer"><i class="pi pi-angle-left text-3xl"></i></span>
             <ThemeSwitch />
         </div>
-        <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black"
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            <div class="w-full mt-4 px-2">
+            <div class="w-full mt-4 p-1 px-2">
                 <p class="text-2xl  text-blue-950 font-medium dark:text-gray-400">
                     Enter your PAN detail
                 </p>
@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            <div class="w-full p-1" label="Continue">
+            <div class="w-full" label="Continue">
                 <Button type="button" :disabled="!panno || !aadhar || !dateval || !checkboxval" @click="handleButtonClick"
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
                     {{ buttonText }}
@@ -85,7 +85,7 @@ onMounted(() => {
 const emit = defineEmits(['updateDiv']);
 const back = () => {
 
-    emit('updateDiv', 'digilockerconfirmation');
+    emit('updateDiv', 'digilockersubmission');
 }
 
 
@@ -94,7 +94,8 @@ const handleButtonClick = () => {
     isAnimating.value = true;
     setTimeout(() => {
         isAnimating.value = false;
-       emit('updateDiv', 'submission','1');
+        emit('updateDiv', 'parmanentaddress');
+     
     }, 800);
 };
 </script>

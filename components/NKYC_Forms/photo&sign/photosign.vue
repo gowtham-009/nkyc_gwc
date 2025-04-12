@@ -1,12 +1,15 @@
 <template>
     <div class="primary_color">
-        <div class="flex justify-end primary_color items-center px-3"
+        <div class="flex justify-between primary_color items-center px-3"
             :style="{ height: deviceHeight * 0.08 + 'px' }">
+            <span @click="back()" >
+          <i class="pi pi-angle-left text-2xl text-white dark:text-gray-500"></i>
+        </span>
             <ThemeSwitch />
         </div>
-        <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black" 
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black" 
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            <div class="w-full mt-4 px-2">
+            <div class="w-full mt-4 px-2 p-1">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Take a selfie
                 </p>
@@ -77,7 +80,7 @@
 
             </div>
 
-            <div class="w-full p-1">
+            <div class="w-full">
                 <p class="mb-5 text-left text-md text-gray-500 font-normal">
                     These details are required by SEBI to open your Demat account.
                 </p>
@@ -118,7 +121,7 @@ onMounted(() => {
 const emit = defineEmits(['updateDiv']);
 const back = () => {
 
-   // emit('updateDiv', 'div2');
+   emit('updateDiv', 'submission', '4');
 }
 
 const handleButtonClick = () => {

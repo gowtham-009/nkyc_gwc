@@ -15,20 +15,18 @@
     <DIGILOCKSUBMISSION @updateDiv="handleUpdateDiv" />
   </div>
 
-  <div v-if="currentForm === 'digilockerconfirmation'">
-    <PANCONFIRMATION @updateDiv="handleUpdateDiv" />
-  </div>
+  
 
-  <div v-if="currentForm === 'addresscommunication'">
-    <ADDRESSLIST @updateDiv="handleUpdateDiv" />
+  <div v-if="currentForm === 'parmanentaddress'">
+    <PARMANENTADDRESS @updateDiv="handleUpdateDiv" />
   </div>
 
   <div v-if="currentForm === 'failedstatus'">
     <FAILEDSTATUS @updateDiv="handleUpdateDiv" />
   </div>
 
-  <div v-if="currentForm === 'manualfields'">
-    <MANUALFIELDS @updateDiv="handleUpdateDiv" />
+  <div v-if="currentForm === 'communicationaddress'">
+    <COMMUNICATIONADDRESS @updateDiv="handleUpdateDiv" />
   </div>
 
 
@@ -68,6 +66,17 @@
   <div v-if="currentForm === 'bank4'">
     <BANK4 :data="data"  @updateDiv="handleUpdateDiv" />
   </div>
+
+  <div v-if="currentForm === 'tradingsegment'">
+    <TRADINGSEGMENT :data="data"  @updateDiv="handleUpdateDiv" />
+  </div>
+  <div v-if="currentForm === 'brokerage'">
+    <BROKERAGE :data="data"  @updateDiv="handleUpdateDiv" />
+  </div>
+  <div v-if="currentForm === 'uploadproof'">
+    <UPLOADPROOF :data="data"  @updateDiv="handleUpdateDiv" />
+  </div>
+
   <div v-if="currentForm === 'photosign1'">
     <PHOTOSIGN1  @updateDiv="handleUpdateDiv" />
   </div>
@@ -84,13 +93,16 @@
     <SIGNATURE   @updateDiv="handleUpdateDiv" />
   </div>
 
-  <div v-if="currentForm === 'signupload'">
-    <SIGNUPLOAD :data="data" @updateDiv="handleUpdateDiv" />
-  </div>
+  
 
   <div v-if="currentForm === 'signdraw'">
     <SIGNDRAWING :data="data" @updateDiv="handleUpdateDiv" />
   </div>
+
+  <div v-if="currentForm === 'additionalinformation'">
+    <ADDITIONALINFO :data="data" @updateDiv="handleUpdateDiv" />
+  </div>
+ 
  
   <div v-if="currentForm === 'thankyou'">
     <THANKINGYOU @updateDiv="handleUpdateDiv" />
@@ -102,10 +114,9 @@ import NKYCList from '~/components/NKYC_Forms/nkyclist.vue'
 import PAN_d from '~/components/NKYC_Forms/pandetails/pandetails.vue'
 import EKYC from '~/components/NKYC_Forms/pandetails/e-kyc.vue'
 import DIGILOCKSUBMISSION from '~/components/NKYC_Forms/pandetails/digilock_submission.vue'
-import PANCONFIRMATION from '~/components/NKYC_Forms/pandetails/panconfirmation.vue'
-import ADDRESSLIST from '~/components/NKYC_Forms/pandetails/addresslist.vue'
+import PARMANENTADDRESS from '~/components/NKYC_Forms/pandetails/parmanentaddress.vue'
 import FAILEDSTATUS from '~/components/NKYC_Forms/pandetails/faildstatus.vue'
-import MANUALFIELDS from '~/components/NKYC_Forms/pandetails/manualfields.vue'
+import COMMUNICATIONADDRESS from '~/components/NKYC_Forms/pandetails/communicationaddress.vue'
 
 import SUBMISSIONFORM from '~/components/NKYC_Forms/submissionpage.vue'
 import MARRIEDSTATUS from '~/components/NKYC_Forms/profiledetails/marridestatus.vue'
@@ -118,12 +129,18 @@ import INCOME from '~/components/NKYC_Forms/profiledetails/incomestatus.vue'
 import NOMINEE from '~/components/NKYC_Forms/profiledetails/nominee.vue'
 import BANK1 from '~/components/NKYC_Forms/bankdetails/bank1.vue'
 import BANK4 from '~/components/NKYC_Forms/bankdetails/bank4.vue'
+import TRADINGSEGMENT from '~/components/NKYC_Forms/account/tradingsegment.vue'
+import BROKERAGE from '~/components/NKYC_Forms/account/brokerage.vue'
+import UPLOADPROOF from '~/components/NKYC_Forms/account/uploadproof.vue'
+
+
 import PHOTOSIGN1 from '~/components/NKYC_Forms/photo&sign/photosign.vue'
 import TAKEPHOTO from '~/components/NKYC_Forms/photo&sign/takephoto.vue'
 import PHOTOPROCEED from '~/components/NKYC_Forms/photo&sign/pictureproceed.vue'
 import SIGNATURE from '~/components/NKYC_Forms/photo&sign/signature.vue'
-import SIGNUPLOAD from '~/components/NKYC_Forms/photo&sign/signuploaded.vue'
 import SIGNDRAWING from '~/components/NKYC_Forms/photo&sign/signdraw.vue'
+import ADDITIONALINFO from '~/components/NKYC_Forms/photo&sign/documentconfirmation.vue'
+
 import THANKINGYOU from '~/components/thankyou.vue'
 
 const currentDiv = ref('');

@@ -5,10 +5,10 @@
             <span @click="back()" class="text-white cursor-pointer"><i class="pi pi-angle-left text-3xl"></i></span>
             <ThemeSwitch />
         </div>
-        <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black"
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
 
-            <div class="w-full px-2 mt-4">
+            <div class="w-full px-2 p-1 mt-4">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                    Draw your signature
                 </p>
@@ -16,11 +16,16 @@
                     Use the signature box to sign
                 </p>
                 <canvas ref="canvasRef" class="mt-3 border-2 border-dashed rounded-lg"></canvas>
-            </div>
+                <div class="w-full mt-2 flex gap-2 justify-center">
+                  <Button @click="erase" icon="pi pi-trash" label="Clear" class="px-2 py-1 text-white bg-red-500 border-0"></Button>
+                  <Button  @click="triggerUpload" class="primary_color text-white" icon="pi pi-plus" label="Upload Signature"></Button>
+                  <input type="file" accept="image/*" ref="fileInput" @change="uploadImage" style="display: none" />
+                </div>
+              </div>
 
             
 
-            <div class="w-full p-1">
+            <div class="w-full">
                 <Button type="button"  @click="handleButtonClick"
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
                     {{ buttonText }}
@@ -43,22 +48,24 @@ const buttonText = ref("Continue");
 const canvasRef = ref(null);
 let ctx = null;
 let isDrawing = false;
+const isImageUploaded = ref(false);
 
 // 🖊️ Start drawing
 const startDrawing = (event) => {
+  if (isImageUploaded.value) return; // 🔒 Prevent drawing on uploaded image
   isDrawing = true;
   const { x, y } = getMousePos(event);
   ctx.beginPath();
   ctx.moveTo(x, y);
 };
 
-// ✏️ Drawing
 const draw = (event) => {
-  if (!isDrawing) return;
+  if (!isDrawing || isImageUploaded.value) return;
   const { x, y } = getMousePos(event);
   ctx.lineTo(x, y);
   ctx.stroke();
 };
+
 
 // 🛑 Stop drawing
 const stopDrawing = () => {
@@ -133,11 +140,11 @@ const handleButtonClick=()=>{
     const canvas = canvasRef.value;
   if (!canvas) return;
   imageSrc.value = canvas.toDataURL('image/png'); 
-console.log(imageSrc.value)
+
   isAnimating.value = true;
     setTimeout(() => {
       isAnimating.value = false;
-     emit('updateDiv', 'signupload', imageSrc.value);
+     emit('updateDiv', 'additionalinformation');
     }, 800); 
 
 }
@@ -146,6 +153,46 @@ console.log(imageSrc.value)
 const back = () => {
     emit('updateDiv', 'signature');
 }
+
+const erase = () => {
+  if (!canvasRef.value || !ctx) return;
+  ctx.clearRect(0, 0, canvasRef.value.width, canvasRef.value.height);
+  imageSrc.value = '';
+  isImageUploaded.value = false; // ✅ Allow drawing again
+};
+
+
+
+
+const fileInput = ref(null);
+
+const triggerUpload = () => {
+  fileInput.value?.click();
+};
+
+const uploadImage = (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = canvasRef.value;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+      const x = (canvas.width - img.width * scale) / 2;
+      const y = (canvas.height - img.height * scale) / 2;
+
+      ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+      isImageUploaded.value = true; // ✅ Disable drawing
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+};
+
 </script>
 <style>
 canvas {

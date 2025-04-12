@@ -7,7 +7,7 @@
             <ThemeSwitch />
         </div>
         
-        <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black"
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
             
             <!-- Marital Status -->
@@ -21,7 +21,7 @@
 
                 <div class="w-full  mt-3">
                     <p class="text-gray-600 text-xl font-medium mb-1">Gender</p>
-                    <div class="w-full flex gap-2">
+                    <div class="grid grid-cols-2 gap-2">
                         <button v-for="option in selectoptions" :key="option.value"
                         @click="selectGenderStatus(option.value)"
                         :class="[
@@ -55,7 +55,7 @@
             </div>
 
 
-            <div class="w-full p-1" >
+            <div class="w-full " >
                 <Button type="button"  @click="handleButtonClick" :disabled="!selectedgender || !selected"
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
                     {{ buttonText }}
@@ -74,7 +74,7 @@ import ThemeSwitch from '~/components/darkmode/darkmode.vue';
 
 const deviceHeight = ref(0);
 
-const buttonText = ref("Continue");
+const buttonText = ref("Next");
 const isAnimating = ref(false);
 
 const activebox = ref('marriedbox');
@@ -113,7 +113,7 @@ onMounted(() => {
 });
 
 const back = () => {
-    emit('updateDiv', 'pandetails');
+    emit('updateDiv', 'submission', '1');
 };
 
 const handleButtonClick = () => {
