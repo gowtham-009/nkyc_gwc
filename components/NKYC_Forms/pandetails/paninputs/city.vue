@@ -13,7 +13,7 @@
         autocorrect="off"
         autocapitalize="characters"
    
-        placeholder="Eg. CHENNAI"
+      
       />
     </div>
   </template>

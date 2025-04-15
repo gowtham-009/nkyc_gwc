@@ -42,7 +42,7 @@
             By processing, you accept "Name" <span class="font-medium">Terms of Use</span> and <span class="font-normal">Privacy Policy</span>
           </p>
         <Button
-        :disabled="!mobileNumber || !checkboxValue || mobileNumber.length !== 10"
+        :disabled="!mobileNumber || mobileNumber.length !== 10"
          @click="handleButtonClick" class="primary_color wave-btn w-full text-white  py-4 text-xl border-0">
         {{ buttonText }}
         <span v-if="isAnimating" class="wave"></span>

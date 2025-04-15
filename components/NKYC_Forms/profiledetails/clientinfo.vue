@@ -18,29 +18,7 @@
                <div class="w-full mt-2 p-1" >
                         <Mother v-model="mother" />
                </div>
-             <div class="w-full mt-2 p-1">
-                <span class="text-gray-500 text-medium text-md">
-                    ARE YOU PEP/RELATED TO PEP
-                </span>
-                <span class="text-gray-500 text-medium text-md">
-                    [PEP=POLITICALLY EXPOSED PERSON]
-                </span>
-
-                <div class="w-full  mt-3">
-                    <div class="w-full flex gap-2">
-                        <button v-for="option in options" :key="option.value"
-                        @click="selectStatus(option.value)"
-                        :class="[
-                            'px-6 py-2 rounded-lg border-2 text-lg font-normal w-full transition-all',
-                            selected === option.value
-                                ? 'bg-blue-600 border-blue-600 text-white'
-                                : 'bg-gray-200 border-gray-300 text-black'
-                        ]">
-                        {{ option.label }}
-                    </button>
-                    </div>
-                </div>
-             </div>
+         
 
              
                
@@ -52,7 +30,7 @@
 
             <div class="w-full bg-gray-100 rounded-t-3xl dark:bg-gray-900">
               
-                <Button type="button"  @click="handleButtonClick" :disabled="!father || !mother || !selected "  
+                <Button type="button"  @click="handleButtonClick" :disabled="!father || !mother  "  
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
                     {{ buttonText }}
                     <span v-if="isAnimating" class="wave"></span>
@@ -85,16 +63,6 @@ const isAnimating = ref(false);
 const father = ref('');
 const mother = ref('');
 
-const selected = ref(""); 
-const options = [
-    { label: "No, I am Not", value: "No, I am Not" },
-    { label: "Yes, I am", value: "Yes, I am" },
-];
-
-const selectStatus = (value) => {
-    selected.value = value;
-
-};
 
 
 onMounted(() => {

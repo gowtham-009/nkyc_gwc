@@ -15,7 +15,7 @@
       v-model="localPhoneNo"
       inputmode="numeric"
       type="text" 
-      placeholder="Enter Phone Number"
+      placeholder="Your Mobile Number"
       @input="validateInput"
       maxlength="10"
     />

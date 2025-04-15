@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 
-                <div class="w-full  mt-3">
+                <div class="w-full  mt-5">
                     <p class="text-gray-600 text-xl font-medium mb-1">Marital status</p>
                     <div class="w-full flex gap-2">
                         <button v-for="option in options" :key="option.value"
@@ -51,12 +51,36 @@
                     </div>
                 </div>
 
+                <div class="w-full mt-2 p-1">
+                <span class="text-gray-500 text-medium text-md">
+                    ARE YOU PEP/RELATED TO PEP
+                </span>
+                <span class="text-gray-500 text-medium text-md">
+                    [PEP=POLITICALLY EXPOSED PERSON]
+                </span>
+
+                <div class="w-full  mt-3">
+                    <div class="w-full flex gap-2">
+                        <button v-for="option in clientoptions" :key="option.value"
+                        @click="clientstatus(option.value)"
+                        :class="[
+                            'px-6 py-2 rounded-lg border-2 text-lg font-normal w-full transition-all',
+                            clientselected === option.value
+                                ? 'bg-blue-600 border-blue-600 text-white'
+                                : 'bg-gray-200 border-gray-300 text-black'
+                        ]">
+                        {{ option.label }}
+                    </button>
+                    </div>
+                </div>
+             </div>
+
                 
             </div>
 
 
             <div class="w-full " >
-                <Button type="button"  @click="handleButtonClick" :disabled="!selectedgender || !selected"
+                <Button type="button"  @click="handleButtonClick" :disabled="!selectedgender || !selected || !clientselected"
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
                     {{ buttonText }}
                     <span v-if="isAnimating" class="wave"></span>
@@ -103,7 +127,16 @@ const selectMaritalStatus = (value) => {
 
 };
 
+const clientselected = ref(""); 
+const clientoptions = [
+    { label: "No, I am Not", value: "No, I am Not" },
+    { label: "Yes, I am", value: "Yes, I am" },
+];
 
+const clientstatus = (value) => {
+    clientselected.value = value;
+
+};
 
 onMounted(() => {
     deviceHeight.value = window.innerHeight;

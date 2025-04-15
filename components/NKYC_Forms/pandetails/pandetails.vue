@@ -18,15 +18,14 @@
                     <Paninput v-model="panno" />
                 </div>
 
-                <div class="w-full mt-2">
-                    <Aadhar v-model="aadhar" />
+                <div class="w-full mt-2 flex gap-3">
+                    <div class="w-full"><Aadhar v-model="aadhar" /></div>
+                    <div class="w-full"><DOB v-model="dateval"/></div>
+                    
                 </div>
 
 
-                <div class="w-full mt-2">
-                    <DOB v-model="dateval"/>
-                  
-                </div>
+              
 
              
 
@@ -44,7 +43,7 @@
             </div>
 
             <div class="w-full" label="Continue">
-                <Button type="button" :disabled="!panno || !aadhar || !dateval || !checkboxval" @click="handleButtonClick"
+                <Button type="button" :disabled="!panno || !aadhar || !dateval" @click="handleButtonClick"
                     class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
                     {{ buttonText }}
                     <span v-if="isAnimating" class="wave"></span>

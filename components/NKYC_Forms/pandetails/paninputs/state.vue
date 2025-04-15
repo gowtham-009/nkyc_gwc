@@ -11,9 +11,10 @@
         autocomplete="off"
         autocorrect="off"
         autocapitalize="characters"
-   
-        placeholder="Eg. TAMIL NADU"
       />
+
+ 
+
     </div>
   </template>
   

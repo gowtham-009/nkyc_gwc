@@ -1,13 +1,13 @@
 <template>
     <div>
-      <span class="text-lg text-gray-500">Aadhaar(Last four digits)</span>
+      <span class="text-lg text-gray-500">Aadhaar Number</span>
       <InputText
         class="w-full font-normal"
         v-model="adno"
         inputmode="numeric"
          variant="filled"
         type="text" 
-        placeholder="Last 4 digits of Aadhaar"
+        placeholder="Last 4 digits"
         @input="validateInput"
         maxlength="6"
       />
