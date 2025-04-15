@@ -22,7 +22,7 @@
         </div>
         <div >
           <label for="comments" class="font-normal text-gray-500 text-md text-justify">
-            I agree to receive communication on my mobile number registered with Ventura
+            I agree to receive communication on my mobile number registered with "Name"
           </label>
         </div>
       </div>

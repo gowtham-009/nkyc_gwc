@@ -17,10 +17,10 @@
             <div class="w-full mt-3">
                 <emailOTP v-model="e_otp"/>
 
-                <div class="w-full mt-1 flex justify-between">
+                <div class="w-full mt-1 flex justify-between items-center">
                     <h2 class="font-medium text-md dark:text-gray-500">00:{{ timeLeft.toString().padStart(2, '0') }}s</h2>
 
-                    <p class="text-md text-gray-500 font-medium">Resend OTP</p>
+                    <Button type="button" label="Resend"  @click="visible = true"  badgeSeverity="contrast" outlined />
                 </div>
             </div>
           </div>
@@ -36,6 +36,15 @@
 
 
     </div>
+
+    <Dialog v-model:visible="visible" modal header="Resend OTP" :style="{ width: '25rem' }">
+   
+   <div class="w-full flex items-center justify-center p-2" >
+       <img src="https://cdn-icons-png.flaticon.com/128/5290/5290058.png" class="w-20 h-20" alt="">
+       <p class="text-2xl font-medium">You OTP Sent</p>
+   </div>
+
+</Dialog>
 </template>
 
 <script setup>
@@ -47,6 +56,7 @@ const deviceHeight = ref(0);
 const emit = defineEmits(['updateDiv']);
 const timeLeft = ref(60); // Start from 60 seconds
 const emailid = ref('')
+const visible = ref(false);
 const isAnimating = ref(false);
 const buttonText = ref("Verify OTP");
 let timer = null;

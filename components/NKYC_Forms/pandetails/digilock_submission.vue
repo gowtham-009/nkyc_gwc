@@ -26,7 +26,7 @@
                     <template #content>
                         <div class="w-full">
                             <p class="text-black text-lg leading-7 font-normal dark:text-gray-400">
-                                Please provide your consent to share the following with <span class="font-medium">Ventura
+                                Please provide your consent to share the following with <span class="font-medium">"Name"
                                     Securities Onboarding:</span>
                             </p>
                         </div>
@@ -107,7 +107,7 @@
         </p>
 
         <p class="text-black font-normal text-md leading-6 mt-2 dark:text-gray-400">
-            By clicking 'Allow', you are giving consent to share with <span class="font-medium">Ventura Securities
+            By clicking 'Allow', you are giving consent to share with <span class="font-medium">"Name" Securities
                 Onboarding</span>.
         </p>
 

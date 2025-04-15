@@ -110,6 +110,8 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+
 import NKYCList from '~/components/NKYC_Forms/nkyclist.vue'
 import PAN_d from '~/components/NKYC_Forms/pandetails/pandetails.vue'
 import EKYC from '~/components/NKYC_Forms/pandetails/e-kyc.vue'
@@ -133,7 +135,6 @@ import TRADINGSEGMENT from '~/components/NKYC_Forms/account/tradingsegment.vue'
 import BROKERAGE from '~/components/NKYC_Forms/account/brokerage.vue'
 import UPLOADPROOF from '~/components/NKYC_Forms/account/uploadproof.vue'
 
-
 import PHOTOSIGN1 from '~/components/NKYC_Forms/photo&sign/photosign.vue'
 import TAKEPHOTO from '~/components/NKYC_Forms/photo&sign/takephoto.vue'
 import PHOTOPROCEED from '~/components/NKYC_Forms/photo&sign/pictureproceed.vue'
@@ -142,18 +143,41 @@ import SIGNDRAWING from '~/components/NKYC_Forms/photo&sign/signdraw.vue'
 import ADDITIONALINFO from '~/components/NKYC_Forms/photo&sign/documentconfirmation.vue'
 
 import THANKINGYOU from '~/components/thankyou.vue'
+const currentForm = ref('nkyclist') // default form
+const data = ref({})
+const formHistory = ref([{ form: 'nkyclist', formData: {} }]) // store form and its data
 
-const currentDiv = ref('');
-const currentForm = ref('nkyclist'); 
-const data = ref({});
+const handleUpdateDiv = (value, newData = {}) => {
+  currentForm.value = value
+  data.value = newData
 
-const handleUpdateDiv = (value,  newData={}) => {
-currentDiv.value = value;
-currentForm.value=currentDiv.value
-data.value = newData;
-};
+  // Store both form and data
+  formHistory.value.push({ form: value, formData: newData })
+  history.pushState({ div: value, formData: newData }, '', '')
+}
 
+const handleBackButton = (event) => {
+  if (formHistory.value.length > 1) {
+    formHistory.value.pop()
+    const previous = formHistory.value[formHistory.value.length - 1]
+
+    currentForm.value = previous.form
+    data.value = previous.formData || {}
+  } else {
+    history.back()
+  }
+}
+
+onMounted(() => {
+  history.replaceState({ div: 'nkyclist', formData: {} }, '', '')
+  window.addEventListener('popstate', handleBackButton)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('popstate', handleBackButton)
+})
 </script>
+
 
 <style >
 

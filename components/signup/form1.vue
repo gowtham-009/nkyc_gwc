@@ -39,7 +39,7 @@
       </div>
       <div class="w-full">
         <p class="text-md text-center mb-2 font-normal text-gray-500">
-            By processing, you accept Venture's <span class="font-medium">Terms of Use</span> and <span class="font-normal">Privacy Policy</span>
+            By processing, you accept "Name" <span class="font-medium">Terms of Use</span> and <span class="font-normal">Privacy Policy</span>
           </p>
         <Button
         :disabled="!mobileNumber || !checkboxValue || mobileNumber.length !== 10"
