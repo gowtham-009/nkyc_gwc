@@ -3,7 +3,7 @@
     
      
 
-      <Textarea v-model="address" varient="filled" rows="5" class="w-full" cols="30" placeholder="Eg. No.64, Area, Post, City, State, Country"  @input="formatInput"
+      <Textarea v-model="address" varient="filled" rows="5" class="w-full" cols="10" placeholder="Eg. No.64, Area, Post, City, State, Country"  @input="formatInput"
         @keypress="allowCustomCharacters"
         maxlength="100" />
 

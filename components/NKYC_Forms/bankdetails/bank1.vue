@@ -13,33 +13,33 @@
                     Link your bank account
                 </p>
 
-                <p class="text-md mt-3 text-gray-500 font-normal leading-6">
+                <p class="text-md mt-2 text-gray-500 font-normal leading-6">
                     Please provide your bank account details to link your bank account with your trading account.
                 </p>
 
-                <div class="w-full mt-3  p-1">
+                <div class="w-full   p-1">
                     
-                    <div class="mt-2">
+                    <div class="mt-1">
                         <span class="text-gray-500 text-md">Account no</span>
                     <Accno v-model="accno"/>
                     </div>
 
-                   <div class="mt-2">
+                   <div class="mt-1">
                     <span class="text-gray-500 text-md">IFSC code</span>
                     <IFSC v-model="ifsc" />
                    </div>
 
-                   <div>
+                   <div class="mt-1">
                         <span class="text-gray-500 text-md">Bank name</span>
                     <Bankname v-model="bankname"/>
                     </div>
 
-                   <div class="mt-2">
+                   <div class="mt-1">
                     <span class="text-gray-500 text-md">MICR code</span>
                     <MICR  v-model="micr"/>
                    </div>
 
-                   <div class="mt-2">
+                   <div class="mt-1">
                     <span class="text-gray-500 text-md">Address</span>
                     <Address v-model="address"/>
                    </div>
