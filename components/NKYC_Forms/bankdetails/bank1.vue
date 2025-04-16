@@ -50,14 +50,6 @@
                     <Address v-model="address"/>
                    </div>
                 </div>
-
-
-
-
-
-
-
-
             </div>
 
             <div class="w-full " >

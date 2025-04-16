@@ -7,7 +7,7 @@
         </div>
         <div class="flex justify-between p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            <div class="w-full mt-4 p-1 px-2 ">
+            <div class="w-full mt-2 p-1 px-2 ">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                    {{status}} your Permanent address
                 </p>
@@ -17,20 +17,20 @@
                 </p>
                
 
-                <div class="w-full mt-2">
+                <div class="w-full mt-1">
                     <Address v-model="address"/>
                 </div>
-                <div class="w-full mt-2">
+                <div class="w-full mt-1">
                     <State v-model="state"/>
                 </div>
-                <div class="w-full mt-2">
+                <div class="w-full mt-1">
                     <City v-model="city"/>
                 </div>
-                <div class="w-full mt-2">
+                <div class="w-full mt-1">
                     <Pincode v-model="pincode"/>
                 </div>
 
-                <div class="w-full mt-2">
+                <div class="w-full mt-1">
                     <Addresscheck  ref="commAddressRef"/>
                 </div>
 
