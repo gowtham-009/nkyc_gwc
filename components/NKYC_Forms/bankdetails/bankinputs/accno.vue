@@ -8,7 +8,7 @@
         v-model="accno"
         inputmode="numeric"
         type="text" 
-        placeholder="Enter your bank account number"
+      
         @input="validateInput"
         maxlength="10"
       />

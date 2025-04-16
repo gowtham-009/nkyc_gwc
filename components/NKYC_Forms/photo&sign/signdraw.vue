@@ -17,7 +17,7 @@
                 </p>
                 <canvas ref="canvasRef" class="mt-3 border-2 border-dashed rounded-lg"></canvas>
                 <div class="w-full mt-2 flex gap-2 justify-center">
-                  <Button @click="erase" icon="pi pi-trash" label="Clear" class="px-2 py-1 text-white bg-red-500 border-0"></Button>
+                  <Button @click="erase" icon="pi pi-trash" label="Clear" class="px-2 py-1 text-white bg border-0"></Button>
                   <Button  @click="triggerUpload" class="primary_color text-white" icon="pi pi-plus" label="Upload Signature"></Button>
                   <input type="file" accept="image/*" ref="fileInput" @change="uploadImage" style="display: none" />
                 </div>
@@ -158,7 +158,7 @@ const erase = () => {
   if (!canvasRef.value || !ctx) return;
   ctx.clearRect(0, 0, canvasRef.value.width, canvasRef.value.height);
   imageSrc.value = '';
-  isImageUploaded.value = false; // ✅ Allow drawing again
+  isImageUploaded.value = false; 
 };
 
 
@@ -202,5 +202,9 @@ canvas {
   touch-action: none;
   background-color: white;
 
+}
+
+.bg{
+  background-color: red !important;
 }
 </style>

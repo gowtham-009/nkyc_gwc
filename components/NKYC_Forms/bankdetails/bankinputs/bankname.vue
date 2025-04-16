@@ -5,7 +5,7 @@
         v-model="bankname"
         inputmode="text"
         type="text"
-        placeholder="Enter your bank name"
+       
         @input="validateInput"
       />
     </div>

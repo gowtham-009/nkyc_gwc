@@ -12,7 +12,6 @@
       autocorrect="off"
       autocapitalize="characters"
  
-      placeholder="Enter nominee's name"
     />
   </div>
 </template>

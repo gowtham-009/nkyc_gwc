@@ -21,11 +21,17 @@
                 </p>
                 <div class="w-full flex flex-col gap-2 mt-3">
 
-                    <div v-if="nomineescard"  class="w-full p-2 bg-gray-200 rounded-lg">
-                        <span class="text-gray-500">Nominee's relationship:{{ relationship_c }}</span> <br>
-                        <span class="text-gray-500">Nominee's name: {{ name_c }}</span><br>
-                        <span class="text-gray-500">Nominee's Date of birth: {{ dob_c }}</span><br>
-                        <span class="text-gray-500">Nominee's Address:{{ address_c }}</span>
+                    <div v-if="nomineescard"  class="w-full p-2 flex gap-2 bg-gray-200 rounded-lg">
+
+                        <div class="w-5/6">
+                            <span class="text-gray-500">ADFAS:{{ shareval }}</span>  <br>
+                            <span class="text-gray-500">Nominee's relationship: {{ relationship_c }}</span> 
+                        </div>
+                        <div class="w-1/6">
+                            <span class="text-gray-700 font-bold text-2xl">80%</span>
+                        </div>
+                        
+                       
                     </div>
                     <Button @click="visible = true"
                         class="w-full py-3 primary_color text-white">
@@ -41,7 +47,7 @@
                 <Name v-model="name"  />
              </div>
                <div class="w-full mt-2">
-                <Namemode  v-model:relationship="selectedRelationship"  />
+                <Namemode  v-model="selectedRelation"  />
                </div>
                <div class="w-full mt-2">
                 <DOB v-model="dob"  />
@@ -59,8 +65,9 @@
                </div>
               
                <div class="w-full mt-2">
-                <span class="text-lg text-gray-500">Available shares {{ sharevalue }}</span>
+               
                 <Sharevalue v-model="shareval"/>
+                <p class="text-right text-gray-500 text md">Available share:100</p>
                </div>
 
                <!-- <div class="w-full mt-2">
@@ -72,7 +79,7 @@
               -->
 
                 <div class="w-full mt-3">
-                    <Button :disabled="!selectedRelationship || !name || !dob || !aadharpan || !address || !idProof || !shareval " label="Save" @click="nomineesave()" class="primary_color w-full text-white py-2"></Button>
+                    <Button :disabled="!selectedRelation || !name || !dob || !aadharpan || !address || !idProof || !shareval " label="Save" @click="nomineesave()" class="primary_color w-full text-white py-2"></Button>
                 </div>
             </Dialog>
 
@@ -106,7 +113,7 @@ import Aadharpan from '~/components/nomineeinputs/aadharpaninput.vue';
 import Address from '~/components/nomineeinputs/address.vue';
 import Proof from '~/components/nomineeinputs/proofcheckbox.vue';
 import Sharevalue from '~/components/nomineeinputs/sharevalue.vue';
-const sharevalue=ref(100)
+
 const shareval=ref('')
 const skip=ref(true);
 const visible = ref(false);
@@ -116,7 +123,7 @@ const isAnimating = ref(false);
 const buttonText = ref("Continue");
 const nomineetext = ref("Add Nominee");
 const idProof = ref('')
-const selectedRelationship = ref(null);
+const selectedRelation = ref('');
 const name = ref('');
 const dob = ref('');
 const aadharpan = ref('');
@@ -147,9 +154,7 @@ onMounted(() => {
 
 const nomineesave=()=>{
 
-
-
-    relationship_c.value=selectedRelationship.value
+    relationship_c.value=selectedRelation.value
     name_c.value=name.value
     dob_c.value=dob.value
     address_c.value=address.value

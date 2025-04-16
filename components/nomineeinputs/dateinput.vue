@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
-      <label for="dob" class="text-gray-500">DOB</label>
-      <DatePicker v-model="date" showIcon dateFormat="dd/mm/yy" class="w-full" placeholder=" DD/MM/YYYY"/>
+      <label for="dob" class="text-gray-500">DOB <span class="text-sm text-gray-500">(DD/MM/YYYY)</span></label>
+      <DatePicker v-model="date" showIcon dateFormat="dd/mm/yy" class="w-full"/>
     </div>
   </template>
   

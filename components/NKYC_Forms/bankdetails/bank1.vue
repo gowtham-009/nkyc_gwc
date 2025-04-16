@@ -29,6 +29,12 @@
                     <IFSC v-model="ifsc" />
                    </div>
 
+                   
+                   <div class="mt-1">
+                    <span class="text-gray-500 text-md">MICR code</span>
+                    <MICR  v-model="micr"/>
+                   </div>
+
                    <div class="mt-1">
                         <span class="text-gray-500 text-md">Bank name</span>
                     <Bankname v-model="bankname"/>
@@ -40,7 +46,7 @@
                    </div>
 
                    <div class="mt-1">
-                    <span class="text-gray-500 text-md">Address</span>
+                    <p  class="text-gray-500 text-md font-normal leading-4">Bank Address <br><span class="text-sm text-gray-500 ">(Name, Area, City, State, Pincode)</span></p>
                     <Address v-model="address"/>
                    </div>
                 </div>

@@ -71,13 +71,12 @@ const options = [
     { label: "BSE CASH", value: "BSE CASH" },
     { label: "NSE F & O", value: "NSE F & O" },
     { label: "BSE F & O", value: "BSE F & O" },
-    { label: "NSE COMMODITIES", value: "NSE COMMODITIES" },
-    { label: "BSE COMMODITIES", value: "BSE COMMODITIES" },
     { label: "NSE CD", value: "NSE CD" },
     { label: "BSE CD", value: "BSE CD" },
     { label: "MCX", value: "MCX" },
     { label: "MCX CD", value: "MCX CD" },
-    
+    { label: "NSE COMMODITIES", value: "NSE COMMODITIES" },
+    { label: "BSE COMMODITIES", value: "BSE COMMODITIES" },
 ];
 
 const toggleSelection = (value) => {

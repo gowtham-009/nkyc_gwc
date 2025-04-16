@@ -4,7 +4,7 @@
         class="w-full font-normal"
         v-model="micr"
         type="text"
-        placeholder="Enter your MICR code"
+       
         @input="validateInput"
         maxlength="17"
       />

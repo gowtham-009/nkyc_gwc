@@ -1,68 +1,83 @@
 <template>
     <div class="primary_color">
         <div class="flex justify-between primary_color items-center px-3"
-            :style="{ height: deviceHeight * 0.08 + 'px' }"> 
+            :style="{ height: deviceHeight * 0.08 + 'px' }">
             <span @click="back()" class="text-white cursor-pointer">
                 <i class="pi pi-angle-left text-3xl"></i>
             </span>
             <ThemeSwitch />
         </div>
-        
+
         <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            
+
             <!-- Income Selection -->
-            <div class="w-full mt-4 px-2 p-1" >
+            <div class="w-full mt-4 px-2 p-1">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Upload proofs
                 </p>
                 <p class="text-md mt-3 text-gray-500 font-normal leading-6">
                     These details are required by SEBI to open your Demat account.
                 </p>
-                
-              
 
-               
-                    <div class="w-full mt-2">
-                        <span class="text-gray-500 text-xl font-medium mb-2">Upload Documents</span>
-                        <div class="grid grid-cols-2 gap-5 ">
-                        <div >
-                            <PAN v-model:src="imageSrcpan"/>
-                        </div>
-                        <div >
-                            <SIGNATURE v-model:src="imageSrcsign"/>
-                        </div>
-                        <div >
-                            <BANK v-model:src="imageSrcbank"/>
-                        </div>
-                        <div >
-                            <INCOME   v-model:src="fileSrc"
-    v-model:isImage="isImage"
-    v-model:isPdf="isPdf"/>
 
-  
+
+
+                <div class="w-full mt-2">
+                    <span class="text-gray-500 text-xl font-medium mb-2">Upload Documents</span>
+                    <div class="grid grid-cols-2 gap-5 ">
+                        <div>
+                            <div class="overflow-hidden rounded-lg bg-white shadow">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <PAN v-model:src="imageSrcpan" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+                            <div class="overflow-hidden rounded-lg bg-white shadow">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <SIGNATURE v-model:src="imageSrcsign" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+                            <div class="overflow-hidden rounded-lg bg-white shadow">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <BANK v-model:src="imageSrcbank" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+                            <div class="overflow-hidden rounded-lg bg-white shadow">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <INCOME v-model:src="fileSrc" v-model:isImage="isImage" v-model:isPdf="isPdf" />
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                    </div>
-
-                    <div class="w-full mt-3">
-                    <Select v-model="selectedstatement" :options="statement" optionLabel="name" placeholder="Choose Income Proof" class="w-full md:w-56" />
                 </div>
-                
-             
+
+                <div class="w-full mt-3">
+                    <span class="text-gray-500 text-xl font-medium mb-2">Income Proof Type</span>
+                    <Select v-model="selectedstatement" :options="statement" optionLabel="name"
+                        placeholder="Choose Income Proof" class="w-full md:w-56" />
+                </div>
+
+
             </div>
 
             <!-- Submit Button -->
             <div class="w-full mt-6">
-                <Button 
-  type="button"  
-  @click="handleButtonClick" 
-  :disabled="!selectedstatement || !imageSrcpan || !imageSrcsign || !imageSrcbank || !fileSrc || (!isImage && !isPdf)"
-  class="primary_color wave-btn text-white w-full py-4 text-xl border-0"
->
-  {{ buttonText }}
-  <span v-if="isAnimating" class="wave"></span>
-</Button>
+                <Button type="button" @click="handleButtonClick"
+                    :disabled="!selectedstatement || !imageSrcpan || !imageSrcsign || !imageSrcbank || !fileSrc || (!isImage && !isPdf)"
+                    class="primary_color wave-btn text-white w-full py-4 text-xl border-0">
+                    {{ buttonText }}
+                    <span v-if="isAnimating" class="wave"></span>
+                </Button>
 
             </div>
         </div>
@@ -88,8 +103,8 @@ const isImage = ref(false)
 const isPdf = ref(false)
 
 const imageSrcpan = ref(null)
-const imageSrcsign=ref(null)
-const imageSrcbank=ref(null)
+const imageSrcsign = ref(null)
+const imageSrcbank = ref(null)
 
 const selectedstatement = ref();
 const statement = ref([
@@ -116,8 +131,8 @@ const handleButtonClick = () => {
     isAnimating.value = true;
     setTimeout(() => {
         isAnimating.value = false;
-        
-       emit('updateDiv', 'submission', '4'); 
+
+        emit('updateDiv', 'submission', '4');
     }, 800);
 };
 </script>

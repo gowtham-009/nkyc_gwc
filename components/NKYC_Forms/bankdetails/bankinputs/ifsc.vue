@@ -4,7 +4,7 @@
         class="w-full font-normal"
         v-model="ifsc"
         type="text"
-        placeholder="Enter your IFSC code"
+      
         @input="validateInput"
         maxlength="17"
       />

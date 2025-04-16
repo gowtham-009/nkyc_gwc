@@ -10,7 +10,7 @@
       inputmode="numeric"
       maxlength="20"
    
-      placeholder="Enter ID number"
+    
       autocomplete="off"
       autocorrect="off"
     />

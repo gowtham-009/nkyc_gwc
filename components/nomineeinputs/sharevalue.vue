@@ -1,14 +1,14 @@
 <template>
-    <div class="flex gap-3">
+    <div class="w-full">
 
-  
+      <span class="text-lg text-gray-500">ADFAS Share %</span>
       <InputText
        
         class="w-full font-normal"
         v-model="sharevalues"
         inputmode="numeric"
         type="text" 
-        placeholder="Enter share value"
+      
         @input="validateInput"
         maxlength="3"
       />

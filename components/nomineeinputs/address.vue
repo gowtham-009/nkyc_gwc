@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
-      <label for="pan_label" class="text-gray-500 text-lg font-normal">Address line 1</label>
-      <Textarea v-model="address" rows="5" class="w-full" cols="30" placeholder="Eg. No.64, Area, Post, City, State, Country" />
+      <label for="pan_label" class="text-gray-500 text-lg font-normal leading-3">Address <br><span class="text-sm text-gray-500 ">(Name, Area, City, State, Pincode)</span></label>
+      <Textarea v-model="address" rows="5" class="w-full" cols="30"  />
     </div>
   </template>
   

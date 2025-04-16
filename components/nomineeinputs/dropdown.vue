@@ -1,19 +1,29 @@
-
 <template>
-  <div class="card flex justify-center">
-      <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+  <div class=" w-full">
+    <span class="text-gray-600 text-lg">Select Relationship</span>
+    <Select v-model="selectedrelation" :options="relations" optionLabel="name" class="w-full" />
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch, defineProps, defineEmits } from "vue";
 
-const selectedCity = ref();
-const cities = ref([
-  { name: 'New York', code: 'NY' },
-  { name: 'Rome', code: 'RM' },
-  { name: 'London', code: 'LDN' },
-  { name: 'Istanbul', code: 'IST' },
-  { name: 'Paris', code: 'PRS' }
-]);
+const props = defineProps({
+  modelValue: Object // can be more specific if needed
+});
+const emit = defineEmits(["update:modelValue"]);
+
+const selectedrelation = ref(props.modelValue);
+
+watch(selectedrelation, (newVal) => {
+  emit("update:modelValue", newVal.name);
+});
+
+const relations = [
+  { name: 'Son' },
+  { name: 'Doughter' },
+  { name: 'Spourse' },
+  { name: 'Father' },
+  { name: 'Mother' }
+];
 </script>
