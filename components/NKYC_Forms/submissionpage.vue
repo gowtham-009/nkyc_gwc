@@ -77,7 +77,7 @@ const props = defineProps({
     },
 });
 
-console.log(props.data)
+
 const emit = defineEmits(['updateDiv']);
 
 const buttonText = ref("Continue");

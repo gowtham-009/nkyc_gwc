@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 
-                <div class="w-full  mt-5">
+                <div class="w-full  mt-10">
                     <p class="text-gray-600 text-xl font-medium mb-1">Marital status</p>
                     <div class="w-full flex gap-2">
                         <button v-for="option in options" :key="option.value"
@@ -51,12 +51,12 @@
                     </div>
                 </div>
 
-                <div class="w-full mt-2 p-1">
-                <span class="text-gray-500 text-medium text-md">
-                    ARE YOU PEP/RELATED TO PEP
-                </span>
-                <span class="text-gray-500 text-medium text-md">
-                    [PEP=POLITICALLY EXPOSED PERSON]
+                <div class="w-full mt-10 p-1">
+                <span class="text-gray-600 text-xl font-medium">
+                    Are you PEP/Related to PEP
+                </span> <br>
+                <span class="text-gray-600 text-xl font-medium">
+                    [PEP=Politically Exposed Person]
                 </span>
 
                 <div class="w-full  mt-3">

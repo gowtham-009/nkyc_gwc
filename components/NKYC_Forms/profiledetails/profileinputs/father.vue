@@ -13,7 +13,6 @@
         autocorrect="off"
         autocapitalize="characters"
    
-        placeholder="Enter your father name"
       />
     </div>
   </template>

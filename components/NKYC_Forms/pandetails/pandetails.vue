@@ -34,6 +34,7 @@
                 <div class="w-full mt-2">
                     <Pancheck v-model="checkboxval" />
                 </div>
+              
                 <div class="w-full flex gap-3 px-2 py-2 mt-2 bg-gray-100 rounded-lg dark:bg-gray-900">
                     <p><i class="pi pi-star-fill text-xl text-yellow-400"></i></p>
                     <p class=" text-gray-500 text-sm leading-5">Your account would be opened as per your PAN card
@@ -66,6 +67,15 @@ import Aadhar from '~/components/NKYC_Forms/pandetails/paninputs/aadhar.vue';
 import DOB from '~/components/NKYC_Forms/pandetails/paninputs/dateinput.vue'
 import Pancheck from '~/components/NKYC_Forms/pandetails/paninputs/pancheck.vue'
 
+
+const props = defineProps({
+    data: {
+        type: Object,
+        default: () => ({}),
+    },
+});
+
+
 const deviceHeight = ref(0);
 const isAnimating = ref(false);
 const buttonText = ref("Continue");
@@ -90,10 +100,17 @@ const back = () => {
 
 
 const handleButtonClick = () => {
+  let statusvalue
+   if(props.data=='failed'){
+        statusvalue=props.data
+   }
+   else{
+    statusvalue=''
+   }
     isAnimating.value = true;
     setTimeout(() => {
         isAnimating.value = false;
-        emit('updateDiv', 'parmanentaddress');
+       emit('updateDiv', 'parmanentaddress', statusvalue);
      
     }, 800);
 };

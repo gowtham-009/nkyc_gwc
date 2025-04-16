@@ -67,7 +67,7 @@ const handleButtonClick = () => {
  isAnimating.value = true;
     setTimeout(() => {
       isAnimating.value = false;
-      emit('updateDiv', 'pandetails'); 
+      emit('updateDiv', 'pandetails', 'failed'); 
     
     }, 800); 
 };

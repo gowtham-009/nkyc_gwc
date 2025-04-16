@@ -9,7 +9,7 @@
             :style="{ height: deviceHeight * 0.92 + 'px' }">
             <div class="w-full mt-4 p-1 px-2 ">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
-                   Fill your Permanent address
+                   {{status}} your Permanent address
                 </p>
 
                 <p class="text-md mt-2 leading-6 text-gray-500 font-normal">
@@ -34,7 +34,6 @@
                     <Addresscheck  ref="commAddressRef"/>
                 </div>
 
-              
             </div>
 
             <div class="w-full  bg-gray-100 rounded-t-3xl dark:bg-gray-900">
@@ -65,11 +64,24 @@ import City from '~/components/NKYC_Forms/pandetails/paninputs/city.vue'
 import Pincode from '~/components/NKYC_Forms/pandetails/paninputs/pincode.vue'
 import Addresscheck from '~/components/NKYC_Forms/pandetails/paninputs/confirmcheckbox.vue'
 import { ref, onMounted } from 'vue';
-
+const status = ref('')
 const emit = defineEmits(['updateDiv']);
 const deviceHeight = ref(0);
 const buttonText = ref("Continue");
 const isAnimating = ref(false);
+const props = defineProps({
+    data: {
+        type:String,
+       
+    },
+});
+
+if(props.data=='failed'){
+  status.value='Fill'
+}
+else{
+    status.value='Verify'
+}
 
 const address = ref('');
 const state = ref('');

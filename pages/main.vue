@@ -4,7 +4,7 @@
     <NKYCList @updateDiv="handleUpdateDiv" />
   </div>
   <div v-if="currentForm === 'pandetails'">
-    <PAN_d @updateDiv="handleUpdateDiv" />
+    <PAN_d :data="data" @updateDiv="handleUpdateDiv" />
   </div>
  
   <div v-if="currentForm === 'ekyc'">
@@ -18,7 +18,7 @@
   
 
   <div v-if="currentForm === 'parmanentaddress'">
-    <PARMANENTADDRESS @updateDiv="handleUpdateDiv" />
+    <PARMANENTADDRESS :data="data" @updateDiv="handleUpdateDiv" />
   </div>
 
   <div v-if="currentForm === 'failedstatus'">
@@ -151,6 +151,8 @@ const handleUpdateDiv = (value, newData = {}) => {
   currentForm.value = value
   data.value = newData
 
+ 
+
   // Store both form and data
   formHistory.value.push({ form: value, formData: newData })
   history.pushState({ div: value, formData: newData }, '', '')
@@ -160,7 +162,6 @@ const handleBackButton = (event) => {
   if (formHistory.value.length > 1) {
     formHistory.value.pop()
     const previous = formHistory.value[formHistory.value.length - 1]
-
     currentForm.value = previous.form
     data.value = previous.formData || {}
   } else {

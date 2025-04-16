@@ -13,7 +13,7 @@
         autocorrect="off"
         autocapitalize="characters"
    
-        placeholder="Enter your mother name"
+     
       />
     </div>
   </template>
