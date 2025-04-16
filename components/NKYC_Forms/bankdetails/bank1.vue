@@ -13,7 +13,7 @@
                     Link your bank account
                 </p>
 
-                <p class="text-md mt-2 text-gray-500 font-normal leading-6">
+                <p class="text-md mt-1 text-gray-500 font-normal leading-6">
                     Please provide your bank account details to link your bank account with your trading account.
                 </p>
 
@@ -46,7 +46,7 @@
                    </div>
 
                    <div class="mt-1">
-                    <p  class="text-gray-500 text-md font-normal leading-4">Bank Address <br><span class="text-sm text-gray-500 ">(Name, Area, City, State, Pincode)</span></p>
+                    <p  class="text-gray-500 text-md font-normal leading-4">Bank Address</p>
                     <Address v-model="address"/>
                    </div>
                 </div>
