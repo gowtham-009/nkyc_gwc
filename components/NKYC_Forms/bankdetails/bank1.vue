@@ -47,7 +47,7 @@
 
                    <div class="mt-1">
                     <p  class="text-gray-500 text-md font-normal leading-4">Bank Address</p>
-                    <Address v-model="address"/>
+                    <Address v-model="address" class="mt-1"/>
                    </div>
                 </div>
             </div>

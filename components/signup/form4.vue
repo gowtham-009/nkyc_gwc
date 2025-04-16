@@ -5,7 +5,7 @@
             <span class="text-white cursor-pointer" @click="back()"><i class="pi pi-angle-left text-3xl"></i></span>
             <ThemeSwitch/>
         </div>
-        <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black" 
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black" 
             :style="{ height: deviceHeight * 0.92 + 'px' }">
           <div class="w-full p-1 mt-8" >
             <p class="font-medium text-slate-800 text-2xl dark:text-gray-400">
