@@ -28,7 +28,7 @@
                     <div class="grid grid-cols-2 gap-5 ">
                         <div>
                             <div class="overflow-hidden rounded-lg bg-white shadow">
-                                <div class="px-4 py-5 sm:p-6">
+                                <div class="px-2 py-2 ">
                                     <PAN v-model:src="imageSrcpan" />
                                 </div>
                             </div>
@@ -36,7 +36,7 @@
                         </div>
                         <div>
                             <div class="overflow-hidden rounded-lg bg-white shadow">
-                                <div class="px-4 py-5 sm:p-6">
+                                <div class="px-2 py-2">
                                     <SIGNATURE v-model:src="imageSrcsign" />
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div>
                             <div class="overflow-hidden rounded-lg bg-white shadow">
-                                <div class="px-4 py-5 sm:p-6">
+                                <div class="px-2 py-2">
                                     <BANK v-model:src="imageSrcbank" />
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                         </div>
                         <div>
                             <div class="overflow-hidden rounded-lg bg-white shadow">
-                                <div class="px-4 py-5 sm:p-6">
+                                <div class="px-2 py-2">
                                     <INCOME v-model:src="fileSrc" v-model:isImage="isImage" v-model:isPdf="isPdf" />
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
 
-                <div class="w-full mt-3">
+                <div class="w-full mt-2">
                     <span class="text-gray-500 text-xl font-medium mb-2">Income Proof Type</span>
                     <Select v-model="selectedstatement" :options="statement" optionLabel="name"
                         placeholder="Choose Income Proof" class="w-full md:w-56" />
