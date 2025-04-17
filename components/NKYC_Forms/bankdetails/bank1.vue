@@ -40,10 +40,6 @@
                     <Bankname v-model="bankname"/>
                     </div>
 
-                   <div class="mt-1">
-                    <span class="text-gray-500 text-md">MICR code</span>
-                    <MICR  v-model="micr"/>
-                   </div>
 
                    <div class="mt-1">
                     <p  class="text-gray-500 text-md font-normal leading-4">Bank Address</p>

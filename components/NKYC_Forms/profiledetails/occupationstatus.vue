@@ -60,7 +60,7 @@ const isAnimating = ref(false);
 // Marital Status
 const selected = ref(""); 
 const options = [
-    { label: "Agriculturis", value: "Agriculturis" },
+    { label: "Agriculturist ", value: "Agriculturist " },
     { label: "Business", value: "Business" },
     { label: "Govt.Service", value: "Govt.Service" },
     { label: "Housewife", value: "Housewife" },
@@ -68,7 +68,7 @@ const options = [
     { label: "Public Sector", value: "Public Sector" },
     { label: "Professional", value: "Professional" },
     { label: "Retired", value: "Retired" },
-    { label: "Stuedent", value: "Stuedent" },
+    { label: "Student", value: "Student" },
     { label: "Others", value: "Others" },
 ];
 

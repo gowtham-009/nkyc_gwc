@@ -165,7 +165,7 @@ else if(props.data==3){
     emit('updateDiv','bank1' )
 }
 else if(props.data==4){
-    emit('updateDiv','additionalinformation' )
+    emit('updateDiv','uploadproof' )
 }
 
 }
