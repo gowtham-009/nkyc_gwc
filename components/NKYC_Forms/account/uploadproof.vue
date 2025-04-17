@@ -12,7 +12,7 @@
             :style="{ height: deviceHeight * 0.92 + 'px' }">
 
             <!-- Income Selection -->
-            <div class="w-full mt-4 px-2 p-1">
+            <div class="w-full mt-2 px-2 p-1">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Upload proofs
                 </p>
@@ -23,9 +23,9 @@
 
 
 
-                <div class="w-full mt-2">
+                <div class="w-full mt-1">
                     <span class="text-gray-500 text-xl font-medium mb-2">Upload Documents</span>
-                    <div class="grid grid-cols-2 gap-5 ">
+                    <div class="grid grid-cols-2 gap-3 ">
                         <div>
                             <div class="overflow-hidden rounded-lg bg-white shadow">
                                 <div class="px-2 py-2 ">
@@ -71,7 +71,7 @@
             </div>
 
             <!-- Submit Button -->
-            <div class="w-full mt-6">
+            <div class="w-full ">
                 <Button type="button" @click="handleButtonClick"
                     :disabled="!selectedstatement || !imageSrcpan || !imageSrcsign || !imageSrcbank || !fileSrc || (!isImage && !isPdf)"
                     class="primary_color wave-btn text-white w-full py-4 text-xl border-0">
