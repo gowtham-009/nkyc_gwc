@@ -8,7 +8,7 @@
         <!-- Dropdown Panel -->
         <div v-show="dropdownOpen" class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10 dark:bg-black">
             <ul class="py-2">
-                <li class="px-4 py-2  cursor-pointer dark:text-gray-500"><span class="text-xl">Welcome</span> <span
+                <li class="px-4 py-2  cursor-pointer dark:text-gray-500"><span class="text-xl">Welcome</span> <br> <span
                         class="text-2xl">{{ gust }}</span></li>
                 <hr>
                 <li class="px-4 flex justify-center py-2 cursor-pointer">
