@@ -55,6 +55,6 @@ onBeforeUnmount(() => {
 <style scoped>
 /* You can add transitions or custom styles here */
 .bg{
-    background-color: rgb(78, 78, 78) !important;
+    background-color: rgb(100, 106, 233) !important;
 }
 </style>
