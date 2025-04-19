@@ -22,7 +22,7 @@
                 
                 <div class="w-full  mt-3">
                    
-                    <div class="w-full grid grid-cols-2 gap-4">
+                    <div class="w-full grid grid-cols-2 gap-2">
                         <button v-for="option in options" :key="option.value"
                         @click="selectMaritalStatus(option.value)"
                         :class="[

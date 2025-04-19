@@ -20,7 +20,7 @@
 
                 <div class="w-full  mt-3">
                     <p class="text-gray-600 text-lg font-medium mb-1">Gender</p>
-                    <div class="grid grid-cols-2 gap-2">
+                    <div class="grid grid-cols-2 gap-1">
                         <button v-for="option in selectoptions" :key="option.value"
                         @click="selectGenderStatus(option.value)"
                         :class="[
@@ -36,7 +36,7 @@
                 
                 <div class="w-full  mt-5">
                     <p class="text-gray-600 text-lg font-medium mb-1">Marital status</p>
-                    <div class="w-full flex gap-2">
+                    <div class="w-full flex gap-1">
                         <button v-for="option in options" :key="option.value"
                         @click="selectMaritalStatus(option.value)"
                         :class="[
@@ -59,7 +59,7 @@
                 </span>
 
                 <div class="w-full  mt-3">
-                    <div class="w-full flex gap-2">
+                    <div class="w-full flex gap-1">
                         <button v-for="option in clientoptions" :key="option.value"
                         @click="clientstatus(option.value)"
                         :class="[
