@@ -11,7 +11,7 @@
             <p class="font-medium text-slate-800 text-2xl dark:text-gray-400">
                 OTP sent
             </p>
-            <p class="text-sm leading-6 mt-3 font-normal text-gray-500">
+            <p class="text-sm leading-6  font-normal text-gray-500">
                 We have sent an OTP to your mobile number +91 {{ phoneNumber }}
             </p>
             <div class="w-full mt-3">
