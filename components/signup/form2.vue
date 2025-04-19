@@ -8,7 +8,7 @@
         <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black" 
             :style="{ height: deviceHeight * 0.92 + 'px' }">
           <div class="w-full p-1 mt-8" >
-            <p class="font-medium text-slate-800 text-xl dark:text-gray-400">
+            <p class="font-medium text-slate-800 text-2xl dark:text-gray-400">
                 OTP sent
             </p>
             <p class="text-sm leading-6 mt-3 font-normal text-gray-500">
