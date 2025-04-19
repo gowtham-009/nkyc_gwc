@@ -22,10 +22,10 @@
 
 
                 <div class="w-full mt-1">
-                    <span class="text-gray-500 text-xl font-medium mb-2">Upload Documents</span>
+                    <span class="text-gray-500 text-xl font-medium mb-3">Upload Documents</span>
                     <div class="grid grid-cols-2 gap-3 ">
                         <div>
-                            <div class="overflow-hidden rounded-lg bg-white shadow">
+                            <div class="overflow-hidden rounded-lg  bg-white shadow border-2 border-solid border-black dark:border-white">
                                 <div class="px-2 py-2 ">
                                     <PAN v-model:src="imageSrcpan" />
                                 </div>
@@ -33,7 +33,7 @@
 
                         </div>
                         <div>
-                            <div class="overflow-hidden rounded-lg bg-white shadow">
+                            <div class="overflow-hidden rounded-lg bg-white shadow  border-2 border-solid border-black dark:border-white">
                                 <div class="px-2 py-2">
                                     <SIGNATURE v-model:src="imageSrcsign" />
                                 </div>
@@ -41,7 +41,7 @@
 
                         </div>
                         <div>
-                            <div class="overflow-hidden rounded-lg bg-white shadow">
+                            <div class="overflow-hidden rounded-lg bg-white shadow  border-2 border-solid border-black dark:border-white">
                                 <div class="px-2 py-2">
                                     <BANK v-model:src="imageSrcbank" />
                                 </div>
@@ -49,7 +49,7 @@
 
                         </div>
                         <div>
-                            <div class="overflow-hidden rounded-lg bg-white shadow">
+                            <div class="overflow-hidden rounded-lg bg-white shadow  border-2 border-solid border-black dark:border-white">
                                 <div class="px-2 py-2">
                                     <INCOME v-model:src="fileSrc" v-model:isImage="isImage" v-model:isPdf="isPdf" />
                                 </div>
@@ -70,8 +70,8 @@
 
             <!-- Submit Button -->
             <div class="w-full flex gap-2">
-                <Button @click="back()" class="primary_color cursor-pointer text-white w-1/6 ">
-                <i class="pi pi-angle-left text-3xl"></i>
+                <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
+                <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
                 <Button type="button" @click="handleButtonClick"
                     :disabled="!selectedstatement || !imageSrcpan || !imageSrcsign || !imageSrcbank || !fileSrc || (!isImage && !isPdf)"

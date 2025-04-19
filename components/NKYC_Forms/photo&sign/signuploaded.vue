@@ -33,9 +33,12 @@
                     <p @click="fileUpload()" class="text-center font-medium text-blue-600 mt-3 text-lg py-2 border-2 rounded-lg">Upload Photo</p>
                 </div>
             </div>
-            <div class="w-full" >
+            <div class="w-full flex gap-2" >
+                <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
+                <i class="pi pi-angle-left text-3xl dark:text-white"></i>
+            </Button>
                 <Button type="button"  @click="handleButtonClick"
-                    class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
+                    class=" primary_color wave-btn text-white w-5/6 py-4 text-xl border-0  ">
                     {{ buttonText }}
                     <span v-if="isAnimating" class="wave"></span>
                 </Button>

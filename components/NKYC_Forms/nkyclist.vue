@@ -3,11 +3,11 @@
         <div class="w-full bg-blue-50 dark:bg-black">
             <div class="w-full p-2 " :style="{ height: deviceHeight * 0.05 + 'px' }">
                 <div class="w-full flex justify-between">
-                    <logo style="width: 50px; height: 50px;"/>
-                   
-                    <profile/>
+                    <logo style="width: 50px; height: 50px;" />
+
+                    <profile />
                 </div>
-                
+
             </div>
             <div class="w-full p-2   flex flex-col justify-between" :style="{ height: deviceHeight * 0.95 + 'px' }">
                 <div class="w-full p-1">
@@ -91,8 +91,9 @@
                     </div>
                 </div>
                 <div class="w-full flex gap-2">
-                    <Button @click="back()" class="primary_color cursor-pointer text-white w-1/6 ">
-                        <i class="pi pi-angle-left text-3xl"></i>
+                    <Button @click="back()"
+                        class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
+                        <i class="pi pi-angle-left text-3xl dark:text-white"></i>
                     </Button>
                     <Button type="button" label="Continue" @click="handleButtonClick"
                         class=" primary_color wave-btn text-white w-5/6 py-4 text-xl border-0  ">

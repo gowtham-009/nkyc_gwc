@@ -19,13 +19,13 @@
                 </p>
 
 
-                <div class="w-full mt-2 px-4 py-2 rounded-lg bg-gray-200">
-                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800">EQUITY DELIVERY</span><span class="text-md font-normal text-gray-500">:0.5%</span></p>
-                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800">EQUITY INTRADAY</span><span class="text-md font-normal text-gray-500">:0.1%</span></p>
-                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800">EQUITY FUTURES</span><span class="text-md font-normal text-gray-500">:0.05%</span></p>
-                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800">EQUITY OPTIONS</span><span class="text-md font-normal text-gray-500">:RS.100 PER LOT OR ORDER</span></p>
-                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800">MCX FUTURES</span><span class="text-md font-normal text-gray-500">:0.06%</span></p>
-                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800">MCX OPTIONS</span><span class="text-md font-normal text-gray-500">:RS.100 PER LOT</span></p>
+                <div class="w-full mt-2 px-4 py-2 rounded-lg bg-gray-200 dark:bg-slate-900">
+                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800 dark:text-gray-500">EQUITY DELIVERY</span><span class="text-md font-normal text-gray-500">:0.5%</span></p>
+                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800 dark:text-gray-500">EQUITY INTRADAY</span><span class="text-md font-normal text-gray-500">:0.1%</span></p>
+                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800 dark:text-gray-500">EQUITY FUTURES</span><span class="text-md font-normal text-gray-500">:0.05%</span></p>
+                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800 dark:text-gray-500">EQUITY OPTIONS</span><span class="text-md font-normal text-gray-500">:RS.100 PER LOT OR ORDER</span></p>
+                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800 dark:text-gray-500">MCX FUTURES</span><span class="text-md font-normal text-gray-500">:0.06%</span></p>
+                    <p class="flex gap-2 items-center"><i class="pi pi-check text-xl text-green-500 font-semibold"></i> <span class="font-semibold text-lg text-gray-800 dark:text-gray-500">MCX OPTIONS</span><span class="text-md font-normal text-gray-500">:RS.100 PER LOT</span></p>
 
                 </div>
                 
@@ -34,8 +34,8 @@
 
             <!-- Submit Button -->
             <div class="w-full flex gap-2">
-                <Button @click="back()" class="primary_color cursor-pointer text-white w-1/6 ">
-                <i class="pi pi-angle-left text-3xl"></i>
+                <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
+                <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
                 <Button 
                     type="button"  

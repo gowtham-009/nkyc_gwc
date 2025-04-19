@@ -9,7 +9,7 @@
             :style="{ height: deviceHeight * 0.92 + 'px' }">
             <div class="w-full mt-4 px-2 p-1">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
-                   Looking good, Gowtham
+                   Looking good, Client
                 </p>
 
                 <p class="text-md mt-3 text-gray-500 font-normal leading-6">
@@ -29,14 +29,20 @@
             </div>
 
             <div class="w-full">
-                <Button type="button" @click="handleButtonClick"
-                    class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
-                    {{ buttonText }}
-                    <span v-if="isAnimating" class="wave"></span>
-                </Button>
                 <p @click="retake" class="text-center cursor-pointer font-medium text-blue-600 py-3 mt-1 text-xl">
                     Retake 
                 </p>
+              <div class="w-full flex gap-2">
+                <Button @click="retake()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
+                <i class="pi pi-angle-left text-3xl dark:text-white"></i>
+            </Button>
+                <Button type="button" @click="handleButtonClick"
+                    class=" primary_color wave-btn text-white w-5/6 py-4 text-xl border-0  ">
+                    {{ buttonText }}
+                    <span v-if="isAnimating" class="wave"></span>
+                </Button>
+              </div>
+               
             </div>
 
 
@@ -54,7 +60,7 @@
 import ThemeSwitch from '~/components/darkmode/darkmode.vue'
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 const isAnimating = ref(false);
-const buttonText = ref("Proceed");
+const buttonText = ref("Next");
 const props = defineProps({
     data: {
         type: String,

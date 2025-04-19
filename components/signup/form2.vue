@@ -25,8 +25,8 @@
             </div>
           </div>
           <div class="w-full flex gap-2" >
-            <Button @click="back()" class="primary_color cursor-pointer text-white w-1/6 ">
-                <i class="pi pi-angle-left text-3xl"></i>
+            <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
+                <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
             <Button
              type="button"
