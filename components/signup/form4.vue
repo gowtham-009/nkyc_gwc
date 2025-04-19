@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import ThemeSwitch from '~/components/darkmode/darkmode.vue'
+import ThemeSwitch from '~/components/darkmode/darkmodesign.vue';
 import emailOTP from '~/components/forminputs/otpinput.vue'
 import { ref, onMounted, watch, watchEffect, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';

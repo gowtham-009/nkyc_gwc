@@ -56,7 +56,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import ThemeSwitch from '~/components/darkmode/darkmode.vue';
+import ThemeSwitch from '~/components/darkmode/darkmodesign.vue';
 import MobileInput from '~/components/forminputs/mobileinput.vue';
 import Checkbox from '~/components/forminputs/remembercheckbox.vue';
 

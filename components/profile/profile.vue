@@ -16,7 +16,7 @@
                 </li>
                 <li class="px-4 py-2  cursor-pointer">
                     <button @click="logout"
-                        class="p-3 bg-gray-300 px-7 dark:bg-black dark:text-gray-500 rounded-lg flex items-center gap-2">
+                        class="p-3 bg-gray-300 w-full dark:bg-black dark:text-gray-500 rounded-lg flex items-center gap-2">
                         <i class="pi pi-sign-out text-gray-500"></i>
                         <span>Logout</span>  
                     </button>

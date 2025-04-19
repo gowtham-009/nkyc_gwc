@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import ThemeSwitch from '~/components/darkmode/darkmode.vue'
+import ThemeSwitch from '~/components/darkmode/darkmodesign.vue';
 import phoneOTP from '~/components/forminputs/otpinput.vue'
 import { ref, onMounted, watch, watchEffect, onUnmounted } from 'vue';
 const deviceHeight = ref(0);

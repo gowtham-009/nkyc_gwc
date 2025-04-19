@@ -45,7 +45,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import ThemeSwitch from '~/components/darkmode/darkmode.vue';
+import ThemeSwitch from '~/components/darkmode/darkmodesign.vue';
 import EmailInput from '~/components/forminputs/emailinput.vue';
 import Button from 'primevue/button';
 
