@@ -11,7 +11,7 @@
                 <p class="text-2xl  text-blue-950 font-medium dark:text-gray-400">
                     Enter your PAN detail
                 </p>
-                <p class="text-gray-500 leading-5 font-normal text-md mt-2">These details are required by SEBI to open
+                <p class="text-gray-500 leading-5 font-normal text-sm mt-2">These details are required by SEBI to open
                     your Demat account.</p>
 
                 <div class="w-full mt-2">

@@ -12,7 +12,7 @@
                    {{status}} your Permanent address
                 </p>
 
-                <p class="text-md mt-2 leading-6 text-gray-500 font-normal">
+                <p class="text-sm mt-2 leading-6 text-gray-500 font-normal">
                    Please confirm your address as per the documents you have uploaded.
                 </p>
                

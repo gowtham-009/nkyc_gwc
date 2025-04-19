@@ -14,7 +14,7 @@
 
 
                 <div class="w-full mt-5 flex gap-2 p-2 rounded-lg bg-gray-200">
-                    <i class="pi pi-exclamation-circle text-xl text-red-500 "></i> <p class="text-red-500 leading-5 font-medium text-left text-lg"> Unable to process please select manual option</p>
+                    <i class="pi pi-exclamation-circle text-xl text-red-500 "></i> <p class="text-red-500 leading-5 font-medium text-left text-sm"> Unable to process please select manual option</p>
                 </div>
                
                
