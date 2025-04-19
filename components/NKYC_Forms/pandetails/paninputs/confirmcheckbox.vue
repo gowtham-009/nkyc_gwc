@@ -2,7 +2,7 @@
     <div>
       <div class="flex items-center gap-2">
         <Checkbox v-model="confirm" inputId="ingredient4" name="confirm" class="text-white" :binary="true" />
-        <label for="ingredient4" class="text-gray-500 text-md"> Use this as Communication address </label>
+        <label for="ingredient4" class="text-gray-500 text-sm"> Use this as Communication address </label>
       </div>
     </div>
   </template>

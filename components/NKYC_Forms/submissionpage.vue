@@ -21,8 +21,8 @@
                                     <span><i class="pi pi-check text-white text-xl"></i></span>
                                 </div>
                                 <div class="p-1">
-                                    <p class="text-xl font-medium text-blue-950 dark:text-gray-400">{{ step.title }}</p>
-                                    <p class="text-md font-normal text-gray-500">{{ step.description }}</p>
+                                    <p class="text-lg font-medium text-blue-950 dark:text-gray-400">{{ step.title }}</p>
+                                    <p class="text-sm font-normal text-gray-500">{{ step.description }}</p>
                                 </div>
                             </div>
 
@@ -45,8 +45,8 @@
                                     <span><i :class="`pi ${step.icon} text-blue-900 text-xl`"></i></span>
                                 </div>
                                 <div class="p-1">
-                                    <p class="text-xl font-medium text-blue-950 dark:text-gray-400">{{ step.title }}</p>
-                                    <p class="text-md font-normal text-gray-500">{{ step.description }}</p>
+                                    <p class="text-lg font-medium text-blue-950 dark:text-gray-400">{{ step.title }}</p>
+                                    <p class="text-sm font-normal text-gray-500">{{ step.description }}</p>
                                 </div>
                             </div>
                         </div>

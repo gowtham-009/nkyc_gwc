@@ -14,7 +14,7 @@
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                   Trading Experience
                 </p>
-                <p class="text-md mt-3 text-gray-500 font-normal leading-6">
+                <p class="text-sm mt-3 text-gray-500 font-normal leading-6">
                     These details are required by SEBI to open your Demat account.
                 </p>
 
