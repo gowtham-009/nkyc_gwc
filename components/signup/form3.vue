@@ -11,7 +11,7 @@
     </div>
 
     <div class="w-full flex flex-col justify-between p-2 bg-white rounded-t-3xl dark:bg-black" :style="{ height: deviceHeight * 0.70 + 'px' }">
-      <div class="w-full mt-3 px-3">
+      <div class="w-full mt-2 px-3">
         <div class="w-full">
           <p class="text-2xl font-medium dark:text-gray-400">Add your email</p>
           <p class=" leading-6 text-sm font-normal text-gray-500">

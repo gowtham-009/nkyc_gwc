@@ -20,7 +20,7 @@
       class="w-full p-2 flex flex-col justify-between bg-white rounded-t-3xl dark:bg-black transition-all duration-300"
       :style="{ height: box2Height + 'px' }"
     >
-    <div class="w-full mt-3 px-3 flex flex-col justify-between">
+    <div class="w-full mt-2 px-3 flex flex-col justify-between">
         <div class="w-full">
           <p class="text-2xl font-medium dark:text-gray-400">Ready to get started?</p>
           <p class="leading-6 text-sm font-normal text-gray-500">Enter your number to help us set up your investment account</p>
