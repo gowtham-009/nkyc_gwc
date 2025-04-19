@@ -23,7 +23,7 @@
     <div class="w-full mt-3 px-3 flex flex-col justify-between">
         <div class="w-full">
           <p class="text-2xl font-medium dark:text-gray-400">Ready to get started?</p>
-          <p class="mt-2 leading-6 text-sm font-normal text-gray-500">Enter your number to help us set up your investment account</p>
+          <p class="leading-6 text-sm font-normal text-gray-500">Enter your number to help us set up your investment account</p>
         </div>
 
         <div class="w-full mt-4">
