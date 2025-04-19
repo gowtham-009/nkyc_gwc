@@ -1,12 +1,12 @@
 <template>
   <div class="primary_color">
     <div class="w-full p-2 primary_color" :style="{ height: deviceHeight * 0.30 + 'px' }">
-      <div class="w-full px-2 py-2 flex justify-between items-center">
+      <div class="w-full px-2 py-2 flex justify-end items-center">
        
         <ThemeSwitch />
       </div>
       <div class="w-full flex justify-center mt-10">
-        <span class="text-white" style="font-size: 3rem;">NKYC</span>
+        <logo/>
       </div>
     </div>
 

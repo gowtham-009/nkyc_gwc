@@ -2,8 +2,8 @@
     <div class="primary_color">
         <div class="flex justify-between primary_color items-center px-3"
             :style="{ height: deviceHeight * 0.08 + 'px' }"> 
-           
-            <ThemeSwitch />
+            <logo style="width: 50px; height: 50px;"/>
+            <profile/>
         </div>
         
         <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"

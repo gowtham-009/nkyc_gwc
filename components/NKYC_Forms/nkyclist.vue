@@ -3,13 +3,13 @@
         <div class="w-full bg-blue-50 dark:bg-black">
             <div class="w-full p-2 " :style="{ height: deviceHeight * 0.05 + 'px' }">
                 <div class="w-full flex justify-between">
-                    <ThemeSwitch />
+                    <logo style="width: 50px; height: 50px;"/>
+                   
+                    <profile/>
                 </div>
-                <div class="w-full flex justify-center mt-2">
-                    <!-- something -->
-                </div>
+                
             </div>
-            <div class="w-full p-2 flex flex-col justify-between" :style="{ height: deviceHeight * 0.95 + 'px' }">
+            <div class="w-full p-2   flex flex-col justify-between" :style="{ height: deviceHeight * 0.95 + 'px' }">
                 <div class="w-full p-1">
                     <div class="w-full">
                         <p class="text-3xl text-center text-blue-600 font-medium">

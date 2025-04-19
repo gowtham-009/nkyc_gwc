@@ -9,8 +9,8 @@
         <ThemeSwitch />
       </div>
 
-      <div class="w-full flex justify-center mt-10">
-        <span class="text-white text-5xl">NKYC</span>
+      <div class="w-full flex justify-center items-center">
+        <logo/>
       </div>
     </div>
 

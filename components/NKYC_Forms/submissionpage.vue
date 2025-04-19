@@ -3,8 +3,8 @@
         <div class="w-full bg-blue-50 dark:bg-black">
             <div class="w-full p-2 " :style="{ height: deviceHeight * 0.05 + 'px' }">
                 <div class="w-full flex justify-between">
-                   
-        <ThemeSwitch />
+                    <logo style="width: 50px; height: 50px;"/>
+                    <profile/>
                 </div>
                 <div class="w-full flex justify-center mt-1">
                     <!-- something -->
