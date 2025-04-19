@@ -7,7 +7,7 @@
         </div>
         <div class="flex justify-between p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            <div class="w-full mt-4 px-5 p-1">
+            <div class="w-full mt-2 px-5 p-1">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                    Digilocker status failed
                 </p>
@@ -47,7 +47,7 @@
    
 </template>
 <script setup>
-import ThemeSwitch from '~/components/darkmode/darkmode.vue'
+
 import { ref, onMounted } from 'vue';
 
 const emit = defineEmits(['updateDiv']);

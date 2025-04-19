@@ -69,7 +69,7 @@
 
 </template>
 <script setup>
-import ThemeSwitch from '~/components/darkmode/darkmode.vue'
+
 import { ref, onMounted } from 'vue';
 import Bankname from '~/components/NKYC_Forms/bankdetails/bankinputs/bankname.vue'
 import Accno from '~/components/NKYC_Forms/bankdetails/bankinputs/accno.vue'

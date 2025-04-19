@@ -7,7 +7,7 @@
         </div>
         <div class="flex justify-between px-3 p-1 flex-col bg-white rounded-t-3xl dark:bg-black" v-if="contbox"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            <div class="w-full mt-4 px-2" v-if="contbox">
+            <div class="w-full mt-2 px-2" v-if="contbox">
 
                 <Card class="dark:bg-gray-900">
 
@@ -122,7 +122,7 @@
 
 </template>
 <script setup>
-import ThemeSwitch from '~/components/darkmode/darkmode.vue'
+
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const deviceHeight = ref(0);

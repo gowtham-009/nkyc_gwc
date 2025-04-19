@@ -8,11 +8,11 @@
         </div>
         <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            <div class="w-full mt-4 px-2 p-1">
+            <div class="w-full mt-2 px-2 p-1">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Take a selfie
                 </p>
-                <p class="text-md mt-3 text-gray-500 font-normal leading-6">
+                <p class="text-sm text-gray-500 font-normal leading-6">
                     Ensure your face appears clearly within the frame
                 </p>
                 <div>
@@ -40,7 +40,7 @@
     </div>
 </template>
 <script setup>
-import ThemeSwitch from '~/components/darkmode/darkmode.vue'
+
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import useGeolocation from '~/composables/useGeolocation'
 import CMAIDENTIFY from '~/components/NKYC_Forms/photo&sign/cameraidentification/cmaidentify.vue'

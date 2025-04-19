@@ -10,15 +10,15 @@
             :style="{ height: deviceHeight * 0.92 + 'px' }">
             
             <!-- Income Selection -->
-            <div class="w-full mt-4 px-2 p-1" >
+            <div class="w-full mt-2 px-2 p-1" >
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Trading Segment
                 </p>
-                <p class="text-md mt-3 text-gray-500 font-normal leading-6">
+                <p class="text-sm  text-gray-500 font-normal leading-6">
                     These details are required by SEBI to open your Demat account.
                 </p>
                 
-                <div class="grid grid-cols-2 gap-2 mt-3">
+                <div class="grid grid-cols-2 gap-1 mt-3">
                     <button 
                         v-for="option in options" 
                         :key="option.value"
@@ -56,7 +56,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import ThemeSwitch from '~/components/darkmode/darkmode.vue';
+
 
 const emit = defineEmits(['updateDiv']);
 

@@ -59,7 +59,7 @@
    
 </template>
 <script setup>
-import ThemeSwitch from '~/components/darkmode/darkmode.vue'
+
 import Address from '~/components/NKYC_Forms/pandetails/paninputs/address.vue'
 import State from '~/components/NKYC_Forms/pandetails/paninputs/state.vue'
 import City from '~/components/NKYC_Forms/pandetails/paninputs/city.vue'

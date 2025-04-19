@@ -10,7 +10,7 @@
             :style="{ height: deviceHeight * 0.92 + 'px' }">
             
             <!-- Marital Status -->
-            <div class="w-full mt-4 px-2" v-if="activebox === 'marriedbox'">
+            <div class="w-full mt-2 px-2" v-if="activebox === 'marriedbox'">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Your information
                 </p>
@@ -96,7 +96,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import ThemeSwitch from '~/components/darkmode/darkmode.vue';
 
 const deviceHeight = ref(0);
 

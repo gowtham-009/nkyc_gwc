@@ -10,7 +10,7 @@
             :style="{ height: deviceHeight * 0.92 + 'px' }">
 
             <!-- Marital Status -->
-            <div class="w-full mt-4 px-2 p-1">
+            <div class="w-full mt-2 px-2 p-1">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Add nominee
                 </p>
@@ -106,7 +106,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import ThemeSwitch from '~/components/darkmode/darkmode.vue';
+
 import Namemode from '~/components/nomineeinputs/dropdown.vue';
 import Name from '~/components/nomineeinputs/nameinput.vue';
 import DOB from '~/components/nomineeinputs/dateinput.vue'

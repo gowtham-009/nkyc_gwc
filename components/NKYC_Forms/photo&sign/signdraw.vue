@@ -8,11 +8,11 @@
         <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
 
-            <div class="w-full px-2 p-1 mt-4">
+            <div class="w-full px-2 p-1 mt-2">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                    Draw your signature
                 </p>
-                <p class="text-gray-500 leading-6 font-normal text-md mt-3">
+                <p class="text-gray-500 leading-6 font-normal text-sm">
                     Use the signature box to sign
                 </p>
                 <canvas ref="canvasRef" class="mt-3 border-2 border-dashed rounded-lg"></canvas>
@@ -42,7 +42,7 @@
     </div>
 </template>
 <script setup>
-import ThemeSwitch from '~/components/darkmode/darkmode.vue'
+
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const deviceHeight = ref(0);

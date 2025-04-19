@@ -7,11 +7,11 @@
         </div>
         <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black" 
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-            <div class="w-full mt-4 px-2 p-1">
+            <div class="w-full mt-2 px-2 p-1">
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Add your signature
                 </p>
-                <p class="text-gray-500 leading-6 font-normal text-md mt-2">
+                <p class="text-gray-500 leading-6 font-normal text-sm">
                     Upload an image or use the signature box to sign
                 </p>
 
@@ -24,7 +24,7 @@
                             <span> <span><i class="pi pi-cog text-xl text-blue-600"></i></span></span>
                         </div>
                         <div class="p-2">
-                            <p class="text-gray-500 leading-6 font-normal text-md">
+                            <p class="text-gray-500 leading-6 font-normal text-sm">
                                Choose the option to upload an image of your signature for accuracy.
                             </p>
                         </div>
@@ -36,7 +36,7 @@
                             <span><i class="pi pi-clone text-xl text-blue-600"></i></span>
                         </div>
                         <div class="p-2">
-                            <p class="text-gray-500 leading-6 font-normal text-md">
+                            <p class="text-gray-500 leading-6 font-normal text-sm">
                                This signature will be used to match any future offline transaction.
                             </p>
                         </div>
@@ -47,7 +47,7 @@
                         <span><i class="pi pi-upload text-xl text-blue-600"></i></span>
                         </div>
                         <div class="p-2">
-                            <p class="text-gray-500 leading-6 font-normal text-md">
+                            <p class="text-gray-500 leading-6 font-normal text-sm">
                                signature mismatch will require resubmission as per regulations.
                             </p>
                         </div>
@@ -56,7 +56,7 @@
                    
                 </div>
 
-                <p class="text-gray-500 mt-1 text-md font-normal text-left">
+                <p class="text-gray-500 mt-1 text-sm font-normal text-left">
                     The uploaded photo size should not be more than 5 MB.
                 </p>
 
@@ -81,7 +81,7 @@
     </div>
 </template>
 <script setup>
-import ThemeSwitch from '~/components/darkmode/darkmode.vue'
+
 import { ref, onMounted } from 'vue';
 
 const deviceHeight = ref(0);
