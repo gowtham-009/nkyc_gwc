@@ -1,18 +1,16 @@
 <template>
     <div>
-        <div class="w-full bg-blue-50 dark:bg-black" >
-            <div class="w-full p-2 "  :style="{ height: deviceHeight * 0.05 + 'px' }">
+        <div class="w-full bg-blue-50 dark:bg-black">
+            <div class="w-full p-2 " :style="{ height: deviceHeight * 0.05 + 'px' }">
                 <div class="w-full flex justify-between">
-                    <Button icon="pi pi-angle-left " class="text-white primary_color cursor-pointer" @click="back()"></Button>
-                    <ThemeSwitch  />
+                    <ThemeSwitch />
                 </div>
                 <div class="w-full flex justify-center mt-2">
                     <!-- something -->
                 </div>
             </div>
-            <div class="w-full p-2 flex flex-col justify-between" 
-                :style="{ height: deviceHeight * 0.95 + 'px' }">
-                <div class="w-full p-1" >
+            <div class="w-full p-2 flex flex-col justify-between" :style="{ height: deviceHeight * 0.95 + 'px' }">
+                <div class="w-full p-1">
                     <div class="w-full">
                         <p class="text-3xl text-center text-blue-600 font-medium">
                             Here's what's next
@@ -22,7 +20,8 @@
 
                     <div class="w-full px-4 ">
                         <div class="w-full flex items-center gap-5">
-                            <div class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
+                            <div
+                                class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
                                 <span><i class="pi pi-folder-open text-blue-900 text-xl "></i></span>
                             </div>
                             <div class=" p-1">
@@ -32,8 +31,9 @@
                         </div>
 
                         <div class="w-full flex items-center gap-5 mt-1">
-                            <div class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
-                                <span><i class="pi pi-user text-blue-900 text-xl" ></i></span>
+                            <div
+                                class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
+                                <span><i class="pi pi-user text-blue-900 text-xl"></i></span>
                             </div>
                             <div class="p-1">
                                 <p class="text-xl font-medium text-blue-950 dark:text-gray-400">Set up your profile</p>
@@ -42,8 +42,9 @@
                         </div>
 
                         <div class="w-full flex items-center gap-5 mt-1">
-                            <div class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
-                                <span><i class="pi pi-credit-card text-blue-900 text-xl" ></i></span>
+                            <div
+                                class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
+                                <span><i class="pi pi-credit-card text-blue-900 text-xl"></i></span>
                             </div>
                             <div class="p-1">
                                 <p class="text-xl font-medium text-blue-950 dark:text-gray-400">Link your bank a/c</p>
@@ -53,18 +54,21 @@
                         </div>
 
                         <div class="w-full flex items-center gap-5 mt-1">
-                            <div class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
-                                <span><i class="pi pi-building-columns text-blue-900 text-xl" ></i></span>
+                            <div
+                                class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
+                                <span><i class="pi pi-building-columns text-blue-900 text-xl"></i></span>
                             </div>
                             <div class="p-1">
                                 <p class="text-xl font-medium text-blue-950 dark:text-gray-400">Select your account</p>
-                                <p class="text-md font-normal text-gray-500">Upload proofs, Trading segment, Brokerage details.</p>
+                                <p class="text-md font-normal text-gray-500">Upload proofs, Trading segment, Brokerage
+                                    details.</p>
                             </div>
                         </div>
 
                         <div class="w-full flex items-center gap-5 mt-1">
-                            <div class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
-                                <span><i class="pi pi-verified text-blue-900 text-xl" ></i></span>
+                            <div
+                                class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
+                                <span><i class="pi pi-verified text-blue-900 text-xl"></i></span>
                             </div>
                             <div class="p-1">
                                 <p class="text-xl font-medium text-blue-950 dark:text-gray-400">Confirm it's you</p>
@@ -74,7 +78,8 @@
                         </div>
 
                         <div class="w-full flex items-center gap-5 mt-1">
-                            <div class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
+                            <div
+                                class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
                                 <span><i class="pi pi-pen-to-square text-blue-900 text-xl"></i></span>
                             </div>
                             <div class="p-1">
@@ -85,9 +90,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-full">
+                <div class="w-full flex gap-2">
+                    <Button @click="back()" class="primary_color cursor-pointer text-white w-1/6 ">
+                        <i class="pi pi-angle-left text-3xl"></i>
+                    </Button>
                     <Button type="button" label="Continue" @click="handleButtonClick"
-                        class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
+                        class=" primary_color wave-btn text-white w-5/6 py-4 text-xl border-0  ">
                         {{ buttonText }}
                         <span v-if="isAnimating" class="wave"></span>
                     </Button>
@@ -119,11 +127,11 @@ onMounted(() => {
 
 
 const handleButtonClick = () => {
- isAnimating.value = true;
+    isAnimating.value = true;
     setTimeout(() => {
-      isAnimating.value = false;
-      emit('updateDiv', 'ekyc');
-    }, 800); 
+        isAnimating.value = false;
+        emit('updateDiv', 'ekyc');
+    }, 800);
 };
 
 const router = useRouter();

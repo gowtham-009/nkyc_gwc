@@ -3,9 +3,7 @@
         <div class="w-full bg-blue-50 dark:bg-black">
             <div class="w-full p-2 " :style="{ height: deviceHeight * 0.05 + 'px' }">
                 <div class="w-full flex justify-between">
-                    <Button @click="back()" class="primary_color border-0 cursor-pointer text-white py-3 dark:bg-black">
-          <i class="pi pi-angle-left text-xl dark:text-gray-500"></i>
-        </Button>  
+                   
         <ThemeSwitch />
                 </div>
                 <div class="w-full flex justify-center mt-1">
@@ -52,9 +50,12 @@
                         
                     </div>
                 </div>
-                <div class="w-full">
+                <div class="w-full flex gap-2">
+                    <Button @click="back()" class="primary_color cursor-pointer text-white w-1/6 ">
+                <i class="pi pi-angle-left text-3xl"></i>
+            </Button>
                     <Button type="button" label="Continue" @click="handleButtonClick"
-                        class=" primary_color wave-btn text-white w-full py-4 text-xl border-0  ">
+                        class=" primary_color wave-btn text-white w-5/6 py-4 text-xl border-0  ">
                         {{ buttonText }}
                         <span v-if="isAnimating" class="wave"></span>
                     </Button>

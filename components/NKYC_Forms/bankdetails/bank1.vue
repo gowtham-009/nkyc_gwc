@@ -1,9 +1,7 @@
 <template>
     <div class="primary_color">
         <div class="flex justify-between primary_color items-center px-3" :style="{ height: deviceHeight * 0.08 + 'px' }">
-            <span @click="back()" >
-          <i class="pi pi-angle-left text-2xl text-white dark:text-gray-500"></i>
-        </span>
+            
             <ThemeSwitch />
         </div>
         <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
@@ -48,9 +46,12 @@
                 </div>
             </div>
 
-            <div class="w-full " >
+            <div class="w-full flex gap-2" >
+                <Button @click="back()" class="primary_color cursor-pointer text-white w-1/6 ">
+                <i class="pi pi-angle-left text-3xl"></i>
+            </Button>
                 <Button @click="handleButtonClick"   :disabled="!bankname || !accno || !ifsc || !micr || !address"
-                 class="primary_color wave-btn w-full text-white  py-4 text-xl border-0">
+                 class="primary_color wave-btn w-5/6 text-white  py-4 text-xl border-0">
                     {{ buttonText }}
                     <span v-if="isAnimating" class="wave"></span>
                 </Button>

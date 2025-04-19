@@ -2,9 +2,7 @@
   <div class="primary_color">
     <div class="w-full p-2 primary_color" :style="{ height: deviceHeight * 0.30 + 'px' }">
       <div class="w-full px-2 py-2 flex justify-between items-center">
-        <Button @click="back()" class="bg-slate-100 border-0 cursor-pointer text-slate-600 py-3 dark:bg-black">
-          <i class="pi pi-angle-left text-xl dark:text-gray-500"></i>
-        </Button>
+       
         <ThemeSwitch />
       </div>
       <div class="w-full flex justify-center mt-10">
@@ -27,10 +25,13 @@
         </div>
       </div>
 
-      <div class="w-full mt-5">
+      <div class="w-full flex gap-2">
+        <Button @click="back()" class="primary_color cursor-pointer text-white w-1/6 ">
+                <i class="pi pi-angle-left text-3xl"></i>
+            </Button>
           <Button type="button"
            label="Continue" :disabled="!isValidEmail"
-            class=" wave-btn primary_color text-white w-full py-4 text-xl border-0 "
+            class=" wave-btn primary_color text-white w-5/6 py-4 text-xl border-0 "
             @click="handleButtonClick">
             {{ buttonText }}
             <span v-if="isAnimating" class="wave"></span>
