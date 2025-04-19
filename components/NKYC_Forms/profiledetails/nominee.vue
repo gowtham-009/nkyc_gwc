@@ -14,7 +14,7 @@
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Add nominee
                 </p>
-                <p class="text-sm mt-1 text-gray-500 font-normal leading-6">
+                <p class="text-sm  text-gray-500 font-normal leading-6">
                     Relationship with nominee
                 </p>
                 <div class="w-full flex flex-col gap-2 mt-3">
