@@ -19,3 +19,8 @@ defineExpose({
 })
 </script>
 
+<style>
+.p-checkbox-checked .p-checkbox-icon{
+    color: white !important;
+}
+</style>

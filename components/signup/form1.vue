@@ -110,7 +110,5 @@ const handleButtonClick = () => {
 </script>
 
 <style scoped>
-.p-checkbox-checked .p-checkbox-icon{
-    color: white !important;
-}
+
 </style>
