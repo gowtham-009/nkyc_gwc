@@ -21,7 +21,7 @@
           </div>
         </div>
         <div >
-          <label for="comments" class="font-normal text-gray-500 text-md text-justify">
+          <label for="comments" class="font-normal text-gray-500 text-sm text-justify">
             I agree to receive communication on my mobile number registered with "Name"
           </label>
         </div>
