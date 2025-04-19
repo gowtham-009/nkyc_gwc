@@ -11,7 +11,7 @@
                     Link your bank account
                 </p>
 
-                <p class="text-md mt-1 text-gray-500 font-normal leading-6">
+                <p class="text-sm  text-gray-500 font-normal leading-6">
                     Please provide your bank account details to link your bank account with your trading account.
                 </p>
 

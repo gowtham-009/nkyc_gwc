@@ -15,7 +15,7 @@
                 <h1 class="text-center mt-3 text-2xl font-medium text-blue-950 dark:text-gray-400">
                     Bank account added
                 </h1>
-                <p class="text-md text-center mt-1 font-normal text-gray-500">
+                <p class="text-sm text-center mt-1 font-normal text-gray-500">
                     Your bank details have been verified.
                 </p>
 
