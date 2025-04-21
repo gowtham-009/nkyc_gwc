@@ -50,10 +50,9 @@
                 <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
                 <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
-                <Button @click="handleButtonClick"   :disabled="!bankname || !accno || !ifsc || !micr || !address"
-                 class="primary_color wave-btn w-5/6 text-white  py-4 text-xl border-0">
+                <Button @click="handleButtonClick" ref="rippleBtn"   :disabled="!bankname || !accno || !ifsc || !micr || !address"
+                 class="primary_color  w-5/6 text-white  py-4 text-xl border-0">
                     {{ buttonText }}
-                    <span v-if="isAnimating" class="wave"></span>
                 </Button>
             </div>
 
@@ -79,7 +78,7 @@ import MICR from '~/components/NKYC_Forms/bankdetails/bankinputs/micr.vue'
 import Address from '~/components/NKYC_Forms/bankdetails/bankinputs/address.vue'
 const emit = defineEmits(['updateDiv']);
 const deviceHeight = ref(0);
-const isAnimating = ref(false);
+const rippleBtn = ref(null);
 const buttonText = ref("Continue");
 
 
@@ -111,14 +110,25 @@ const handleButtonClick = () => {
             address: address.value
         }
     ]
- isAnimating.value = true;
-    setTimeout(() => {
-      isAnimating.value = false;
-      emit('updateDiv', 'bank4', bankdetails);
-    }, 800); 
+    const button = rippleBtn.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
+
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
+    emit('updateDiv', 'bank4', bankdetails);
+}, 600)
 };
-
-
+ 
 
 
 function back(){

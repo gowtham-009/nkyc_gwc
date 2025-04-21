@@ -41,13 +41,12 @@
                 <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
                 <Button 
-                    type="button"  
+                    type="button"  ref="rippleBtn"
                     @click="handleButtonClick" 
                     :disabled="selected.length === 0"
-                    class="primary_color wave-btn text-white w-5/6 py-4 text-xl border-0"
+                    class="primary_color  text-white w-5/6 py-4 text-xl border-0"
                 >
                     {{ buttonText }}
-                    <span v-if="isAnimating" class="wave"></span>
                 </Button>
             </div>
         </div>
@@ -63,7 +62,7 @@ const emit = defineEmits(['updateDiv']);
 const deviceHeight = ref(0);
 
 const buttonText = ref("Next");
-const isAnimating = ref(false);
+const rippleBtn = ref(null);
 
 const selected = ref([]); // Allow multiple selections
 
@@ -101,11 +100,22 @@ onMounted(() => {
 });
 
 const handleButtonClick = () => {
-    isAnimating.value = true;
-    setTimeout(() => {
-        isAnimating.value = false;
-        console.log(selected.value)
-       emit('updateDiv', 'brokerage'); 
-    }, 800);
-};
+    const button = rippleBtn.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
+
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
+    emit('updateDiv', 'brokerage');
+  }, 600)
+}; 
 </script>

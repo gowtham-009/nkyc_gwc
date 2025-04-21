@@ -53,7 +53,7 @@ import { ref, onMounted } from 'vue';
 const emit = defineEmits(['updateDiv']);
 const deviceHeight = ref(0);
 const buttonText = ref("Proceed to manual option");
-const isAnimating = ref(false);
+const rippleBtn = ref(null);
 
 
 

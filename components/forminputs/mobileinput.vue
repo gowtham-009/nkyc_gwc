@@ -10,15 +10,16 @@
     </div>
     <div class="w-full">
       <InputText
-      id="mobile"
-      class="w-full font-normal"
-      v-model="localPhoneNo"
-      inputmode="numeric"
-      type="text" 
-      placeholder="Your Mobile Number"
-      @input="validateInput"
-      maxlength="10"
-    />
+  id="mobile"
+  class="w-full font-normal "
+  v-model="localPhoneNo"
+  inputmode="numeric"
+  type="text"
+  placeholder="Your Mobile Number"
+  @input="validateInput"
+  maxlength="10"
+/>
+
     </div>
     
 
@@ -46,3 +47,7 @@ watch(localPhoneNo, (newValue) => {
   emit('update:modelValue', newValue);
 });
 </script>
+<style>
+
+
+</style>

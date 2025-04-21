@@ -41,11 +41,11 @@
         <p class="text-sm text-center mb-2 font-normal text-gray-500">
             By processing, you accept "Name" <span class="font-medium">Terms of Use</span> and <span class="font-normal">Privacy Policy</span>
           </p>
-        <Button
+        <Button   ref="rippleBtn"
         :disabled="!mobileNumber || mobileNumber.length !== 10"
-         @click="handleButtonClick" class="primary_color wave-btn w-full text-white  py-4 text-xl border-0">
+         @click="handleButtonClick" class="primary_color  w-full text-white  py-4 text-xl border-0">
         {{ buttonText }}
-        <span v-if="isAnimating" class="wave"></span>
+        
       </Button>
 
       </div>
@@ -68,7 +68,7 @@ const showBox2 = ref(false);
 const emit = defineEmits(['updateDiv']);
 const mobileNumber = ref('');
 const checkboxValue = ref('');
-const isAnimating = ref(false);
+const rippleBtn = ref(null)
 const buttonText = ref("Continue");
 
 onMounted(() => {
@@ -100,13 +100,25 @@ onMounted(() => {
 });
 
 const handleButtonClick = () => {
- isAnimating.value = true;
-    setTimeout(() => {
-      isAnimating.value = false;
-      emit('updateDiv', 'div2', mobileNumber.value);
-    }, 800); 
-};
+  const button = rippleBtn.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
 
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
+    emit('updateDiv', 'div2', mobileNumber.value);
+  }, 600)
+};
+ 
 </script>
 
 <style scoped>

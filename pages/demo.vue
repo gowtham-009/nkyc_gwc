@@ -1,100 +1,63 @@
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-
-const canvasRef = ref(null);
-let ctx = null;
-let isDrawing = false;
-
-// 🖊️ Start drawing
-const startDrawing = (event) => {
-  isDrawing = true;
-  const { x, y } = getMousePos(event);
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-};
-
-// ✏️ Drawing
-const draw = (event) => {
-  if (!isDrawing) return;
-  const { x, y } = getMousePos(event);
-  ctx.lineTo(x, y);
-  ctx.stroke();
-};
-
-// 🛑 Stop drawing
-const stopDrawing = () => {
-  isDrawing = false;
-  ctx.beginPath();
-};
-
-// Get Mouse/Tap Position
-const getMousePos = (event) => {
-  const rect = canvasRef.value.getBoundingClientRect();
-  let x, y;
-
-  if (event.touches) {
-    x = event.touches[0].clientX - rect.left;
-    y = event.touches[0].clientY - rect.top;
-  } else {
-    x = event.clientX - rect.left;
-    y = event.clientY - rect.top;
-  }
-
-  return { x, y };
-};
-
-// Setup Canvas on Mount
-onMounted(() => {
-  const canvas = canvasRef.value;
-  ctx = canvas.getContext('2d');
-
-  // Set Canvas size (Full width, 30% height)
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight * 0.3;
-
-  ctx.lineCap = 'round';
-  ctx.strokeStyle = 'black'; // Default black color
-  ctx.lineWidth = 3; // Default stroke thickness
-
-  // Attach event listeners
-  canvas.addEventListener('mousedown', startDrawing);
-  canvas.addEventListener('mousemove', draw);
-  canvas.addEventListener('mouseup', stopDrawing);
-  canvas.addEventListener('mouseleave', stopDrawing);
-
-  // Mobile touch support
-  canvas.addEventListener('touchstart', startDrawing);
-  canvas.addEventListener('touchmove', draw);
-  canvas.addEventListener('touchend', stopDrawing);
-});
-
-// Cleanup on Unmount
-onUnmounted(() => {
-  const canvas = canvasRef.value;
-  if (!canvas) return;
-
-  canvas.removeEventListener('mousedown', startDrawing);
-  canvas.removeEventListener('mousemove', draw);
-  canvas.removeEventListener('mouseup', stopDrawing);
-  canvas.removeEventListener('mouseleave', stopDrawing);
-
-  canvas.removeEventListener('touchstart', startDrawing);
-  canvas.removeEventListener('touchmove', draw);
-  canvas.removeEventListener('touchend', stopDrawing);
-});
-</script>
-
 <template>
-  <canvas ref="canvasRef"></canvas>
+  <div class="w-full h-screen flex justify-center items-center">
+    <Button
+      label="Click"
+      class="ripple-button w-full px-4 py-4 text-white primary_color"
+      @click="createRipple"
+      ref="rippleBtn"
+    />
+  </div>
 </template>
 
-<style scoped>
-canvas {
-  display: block;
-  width: 100%;
-  height: 30vh; /* 30% of viewport height */
-  touch-action: none;
-  background-color: white;
-  border: 2px solid black; /* 🔲 Added border */
+<script setup>
+import { ref } from 'vue'
+
+const rippleBtn = ref(null)
+
+function createRipple(event) {
+  const button = rippleBtn.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
+
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
+    alert('hi')
+  }, 600)
+}
+</script>
+
+<style>
+.ripple-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-animation 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  width: 100px;
+  height: 100px;
+  opacity: 1;
+  z-index: 10;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
 }
 </style>

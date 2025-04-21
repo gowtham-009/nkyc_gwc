@@ -73,11 +73,10 @@
                 <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
                 <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
-                <Button type="button" @click="handleButtonClick"
+                <Button type="button" ref="rippleBtn" @click="handleButtonClick"
                     :disabled="!selectedstatement || !imageSrcpan || !imageSrcsign || !imageSrcbank || !fileSrc || (!isImage && !isPdf)"
                     class="primary_color wave-btn text-white w-5/6 py-4 text-xl border-0">
                     {{ buttonText }}
-                    <span v-if="isAnimating" class="wave"></span>
                 </Button>
 
             </div>
@@ -97,7 +96,7 @@ const emit = defineEmits(['updateDiv']);
 const deviceHeight = ref(0);
 
 const buttonText = ref("Next");
-const isAnimating = ref(false);
+const rippleBtn = ref(null);
 
 const fileSrc = ref(null)
 const isImage = ref(false)
@@ -129,11 +128,22 @@ onMounted(() => {
 });
 
 const handleButtonClick = () => {
-    isAnimating.value = true;
-    setTimeout(() => {
-        isAnimating.value = false;
+    const button = rippleBtn.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
 
-        emit('updateDiv', 'submission', '4');
-    }, 800);
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
+    emit('updateDiv', 'submission', '4');
+  }, 600)
 };
 </script>

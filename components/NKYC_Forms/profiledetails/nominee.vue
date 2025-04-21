@@ -86,10 +86,9 @@
                 <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
                 <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
-                <Button @click="handleButtonClick"
-                    class="primary_color wave-btn w-5/6 text-white  py-4 text-xl border-0">
+                <Button  ref="rippleBtn" @click="handleButtonClick"
+                    class="primary_color  w-5/6 text-white  py-4 text-xl border-0">
                     {{ buttonText }}
-                    <span v-if="isAnimating" class="wave"></span>
                 </Button>
             </div>
 
@@ -120,7 +119,7 @@ const skip=ref(true);
 const visible = ref(false);
 const emit=defineEmits(['updateDiv']);
 const deviceHeight = ref(0);
-const isAnimating = ref(false);
+const rippleBtn = ref(null);
 const buttonText = ref("Continue");
 const nomineetext = ref("Add Nominee");
 const idProof = ref('')
@@ -166,13 +165,24 @@ const nomineesave=()=>{
 }
 
 const handleButtonClick=()=>{
-    isAnimating.value = true;
-    setTimeout(() => {
-        isAnimating.value = false;
-        buttonText.value = "Continue";
-        emit('updateDiv', 'submission','2');
-    }, 2000); // Adjust the duration as needed
-};
+    const button = rippleBtn.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
+
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
+    emit('updateDiv', 'submission','2');
+  }, 600)
+};  
 </script>
 <style>
 .p-dialog-header{

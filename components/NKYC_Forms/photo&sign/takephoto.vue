@@ -29,10 +29,9 @@
                 <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
                 <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
-                <Button type="button"   @click="handleButtonClick"
-                    class=" primary_color wave-btn text-white w-5/6 py-4 text-xl border-0  ">
+                <Button type="button"  ref="rippleBtn"  @click="handleButtonClick"
+                    class=" primary_color  text-white w-5/6 py-4 text-xl border-0  ">
                     {{ buttonText }}
-                    <span v-if="isAnimating" class="wave"></span>
                 </Button>
             </div>
         </div>
@@ -47,7 +46,7 @@ import CMAIDENTIFY from '~/components/NKYC_Forms/photo&sign/cameraidentification
 const deviceHeight = ref(0);
 const emit = defineEmits(['updateDiv']);
 const capturedImageData = ref(null)
-const isAnimating = ref(false);
+const rippleBtn = ref(null);
 const buttonText = ref("Continue");
 
 const handleCapturedImage = (image) => {
@@ -69,12 +68,23 @@ const back = () => {
 };
 const handleButtonClick = () => {
   
- isAnimating.value = true;
-    setTimeout(() => {
-      isAnimating.value = false;
-      emit('updateDiv', 'photoproceed', capturedImageData.value);
+    const button = rippleBtn.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
 
-    }, 800); 
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
+    emit('updateDiv', 'photoproceed', capturedImageData.value);
+}, 600)
 };
 
 </script>

@@ -16,11 +16,11 @@
             </p>
             <div class="w-full mt-3">
                 <emailOTP v-model="e_otp"/>
-
+                <p class="text-lg font-medium text-center text-gray-500" v-if="resend_sh">OTP Resend Successfully ({{ emailid }}) </p>
                 <div class="w-full mt-1 flex justify-between items-center">
                     <h2 class="font-medium text-md dark:text-gray-500">00:{{ timeLeft.toString().padStart(2, '0') }}s</h2>
 
-                    <Button type="button" label="Resend"  @click="visible = true"  badgeSeverity="contrast" outlined />
+                    <span @click="resendotp" class="text-xl font-bold text-gray-500 ">Resend</span>
                 </div>
             </div>
           </div>
@@ -28,11 +28,11 @@
             <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
                 <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
-            <Button type="button"
+            <Button type="button" ref="rippleBtn"
              label="Verify OTP" 
-             class="primary_color wave-btn text-white w-5/6 py-4 text-xl border-0" @click="nkyclist()"  :disabled="!isOtpValid" >
+             class="primary_color text-white w-5/6 py-4 text-xl border-0" @click="nkyclist()"  :disabled="!isOtpValid" >
              {{ buttonText }}
-             <span v-if="isAnimating" class="wave"></span>
+           
         </Button>
           </div>
         </div>
@@ -40,14 +40,7 @@
 
     </div>
 
-    <Dialog v-model:visible="visible" modal header="Resend OTP" :style="{ width: '25rem' }">
    
-   <div class="w-full flex items-center justify-center p-2" >
-       <img src="https://cdn-icons-png.flaticon.com/128/5290/5290058.png" class="w-20 h-20" alt="">
-       <p class="text-2xl font-medium">You OTP Sent</p>
-   </div>
-
-</Dialog>
 </template>
 
 <script setup>
@@ -59,8 +52,8 @@ const deviceHeight = ref(0);
 const emit = defineEmits(['updateDiv']);
 const timeLeft = ref(60); // Start from 60 seconds
 const emailid = ref('')
-const visible = ref(false);
-const isAnimating = ref(false);
+
+const rippleBtn = ref(null);
 const buttonText = ref("Verify OTP");
 let timer = null;
 const e_otp=ref('')
@@ -114,12 +107,24 @@ const router=useRouter()
 const nkyclist=()=>{
    
 
-   isAnimating.value = true;
-    setTimeout(() => {
-      isAnimating.value = false;
-      router.push('/main')
-    }, 800); 
-}
+    const button = rippleBtn.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
+
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
+    router.push('/main')
+  }, 600)
+} 
 const back=()=>{
     emit('updateDiv', 'div3');
 }
@@ -129,6 +134,11 @@ const handleBackButton = () => {
   // Prevent further back navigation
   window.history.pushState(null, null, window.location.href);
 };
+
+const resend_sh=ref(false)
+const resendotp=()=>{
+  resend_sh.value=true
+}
 </script>
 
 <style>

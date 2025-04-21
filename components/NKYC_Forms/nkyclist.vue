@@ -95,10 +95,9 @@
                         class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
                         <i class="pi pi-angle-left text-3xl dark:text-white"></i>
                     </Button>
-                    <Button type="button" label="Continue" @click="handleButtonClick"
-                        class=" primary_color wave-btn text-white w-5/6 py-4 text-xl border-0  ">
+                    <Button type="button" ref="rippleBtn" label="Continue" @click="handleButtonClick"
+                        class=" primary_color  text-white w-5/6 py-4 text-xl border-0  ">
                         {{ buttonText }}
-                        <span v-if="isAnimating" class="wave"></span>
                     </Button>
                 </div>
 
@@ -111,11 +110,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import ThemeSwitch from '~/components/darkmode/darkmode.vue';
 const emit = defineEmits(['updateDiv']);
 
 const buttonText = ref("Continue");
-const isAnimating = ref(false);
+const rippleBtn = ref(null);
 
 const deviceHeight = ref(0);
 onMounted(() => {
@@ -128,11 +126,23 @@ onMounted(() => {
 
 
 const handleButtonClick = () => {
-    isAnimating.value = true;
-    setTimeout(() => {
-        isAnimating.value = false;
-        emit('updateDiv', 'ekyc');
-    }, 800);
+    const button = rippleBtn.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
+
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
+    emit('updateDiv', 'ekyc');
+  }, 600)
 };
 
 const router = useRouter();
