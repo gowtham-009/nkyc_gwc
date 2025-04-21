@@ -140,26 +140,11 @@ import SIGNDRAWING from '~/components/NKYC_Forms/photo&sign/signdraw.vue'
 import ADDITIONALINFO from '~/components/NKYC_Forms/photo&sign/documentconfirmation.vue'
 
 import THANKINGYOU from '~/components/thankyou.vue'
-const currentForm = ref('') // default form
+const currentForm = ref('nkyclist') // default form
 const data = ref({})
 const formHistory = ref([{ form: 'nkyclist', formData: {} }]) // store form and its data
 
-const activepage=async()=>{
-  const apiurl='/activepage.json'
-  const response=await fetch(apiurl,{
-    method:'GET'
-  })
-  if(!response.ok){
-    console.log(response.status)
-  }
-  else{
-    const data=await response.json()
-    if(data){
-      handleUpdateDiv(data.active_page)
-    }
-   
-  }
-}
+
 
 const handleUpdateDiv = (value, newData = {}) => {
 

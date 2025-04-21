@@ -105,8 +105,6 @@ e_otp.value.length === 6
 );
 const router=useRouter()
 const nkyclist=()=>{
-   
-
     const button = rippleBtn.value
   const circle = document.createElement('span')
   circle.classList.add('ripple')
@@ -119,7 +117,6 @@ const nkyclist=()=>{
   circle.style.top = `${y}px`
 
   button.$el.appendChild(circle)
-
   setTimeout(() => {
     circle.remove()
     router.push('/main')
