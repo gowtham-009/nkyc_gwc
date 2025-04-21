@@ -1,29 +1,17 @@
 <template>
-  <div class="flex gap-3">
-    <div class="w-16">
-      <InputText
+  <div class="input-wrapper">
+    <span class="country-code">{{ countryphonenocode }}</span>
+    <InputText
+      class="prime-input"
+      v-model="localPhoneNo"
+      inputmode="numeric"
       type="text"
-      class="w-14 font-normal"
-      v-model="countryphonenocode"
-      disabled
+      placeholder="Your Mobile Number"
+      @input="validateInput"
+      maxlength="10"
+       autocomplete="off"
     />
-    </div>
-    <div class="w-full">
-      <InputText
-  id="mobile"
-  class="w-full font-normal "
-  v-model="localPhoneNo"
-  inputmode="numeric"
-  type="text"
-  placeholder="Your Mobile Number"
-  @input="validateInput"
-  maxlength="10"
-/>
-
-    </div>
-    
-
- 
+    <span class="bottom-border"></span>
   </div>
 </template>
 
@@ -36,7 +24,6 @@ const emit = defineEmits(['update:modelValue']);
 
 const localPhoneNo = ref(props.modelValue || '');
 
-// Keep only numbers and limit to 10 digits
 const validateInput = (e) => {
   let value = e.target.value.replace(/\D/g, '').slice(0, 10);
   localPhoneNo.value = value;
@@ -47,7 +34,56 @@ watch(localPhoneNo, (newValue) => {
   emit('update:modelValue', newValue);
 });
 </script>
-<style>
 
+<style scoped>
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  padding: 0 0.75rem;
+  overflow: hidden;
+}
 
+.country-code {
+  font-size: 16px;
+  color: #333;
+  padding-right: 8px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.prime-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  flex: 1;
+  padding: 1rem 0;
+  z-index: 1;
+  box-shadow: none !important;
+}
+
+.prime-input::placeholder {
+  color: #87909b;
+}
+
+.bottom-border {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 3px;
+  width: 0;
+  background-color: #007bff;
+  border-radius: 10px;
+  transition: width 0.4s ease-out, height 0.3s ease-in;
+  z-index: 0;
+}
+
+.input-wrapper:focus-within .bottom-border {
+  width: 100%;
+  height: 4px;
+}
 </style>

@@ -5,7 +5,7 @@
     <InputText
       v-model="phone"
       placeholder="Your Mobile Number"
-      class="prime-input"
+      class="prime-input py-5"
     />
     <span class="bottom-border"></span>
   </div>
@@ -25,7 +25,7 @@ const phone = ref('')
   display: flex;
   align-items: center;
   background-color: #f7f9fc;
-  padding: 12px 16px 16px;
+
   border-radius: 10px;
   overflow: hidden;
 }
@@ -53,7 +53,7 @@ const phone = ref('')
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  height: 5px;
+  height: 3px;
   width: 0;
   background-color: #007bff;
   border-radius: 10px;
@@ -65,6 +65,6 @@ const phone = ref('')
 
 .input-wrapper:focus-within .bottom-border {
   width: 100%;
-  height: 6px;
+  height: 4px;
 }
 </style>
