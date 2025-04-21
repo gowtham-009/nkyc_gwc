@@ -92,9 +92,6 @@
   <div v-if="currentForm === 'signature'">
     <SIGNATURE   @updateDiv="handleUpdateDiv" />
   </div>
-
-  
-
   <div v-if="currentForm === 'signdraw'">
     <SIGNDRAWING :data="data" @updateDiv="handleUpdateDiv" />
   </div>
@@ -143,16 +140,31 @@ import SIGNDRAWING from '~/components/NKYC_Forms/photo&sign/signdraw.vue'
 import ADDITIONALINFO from '~/components/NKYC_Forms/photo&sign/documentconfirmation.vue'
 
 import THANKINGYOU from '~/components/thankyou.vue'
-const currentForm = ref('nkyclist') // default form
+const currentForm = ref('') // default form
 const data = ref({})
 const formHistory = ref([{ form: 'nkyclist', formData: {} }]) // store form and its data
 
+const activepage=async()=>{
+  const apiurl='/activepage.json'
+  const response=await fetch(apiurl,{
+    method:'GET'
+  })
+  if(!response.ok){
+    console.log(response.status)
+  }
+  else{
+    const data=await response.json()
+    if(data){
+      handleUpdateDiv(data.active_page)
+    }
+   
+  }
+}
+
 const handleUpdateDiv = (value, newData = {}) => {
-  currentForm.value = value
+const active=value?value:'nkyclist'
+  currentForm.value = active
   data.value = newData
-
- 
-
   // Store both form and data
   formHistory.value.push({ form: value, formData: newData })
   history.pushState({ div: value, formData: newData }, '', '')
@@ -170,6 +182,7 @@ const handleBackButton = (event) => {
 }
 
 onMounted(() => {
+ activepage()
   history.replaceState({ div: 'nkyclist', formData: {} }, '', '')
   window.addEventListener('popstate', handleBackButton)
 })
