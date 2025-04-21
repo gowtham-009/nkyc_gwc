@@ -70,7 +70,7 @@
           </div>
           <div class="w-full mt-3">
             <Button
-              :disabled="!selectedRelation || !selectedRelation "
+              :disabled="!selectedRelation || !selectedRelation || !dob || !idProof || !shareval || !(pan || aadhar || licence)"
               label="Save"
               @click="nomineesave"
               class="primary_color w-full text-white py-2" />
