@@ -162,8 +162,8 @@ const activepage=async()=>{
 }
 
 const handleUpdateDiv = (value, newData = {}) => {
-const active=value?value:'nkyclist'
-  currentForm.value = active
+
+  currentForm.value = value
   data.value = newData
   // Store both form and data
   formHistory.value.push({ form: value, formData: newData })
@@ -182,7 +182,7 @@ const handleBackButton = (event) => {
 }
 
 onMounted(() => {
- activepage()
+// activepage()
   history.replaceState({ div: 'nkyclist', formData: {} }, '', '')
   window.addEventListener('popstate', handleBackButton)
 })

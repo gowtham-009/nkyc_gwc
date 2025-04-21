@@ -96,7 +96,6 @@ onMounted(() => {
 
 const emit = defineEmits(['updateDiv']);
 const back = () => {
-
     emit('updateDiv', 'nkyclist');
 }
 
