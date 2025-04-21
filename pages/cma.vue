@@ -1,20 +1,25 @@
 <template>
-    <div class="w-full h-screen flex flex-col justify-center items-center">
-      <div class="camera-wrapper" :class="{ captured: imageCaptured }">
-        <video ref="video" autoplay playsinline class="camera-video" v-if="!imageCaptured && cameraActive" />
-        <img v-if="imageCaptured" :src="capturedImage" alt="Captured Face" class="camera-image" />
-        <canvas ref="canvas" class="hidden"></canvas>
-      </div>
-  
-      <span class="mt-4">Face distance score: {{ Math.min(faceDistanceScore, 100).toFixed(2) }}</span>
-      <span>Face Visible: {{ faceProperlyVisible ? '✅ Yes' : '❌ No' }}</span>
+  <div class="h-screen flex flex-col justify-center items-center">
+    <div class="camera-wrapper" :class="{ captured: imageCaptured }">
+      <video ref="video" autoplay playsinline v-if="!imageCaptured && cameraActive" class="camera-video" />
+      <img v-if="imageCaptured" :src="capturedImage" alt="Captured Face" class="camera-image" />
+      <canvas ref="canvas" class="hidden"></canvas>
     </div>
-  </template>
+    <span class="mt-4 dark:text-gray-400">
+      Face distance score: {{ faceDistanceScore.toFixed(2) }}%
+    </span>
+    <span class="dark:text-gray-400">
+      Face Visible:
+      <span :class="{ 'text-green-500': faceProperlyVisible, 'text-red-500': !faceProperlyVisible }">
+        {{ faceProperlyVisible ? '✅ Yes' : '❌ No' }}
+      </span>
+    </span>
+  </div>
+</template>
 <script setup>
 import { ref, onMounted } from 'vue'
 import * as faceapi from 'face-api.js'
 
-// State refs
 const video = ref(null)
 const canvas = ref(null)
 const capturedImage = ref(null)
@@ -22,33 +27,33 @@ const imageCaptured = ref(false)
 const cameraActive = ref(true)
 const faceDistanceScore = ref(0)
 const faceProperlyVisible = ref(false)
+const eyesClosed = ref(false)
+const lastLeftEyeDistance = ref(0)
+const lastRightEyeDistance = ref(0)
+const blinkDetected = ref(false)
 
 let mediaStream = null
-let closedFrames = 0
-let alertTriggered = false
-const CLOSED_FRAMES_THRESHOLD = 15
 
-// Load Face API models
+// 📐 Adjustable frame size and center logic
+const FRAME_WIDTH = 320
+const FRAME_HEIGHT = 320
+const FRAME_CENTER = { x: FRAME_WIDTH / 2, y: FRAME_HEIGHT / 2 }
+const MAX_ALLOWED_DISTANCE =100
+const CAPTURE_DISTANCE_THRESHOLD = 75
+const MIN_DETECTION_SCORE = 0.7
+const EYE_CLOSED_THRESHOLD = 2 // Threshold for eyes being closed (in pixels)
+const BLINK_THRESHOLD = 1 // Threshold for detecting a sudden blink
+
+// Load models for face detection and landmarks
 const loadModels = async () => {
   await faceapi.nets.tinyFaceDetector.loadFromUri('/models/tiny_face_detector')
   await faceapi.nets.faceLandmark68Net.loadFromUri('/models/face_landmark_68')
 }
 
-// Calculate distance between two points
+// Calculate Euclidean distance
 const distance = (p1, p2) => Math.hypot(p1.x - p2.x, p1.y - p2.y)
 
-// Calculate Eye Aspect Ratio (EAR) for blink detection
-const calculateEAR = (eye) => {
-  const vertical1 = distance(eye[1], eye[5])
-  const vertical2 = distance(eye[2], eye[4])
-  const horizontal = distance(eye[0], eye[3])
-  return (vertical1 + vertical2) / (2.0 * horizontal)
-}
-
-// Detect if eyes are closed (Now checks each eye separately)
-const isEyeClosed = (eye) => calculateEAR(eye) < 0.2
-
-// Detect faces and validate conditions
+// Detect faces and eyes
 const detectFaces = async () => {
   if (!video.value || video.value.readyState !== 4 || imageCaptured.value) return
 
@@ -56,56 +61,70 @@ const detectFaces = async () => {
     .detectAllFaces(video.value, new faceapi.TinyFaceDetectorOptions())
     .withFaceLandmarks()
 
-  if (detections.length === 0) {
+  if (detections.length > 1) {
+    alert('❌ Multiple faces detected. Please ensure only one face is in frame.')
     faceProperlyVisible.value = false
-    closedFrames = 0
-    alertTriggered = false
     return
   }
 
-  if (detections.length > 1) {
-    alert("Multiple faces detected. Please position only one face in the frame.");
-    faceProperlyVisible.value = false;
-    return;
+  if (detections.length === 0) {
+    faceProperlyVisible.value = false
+    return
   }
 
-  const landmarks = detections[0].landmarks
+  const detection = detections[0]
+  const landmarks = detection.landmarks
+  const nose = landmarks.getNose()[3] // Nose tip
   const leftEye = landmarks.getLeftEye()
   const rightEye = landmarks.getRightEye()
 
-  // Calculate face distance score
-  const leftCenter = leftEye.reduce((acc, pt) => ({ x: acc.x + pt.x, y: acc.y + pt.y }), { x: 0, y: 0 })
-  const rightCenter = rightEye.reduce((acc, pt) => ({ x: acc.x + pt.x, y: acc.y + pt.y }), { x: 0, y: 0 })
-  faceDistanceScore.value = distance(leftCenter, rightCenter)
+  // Calculate the distance between upper and lower eyelids for both eyes
+  const leftEyeDistance = distance(leftEye[1], leftEye[5])
+  const rightEyeDistance = distance(rightEye[1], rightEye[5])
 
-  // 🚨 If one or both eyes are closed, do NOT capture
-  if (isEyeClosed(leftEye) || isEyeClosed(rightEye)) {
-    closedFrames++
-    if (closedFrames >= CLOSED_FRAMES_THRESHOLD && !alertTriggered) {
-      alert('Your eyes are closed! Please open your eyes to capture the image.')
-      alertTriggered = true
+  // Check for sudden blink (sharp change in distance)
+  if (Math.abs(leftEyeDistance - lastLeftEyeDistance.value) > BLINK_THRESHOLD || 
+      Math.abs(rightEyeDistance - lastRightEyeDistance.value) > BLINK_THRESHOLD) {
+    if (!blinkDetected.value) {
+    //  alert('❌Please keep your eyes open for capture.')
+      blinkDetected.value = true
     }
-    return
   } else {
-    closedFrames = 0
-    alertTriggered = false
+    blinkDetected.value = false
   }
 
-  // ✅ Check if the face is fully visible
-  if (detections[0].detection.score < 0.9) {
-    faceProperlyVisible.value = false
-    return
+  // Store the previous eye distances for comparison
+  lastLeftEyeDistance.value = leftEyeDistance
+  lastRightEyeDistance.value = rightEyeDistance
+
+  // Check if eyes are closed
+  if (leftEyeDistance < EYE_CLOSED_THRESHOLD && rightEyeDistance < EYE_CLOSED_THRESHOLD) {
+    eyesClosed.value = true
   } else {
-    faceProperlyVisible.value = true
+    eyesClosed.value = false
   }
 
-  // ✅ Capture image only if face distance > 95, face visible, and eyes open
-  if (faceDistanceScore.value >= 95 && !imageCaptured.value && faceProperlyVisible.value) {
+  const videoBox = video.value.getBoundingClientRect()
+  const scaleX = video.value.videoWidth / videoBox.width
+  const scaleY = video.value.videoHeight / videoBox.height
+
+  const nosePosition = {
+    x: nose.x / scaleX,
+    y: nose.y / scaleY
+  }
+
+  const distToCenter = distance(nosePosition, FRAME_CENTER)
+
+  const normalizedScore = Math.max(0, Math.min(100, 100 - (distToCenter / MAX_ALLOWED_DISTANCE) * 100))
+  faceDistanceScore.value = normalizedScore
+  faceProperlyVisible.value = detection.detection.score > MIN_DETECTION_SCORE
+
+  if (normalizedScore >= CAPTURE_DISTANCE_THRESHOLD && faceProperlyVisible.value && !eyesClosed.value) {
     captureImage()
   }
 }
 
-// Capture image
+// Capture the image from the video stream
 const captureImage = () => {
   const ctx = canvas.value.getContext('2d')
   canvas.value.width = video.value.videoWidth
@@ -116,15 +135,15 @@ const captureImage = () => {
   stopCamera()
 }
 
-// Stop camera after capture
+// Stop the camera stream
 const stopCamera = () => {
   if (mediaStream) {
-    mediaStream.getTracks().forEach((track) => track.stop())
+    mediaStream.getTracks().forEach(track => track.stop())
     cameraActive.value = false
   }
 }
 
-// Start face detection loop
+// Start the face detection loop
 const startDetectionLoop = () => {
   const loop = async () => {
     await detectFaces()
@@ -133,32 +152,48 @@ const startDetectionLoop = () => {
   loop()
 }
 
-// Initialize camera
 onMounted(async () => {
   await loadModels()
   try {
-    mediaStream = await navigator.mediaDevices.getUserMedia({ video: true })
-    if (video.value) {
-      video.value.srcObject = mediaStream
-      video.value.onloadeddata = () => {
-        startDetectionLoop()
-      }
-    }
+    mediaStream = await navigator.mediaDevices.getUserMedia({ video: { width: FRAME_WIDTH, height: FRAME_HEIGHT } })
+    video.value.srcObject = mediaStream
+    video.value.onloadeddata = () => startDetectionLoop()
   } catch (err) {
     console.error('Camera error:', err)
   }
 })
 </script>
 
+
+
 <style scoped>
 .camera-wrapper {
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
   overflow: hidden;
   border: 4px solid #00BFFF;
   box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.camera-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.3);
+}
+.camera-wrapper::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .camera-wrapper.captured {
@@ -171,7 +206,6 @@ onMounted(async () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
 
 canvas.hidden {
