@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen flex flex-col justify-center items-center">
+  <div class=" flex flex-col justify-center items-center">
     <div class="camera-wrapper" :class="{ captured: imageCaptured }">
       <video ref="video" autoplay playsinline v-if="!imageCaptured && cameraActive" class="camera-video" />
       <img v-if="imageCaptured" :src="capturedImage" alt="Captured Face" class="camera-image" />
