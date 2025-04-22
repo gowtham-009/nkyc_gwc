@@ -180,6 +180,9 @@ function back() {
     else if (props.data == 4) {
         emit('updateDiv', 'uploadsign')
     }
+    else if (props.data == 5) {
+        emit('updateDiv', 'additionalinformation')
+    }
 
 }
 </script>
