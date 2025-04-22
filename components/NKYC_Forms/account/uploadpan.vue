@@ -18,52 +18,32 @@
                     These details are required by SEBI to open your Demat account.
                 </p>
 
+                <div class="w-full mt-2">
+                    <span class="text-gray-500 text-xl font-medium ">Income Proof Type</span>
+                    <Select v-model="selectedstatement" :options="statement" optionLabel="name"
+                        placeholder="Choose Income Proof" class="w-full md:w-56" />
+                </div>
 
 
 
-                <div class="w-full mt-1">
-                    <span class="text-gray-500 text-xl font-medium mb-3">Upload Documents</span>
-                    <div class="grid grid-cols-2 gap-3 ">
+                <div class="w-full mt-3">
+                    <span class="text-gray-500 text-xl font-medium ">Upload Pan </span>
+                    <div class="grid grid-cols-1 gap-3 ">
                         <div>
-                            <div class="overflow-hidden rounded-lg  bg-white shadow border-2 border-solid border-black dark:border-white">
+                            <div class="overflow-hidden rounded-lg  mt-2 bg-white shadow-lg  dark:border-white">
                                 <div class="px-2 py-2 ">
                                     <PAN v-model:src="imageSrcpan" />
                                 </div>
                             </div>
 
                         </div>
-                        <div>
-                            <div class="overflow-hidden rounded-lg bg-white shadow  border-2 border-solid border-black dark:border-white">
-                                <div class="px-2 py-2">
-                                    <SIGNATURE v-model:src="imageSrcsign" />
-                                </div>
-                            </div>
-
-                        </div>
-                        <div>
-                            <div class="overflow-hidden rounded-lg bg-white shadow  border-2 border-solid border-black dark:border-white">
-                                <div class="px-2 py-2">
-                                    <BANK v-model:src="imageSrcbank" />
-                                </div>
-                            </div>
-
-                        </div>
-                        <div>
-                            <div class="overflow-hidden rounded-lg bg-white shadow  border-2 border-solid border-black dark:border-white">
-                                <div class="px-2 py-2">
-                                    <INCOME v-model:src="fileSrc" v-model:isImage="isImage" v-model:isPdf="isPdf" />
-                                </div>
-                            </div>
-
-                        </div>
+                       
+                      
+                       
                     </div>
                 </div>
 
-                <div class="w-full mt-2">
-                    <span class="text-gray-500 text-xl font-medium mb-2">Income Proof Type</span>
-                    <Select v-model="selectedstatement" :options="statement" optionLabel="name"
-                        placeholder="Choose Income Proof" class="w-full md:w-56" />
-                </div>
+              
 
 
             </div>
@@ -74,7 +54,7 @@
                 <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
                 <Button type="button" ref="rippleBtn" @click="handleButtonClick"
-                    :disabled="!selectedstatement || !imageSrcpan || !imageSrcsign || !imageSrcbank || !fileSrc || (!isImage && !isPdf)"
+                    :disabled="!selectedstatement || !imageSrcpan "
                     class="primary_color wave-btn text-white w-5/6 py-4 text-xl border-0">
                     {{ buttonText }}
                 </Button>
@@ -88,9 +68,7 @@
 import { ref, onMounted } from 'vue';
 
 import PAN from '~/components/NKYC_Forms/account/fileuploads/pancard.vue';
-import SIGNATURE from '~/components/NKYC_Forms/account/fileuploads/signature.vue';
-import BANK from '~/components/NKYC_Forms/account/fileuploads/bankproof.vue';
-import INCOME from '~/components/NKYC_Forms/account/fileuploads/incomeproof.vue';
+
 const emit = defineEmits(['updateDiv']);
 
 const deviceHeight = ref(0);
@@ -98,13 +76,8 @@ const deviceHeight = ref(0);
 const buttonText = ref("Next");
 const rippleBtn = ref(null);
 
-const fileSrc = ref(null)
-const isImage = ref(false)
-const isPdf = ref(false)
-
 const imageSrcpan = ref(null)
-const imageSrcsign = ref(null)
-const imageSrcbank = ref(null)
+
 
 const selectedstatement = ref();
 const statement = ref([
@@ -143,7 +116,7 @@ const handleButtonClick = () => {
 
   setTimeout(() => {
     circle.remove()
-    emit('updateDiv', 'submission', '4');
+    emit('updateDiv', 'uploadincome' );
   }, 600)
 };
 </script>

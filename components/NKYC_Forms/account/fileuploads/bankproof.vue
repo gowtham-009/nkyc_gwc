@@ -1,9 +1,11 @@
 
 <template>
     <div class="w-full">
-       
-        <img @click="visible = true" v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full mb-1 h-20" style="filter: grayscale(100%)" />
-        <FileUpload mode="basic" @select="onFileSelect" chooseLabel="Bank proof"  customUpload auto severity="secondary" class=" p-button-outlined w-full" />
+        <div class="w-full flex justify-center ">
+            <img @click="visible = true" v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl  mb-1 h-40" style="filter: grayscale(100%)" />
+
+            </div>
+        <FileUpload mode="basic" @select="onFileSelect" chooseLabel="Bank proof"  customUpload auto severity="secondary" class="p-button-outlined p-button-secondary w-full" />
       
     </div>
 
