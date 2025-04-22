@@ -1,17 +1,14 @@
 <template>
-    <div>
-        <div class="w-full bg-blue-50 dark:bg-black">
-            <div class="w-full p-2 " :style="{ height: deviceHeight * 0.05 + 'px' }">
-                <div class="w-full flex justify-between">
-                    <logo style="width: 50px; height: 50px;" />
-                    <profile />
-                </div>
-                <div class="w-full flex justify-center mt-1">
-                    <!-- something -->
-                </div>
-            </div>
-            <div class="w-full p-2  flex flex-col justify-between" :style="{ height: deviceHeight * 0.95 + 'px' }">
-                <div class="w-full p-1 px-2">
+    <div class="primary_color">
+        <div class="w-full px-3 flex justify-between items-center primary_color" :style="{ height: deviceHeight * 0.08 + 'px' }">
+                <logo style="width: 40px; height: 40px;" />
+                <profile />
+        </div>
+
+        <div class="w-full flex flex-col justify-between p-2 bg-white rounded-t-3xl dark:bg-black"
+            :style="{ height: deviceHeight * 0.92 + 'px' }">
+
+            <div class="w-full p-1 px-2">
                     <div class="w-full" v-if="completedbox">
                         <div class="w-full px-4 mt-1">
                             <div v-for="(step, index) in filteredSteps" :key="index"
@@ -54,17 +51,15 @@
                     </div>
                 </div>
                 <div class="w-full flex gap-2">
-                    <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
-                <i class="pi pi-angle-left text-3xl dark:text-white"></i>
-            </Button>
-                    <Button type="button"  ref="rippleBtn"  @click="handleButtonClick"
+                    <Button @click="back()"
+                        class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
+                        <i class="pi pi-angle-left text-3xl dark:text-white"></i>
+                    </Button>
+                    <Button type="button" ref="rippleBtn" @click="handleButtonClick"
                         class=" primary_color text-white w-5/6 py-4 text-xl border-0  ">
                         {{ buttonText }}
                     </Button>
                 </div>
-
-            </div>
-
         </div>
     </div>
 </template>
@@ -134,21 +129,21 @@ if (props.data) {
 const filteredSteps = computed(() => steps.slice(0, props.data));
 const handleButtonClick = () => {
     const button = rippleBtn.value
-  const circle = document.createElement('span')
-  circle.classList.add('ripple')
+    const circle = document.createElement('span')
+    circle.classList.add('ripple')
 
-  const rect = button.$el.getBoundingClientRect()
-  const x = event.clientX - rect.left
-  const y = event.clientY - rect.top
+    const rect = button.$el.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
 
-  circle.style.left = `${x}px`
-  circle.style.top = `${y}px`
+    circle.style.left = `${x}px`
+    circle.style.top = `${y}px`
 
-  button.$el.appendChild(circle)
+    button.$el.appendChild(circle)
 
-  setTimeout(() => {
-    circle.remove()
-    if (props.data == 1) {
+    setTimeout(() => {
+        circle.remove()
+        if (props.data == 1) {
             emit('updateDiv', 'info');
         }
         else if (props.data == 2) {
@@ -163,10 +158,10 @@ const handleButtonClick = () => {
         else if (props.data == 5) {
             emit('updateDiv', 'thankyou');
         }
-  }, 600)
+    }, 600)
 };
 
-  
+
 function back() {
     if (props.data == 1) {
         emit('updateDiv', 'parmanentaddress')

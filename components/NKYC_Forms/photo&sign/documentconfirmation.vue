@@ -56,7 +56,7 @@
                       
                     </div>
                     <div class="flex justify-end gap-2">
-                        <Button type="button" label="Cancel" severity="secondary" @click="back"></Button>
+                        <Button type="button" label="Cancel" severity="secondary" ref="rippleBtnback" @click="back"></Button>
                         <Button type="button" label="Save" class="text-white" @click="handleButtonClick" ></Button>
                     </div>
                 </Dialog>

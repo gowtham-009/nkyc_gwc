@@ -1,16 +1,14 @@
 <template>
-    <div>
-        <div class="w-full bg-blue-50 dark:bg-black">
-            <div class="w-full p-2 " :style="{ height: deviceHeight * 0.05 + 'px' }">
-                <div class="w-full flex justify-between">
-                    <logo style="width: 50px; height: 50px;" />
+    <div class="primary_color">
+        <div class="w-full px-3 primary_color flex justify-between items-center" :style="{ height: deviceHeight * 0.08 + 'px' }">
+           
+                <logo style="width: 40px; height: 40px;" />
+                <profile />
+            
+        </div>
+        <div class="w-full flex flex-col justify-between p-2 bg-white rounded-t-3xl dark:bg-black" :style="{ height: deviceHeight * 0.92 + 'px' }">
 
-                    <profile />
-                </div>
-
-            </div>
-            <div class="w-full p-2   flex flex-col justify-between" :style="{ height: deviceHeight * 0.95 + 'px' }">
-                <div class="w-full p-1">
+            <div class="w-full p-1">
                     <div class="w-full">
                         <p class="text-3xl text-center text-blue-600 font-medium">
                             Here's what's next
@@ -18,7 +16,7 @@
                     </div>
 
 
-                    <div class="w-full px-4 ">
+                    <div class="w-full px-4 mt-2">
                         <div class="w-full flex items-center gap-5">
                             <div
                                 class="p-2 px-2 flex justify-center items-center static w-12 h-12 bg-blue-200 dark:bg-slate-900  rounded-full  flex-shrink-0">
@@ -91,7 +89,7 @@
                     </div>
                 </div>
                 <div class="w-full flex gap-2">
-                    <Button @click="back()"
+                    <Button @click="back()" ref="rippleBtnback"
                         class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
                         <i class="pi pi-angle-left text-3xl dark:text-white"></i>
                     </Button>
@@ -100,21 +98,22 @@
                         {{ buttonText }}
                     </Button>
                 </div>
-
             </div>
 
-        </div>
+
+
+
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 const emit = defineEmits(['updateDiv']);
 
 const buttonText = ref("Continue");
 const rippleBtn = ref(null);
-
+const rippleBtnback = ref(null)
 const deviceHeight = ref(0);
 onMounted(() => {
     deviceHeight.value = window.innerHeight;
@@ -127,6 +126,29 @@ onMounted(() => {
 
 const handleButtonClick = () => {
     const button = rippleBtn.value
+    const circle = document.createElement('span')
+    circle.classList.add('ripple')
+
+    const rect = button.$el.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+
+    circle.style.left = `${x}px`
+    circle.style.top = `${y}px`
+
+    button.$el.appendChild(circle)
+
+    setTimeout(() => {
+        circle.remove()
+        emit('updateDiv', 'ekyc');
+    }, 600)
+};
+
+const router = useRouter();
+
+function back() {
+
+    const button = rippleBtnback.value
   const circle = document.createElement('span')
   circle.classList.add('ripple')
 
@@ -136,22 +158,16 @@ const handleButtonClick = () => {
 
   circle.style.left = `${x}px`
   circle.style.top = `${y}px`
-
   button.$el.appendChild(circle)
 
   setTimeout(() => {
     circle.remove()
-    emit('updateDiv', 'ekyc');
+    router.push({
+        name: 'index',
+        query: { signup: 4 }
+    });
   }, 600)
-};
-
-const router = useRouter();
-const route = useRoute();
-function back() {
-  router.push({
-    name: 'index',
-    query: { signup: 4 }
-  });
+   
 }
 
 </script>

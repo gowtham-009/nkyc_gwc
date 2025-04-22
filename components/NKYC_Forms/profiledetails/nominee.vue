@@ -79,7 +79,7 @@
   
         <!-- Navigation Buttons -->
         <div class="w-full flex gap-2 mt-4">
-          <Button @click="back"
+          <Button @click="back" ref="rippleBtnback"
                   class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
             <i class="pi pi-angle-left text-3xl dark:text-white"></i>
           </Button>
@@ -112,6 +112,7 @@
   const visible = ref(false);
   const deviceHeight = ref(0);
   const rippleBtn = ref(null);
+  const rippleBtnback = ref(null)
   const buttonText = ref("Continue");
   const nomineetext = ref("Add Nominee");
   const idProof = ref('');
@@ -137,7 +138,23 @@
   
   // Event Handlers
   const back = () => {
+    const button = rippleBtnback.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
+
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
     emit('updateDiv', 'income');
+  }, 600)
+    
   };
   
   const nomineesave = () => {

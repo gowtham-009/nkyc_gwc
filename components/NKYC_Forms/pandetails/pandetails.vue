@@ -16,20 +16,17 @@
 
                 <div class="w-full mt-2">
                     <Paninput v-model="panno" />
+                    <div class="w-full h-8" >
+                        <p v-if="pannameshow" class="text-gray-600 text-lg font-normal mt-1 leading-5">Pan Name: {{ clientname }}</p>
+                        <span v-if="paninvalidshow"  class="text-red-500 text-lg font-normal mt-1"> {{ panerror }}</span>
+                    </div>
                 </div>
 
-                <div class="w-full mt-2 flex gap-3">
+                <div class="w-full flex mt-1 gap-3">
                     <div class="w-full"><Aadhar v-model="aadhar" /></div>
                     <div class="w-full"><DOB v-model="dateval"/></div>
                     
                 </div>
-
-
-              
-
-             
-
-             
 
                 <div class="w-full mt-2">
                     <Pancheck v-model="checkboxval" />
@@ -44,7 +41,7 @@
             </div>
 
             <div class="w-full flex gap-2" >
-                <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
+                <Button @click="back()" ref="rippleBtnback"  class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
                 <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
                 <Button type="button" ref="rippleBtn" :disabled="!panno || !aadhar || !dateval" @click="handleButtonClick"
@@ -69,6 +66,7 @@ import Aadhar from '~/components/NKYC_Forms/pandetails/paninputs/aadhar.vue';
 import DOB from '~/components/NKYC_Forms/pandetails/paninputs/dateinput.vue'
 import Pancheck from '~/components/NKYC_Forms/pandetails/paninputs/pancheck.vue'
 
+const { url } = useUrl();
 
 const props = defineProps({
     data: {
@@ -80,27 +78,85 @@ const props = defineProps({
 
 const deviceHeight = ref(0);
 const rippleBtn = ref(null);
+const rippleBtnback = ref(null)
 const buttonText = ref("Continue");
 const panno = ref('')
 const aadhar = ref('')
 const dateval = ref('')
 const checkboxval = ref('')
-
-
+const clientname=ref('')
+const pannameshow=ref(false)
+const paninvalidshow=ref(false)
+const panerror=ref('')
 onMounted(() => {
     deviceHeight.value = window.innerHeight;
     window.addEventListener('resize', () => {
         deviceHeight.value = window.innerHeight;
     });
 });
+
 const emit = defineEmits(['updateDiv']);
 const back = () => {
+    const button = rippleBtnback.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
 
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
     emit('updateDiv', 'ekyc');
+  }, 600)
+   
 }
 
 
 
+
+const panverification=async()=>{
+  const apiurl=url.value+'s-pan-verify.php'
+  const formData=new FormData()
+
+  formData.append('pan',panno.value)
+  formData.append('name','')
+  try {
+    const response=await fetch(apiurl,{
+      method:'POST',
+      body:formData
+      
+    })
+    if(!response.ok){
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    else{
+      const data=await response.json()
+      if(data.result.panStatus=='VALID'){
+        pannameshow.value=true
+        paninvalidshow.value=false
+        clientname.value=data.result.name
+      }
+     
+    
+    }
+  } catch (error) {
+    console.error(error.message)
+    paninvalidshow.value=true
+    pannameshow.value=false
+    panerror.value='PAN number is not valid!'
+  }
+}
+
+watch(panno,(newval)=>{
+    if(newval.length>9){
+        panverification()
+    }
+})
 const handleButtonClick = () => {
   let statusvalue
    if(props.data=='failed'){

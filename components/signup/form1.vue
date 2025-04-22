@@ -43,7 +43,7 @@
           </p>
         <Button   ref="rippleBtn"
         :disabled="!mobileNumber || mobileNumber.length !== 10"
-         @click="handleButtonClick" class="primary_color  w-full text-white  py-4 text-xl border-0">
+         @click="handleButtonClick()" class="primary_color  w-full text-white  py-4 text-xl border-0">
         {{ buttonText }}
         
       </Button>
@@ -59,6 +59,8 @@ import { ref, onMounted } from 'vue';
 import ThemeSwitch from '~/components/darkmode/darkmodesign.vue';
 import MobileInput from '~/components/forminputs/mobileinput.vue';
 import Checkbox from '~/components/forminputs/remembercheckbox.vue';
+const { url } = useUrl();
+
 
 
 const box1Height = ref(0);
@@ -99,6 +101,34 @@ onMounted(() => {
   });
 });
 
+
+const sendmobileotp=async()=>{
+  const apiurl=url.value+'send-mobile-otp.php'
+
+  const formData=new FormData()
+
+  formData.append('mobileNo',mobileNumber.value)
+  formData.append('otpCode','789564')
+  try {
+    const response=await fetch(apiurl,{
+      method:'POST',
+      body:formData
+      
+    })
+    if(!response.ok){
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    else{
+      const data=await response.json()
+      if(data){
+        emit('updateDiv', 'div2', mobileNumber.value);
+      }
+    }
+  } catch (error) {
+    console.error(error.message)
+  }
+}
+
 const handleButtonClick = () => {
   const button = rippleBtn.value
   const circle = document.createElement('span')
@@ -115,7 +145,7 @@ const handleButtonClick = () => {
 
   setTimeout(() => {
     circle.remove()
-    emit('updateDiv', 'div2', mobileNumber.value);
+    sendmobileotp()
   }, 600)
 };
  

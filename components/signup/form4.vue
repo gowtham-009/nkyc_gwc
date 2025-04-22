@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="w-full flex gap-2">
-                <Button @click="back()"
+                <Button @click="back()" ref="rippleBtnback"
                     class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
                     <i class="pi pi-angle-left text-3xl dark:text-white"></i>
                 </Button>
@@ -52,12 +52,16 @@ import ThemeSwitch from '~/components/darkmode/darkmodesign.vue';
 import emailOTP from '~/components/forminputs/otpinput.vue'
 import { ref, onMounted, watch, watchEffect, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
+
+const { url } = useUrl();
+
 const deviceHeight = ref(0);
 const emit = defineEmits(['updateDiv']);
 const timeLeft = ref(60); // Start from 60 seconds
 const emailid = ref('')
 
 const rippleBtn = ref(null);
+const rippleBtnback = ref(null)
 const buttonText = ref("Verify OTP");
 let timer = null;
 const e_otp = ref('')
@@ -127,7 +131,23 @@ const nkyclist = () => {
     }, 600)
 }
 const back = () => {
+    const button = rippleBtnback.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
+
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
     emit('updateDiv', 'div3');
+  }, 600)
+   
 }
 
 const handleBackButton = () => {
@@ -137,8 +157,31 @@ const handleBackButton = () => {
 };
 
 const resend_sh = ref(false)
-const resendotp = () => {
-    resend_sh.value = true
+const resendotp = async() => {
+    const apiurl=url.value+'send-email-otp.php'
+  const formData=new FormData()
+
+  formData.append('emailId',props.data)
+  formData.append('otpCode','789564')
+  try {
+    const response=await fetch(apiurl,{
+      method:'POST',
+      body:formData
+      
+    })
+    if(!response.ok){
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    else{
+      const data=await response.json()
+      if(data.Message=='OK'){
+        resend_sh.value = true
+      }
+    }
+  } catch (error) {
+    console.error(error.message)
+  }
+   
 }
 </script>
 

@@ -83,7 +83,7 @@
                     These details are required by SEBI to open your Demat account.
                 </p>
                 <div class="w-full flex gap-2">
-                    <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
+                    <Button @click="back()" ref="rippleBtnback" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
                 <i class="pi pi-angle-left text-3xl dark:text-white"></i>
             </Button>
                     <Button type="button"  ref="rippleBtn" @click="handleButtonClick"
@@ -103,6 +103,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const deviceHeight = ref(0);
 const rippleBtn = ref(null);
+const rippleBtnback = ref(null)
 const buttonText = ref("Open camera");
 
 onMounted(() => {
@@ -122,8 +123,22 @@ onMounted(() => {
 
 const emit = defineEmits(['updateDiv']);
 const back = () => {
+    const button = rippleBtnback.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
 
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
     emit('updateDiv', 'submission', '4');
+  }, 600)
 }
 
 const handleButtonClick = () => {
