@@ -86,10 +86,10 @@ else{
     status.value='Verify'
 }
 
-const address = ref('');
-const state = ref('');
-const city = ref('');
-const pincode = ref('');
+const address = ref(props.data.KYC_DATA.APP_COR_ADD1);
+const state = ref(props.data.KYC_DATA.APP_COR_STATE);
+const city = ref(props.data.KYC_DATA.APP_COR_CITY);
+const pincode = ref(props.data.KYC_DATA.APP_COR_PINCD);
 
 const commAddressRef = ref(null)
 onMounted(() => {

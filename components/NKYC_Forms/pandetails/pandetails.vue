@@ -25,7 +25,6 @@
                 <div class="w-full flex mt-1 gap-3">
                     <div class="w-full"><Aadhar v-model="aadhar" /></div>
                     <div class="w-full"><DOB v-model="dateval"/></div>
-                    
                 </div>
 
                 <div class="w-full mt-2">
@@ -152,11 +151,51 @@ const panverification=async()=>{
   }
 }
 
+
 watch(panno,(newval)=>{
     if(newval.length>9){
         panverification()
     }
 })
+
+
+const kraaddresssubmission=async()=>{
+
+    const date = new Date(dateval.value);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const year = date.getFullYear();
+
+    const formattedDate = `${day}/${month}/${year}`;
+  
+  const apiurl=url.value+'get-kra-data.php'
+  const formData=new FormData()
+
+  formData.append('pan',panno.value)
+  formData.append('dob',formattedDate)
+  try {
+    const response=await fetch(apiurl,{
+      method:'POST',
+      body:formData
+      
+    })
+    if(!response.ok){
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    else{
+      const data=await response.json()
+     if(panno.value==data.KYC_DATA.APP_PAN_NO){
+        emit('updateDiv', 'parmanentaddress', data);
+     }
+    
+    }
+  } catch (error) {
+    console.error(error.message)
+   
+  }
+}
+
+
 const handleButtonClick = () => {
   let statusvalue
    if(props.data=='failed'){
@@ -180,7 +219,13 @@ const handleButtonClick = () => {
 
   setTimeout(() => {
     circle.remove()
-    emit('updateDiv', 'parmanentaddress', statusvalue);
+   if(!panno.value || !dateval.value || !clientname.value || !aadhar.value ){
+    alert('Pan invalid')
+   }
+   else{
+    kraaddresssubmission()
+   }
+ 
   }, 600)
 };
 </script> 

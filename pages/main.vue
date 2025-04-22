@@ -11,9 +11,9 @@
     <EKYC @updateDiv="handleUpdateDiv" />
   </div>
   
-  <div v-if="currentForm === 'digilockersubmission'">
+  <!-- <div v-if="currentForm === 'digilockersubmission'">
     <DIGILOCKSUBMISSION @updateDiv="handleUpdateDiv" />
-  </div>
+  </div> -->
 
   
 
@@ -158,9 +158,10 @@ const data = ref({})
 const formHistory = ref([{ form: 'nkyclist', formData: {} }]) // store form and its data
 
 const handleUpdateDiv = (value, newData = {}) => {
-
+console.log("mydataval:", newData)
   currentForm.value = value
   data.value = newData
+  
   // Store both form and data
   formHistory.value.push({ form: value, formData: newData })
   history.pushState({ div: value, formData: newData }, '', '')
