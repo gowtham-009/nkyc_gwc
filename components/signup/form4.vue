@@ -23,7 +23,7 @@
                         <h2 class="font-medium text-md dark:text-gray-500">00:{{ timeLeft.toString().padStart(2, '0')
                             }}s</h2>
 
-                        <span @click="resendotp" class="text-xl font-medium text-blue-500 ">Resend</span>
+                        <span @click="resendotp" class="text-xl font-medium text-blue-500 cursor-pointer ">Resend</span>
                     </div>
                 </div>
             </div>
