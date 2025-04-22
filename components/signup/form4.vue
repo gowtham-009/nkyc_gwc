@@ -1,46 +1,50 @@
 <template>
     <div class="primary_color">
-        <div class="flex justify-between items-center px-3" 
-            :style="{ height: deviceHeight * 0.08 + 'px' }">
-            <logo style="width: 40px; height: 40px;"/>
-            <ThemeSwitch/>
+        <div class="flex justify-between items-center px-3" :style="{ height: deviceHeight * 0.08 + 'px' }">
+            <logo style="width: 40px; height: 40px;" />
+            <ThemeSwitch />
         </div>
-        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black" 
+        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
-          <div class="w-full p-1 mt-2" >
-            <p class="font-medium text-slate-800 text-2xl dark:text-gray-400">
-                OTP sent
-            </p>
-            <p class="text-sm leading-6  font-normal text-gray-500">
-                We have sent an OTP to your email  {{ emailid }}
-            </p>
-            <div class="w-full mt-3">
-                <emailOTP v-model="e_otp"/>
-                <p class="text-lg font-medium text-center text-gray-500" v-if="resend_sh">OTP Resend Successfully ({{ emailid }}) </p>
-                <div class="w-full mt-1 flex justify-between items-center">
-                    <h2 class="font-medium text-md dark:text-gray-500">00:{{ timeLeft.toString().padStart(2, '0') }}s</h2>
+            <div class="w-full p-1 mt-2">
+                <p class="font-medium text-slate-800 text-2xl dark:text-gray-400">
+                    OTP sent
+                </p>
+                <p class="text-sm leading-6  font-normal text-gray-500">
+                    We have sent an OTP to your email {{ emailid }}
+                </p>
+                <div class="w-full mt-3">
+                    <emailOTP v-model="e_otp" />
+                    <div class="w-full h-8">
+                        <p class="text-lg font-medium text-center text-gray-500" v-if="resend_sh">OTP Resend
+                            Successfully ({{ emailid }}) </p>
+                    </div>
+                    <div class="w-full mt-1 flex justify-between items-center">
+                        <h2 class="font-medium text-md dark:text-gray-500">00:{{ timeLeft.toString().padStart(2, '0')
+                            }}s</h2>
 
-                    <span @click="resendotp" class="text-xl font-bold text-gray-500 ">Resend</span>
+                        <span @click="resendotp" class="text-xl font-medium text-blue-500 ">Resend</span>
+                    </div>
                 </div>
             </div>
-          </div>
-          <div class="w-full flex gap-2" >
-            <Button @click="back()" class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
-                <i class="pi pi-angle-left text-3xl dark:text-white"></i>
-            </Button>
-            <Button type="button" ref="rippleBtn"
-             label="Verify OTP" 
-             class="primary_color text-white w-5/6 py-4 text-xl border-0" @click="nkyclist()"  :disabled="!isOtpValid" >
-             {{ buttonText }}
-           
-        </Button>
-          </div>
+            <div class="w-full flex gap-2">
+                <Button @click="back()"
+                    class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
+                    <i class="pi pi-angle-left text-3xl dark:text-white"></i>
+                </Button>
+                <Button type="button" ref="rippleBtn" label="Verify OTP"
+                    class="primary_color text-white w-5/6 py-4 text-xl border-0" @click="nkyclist()"
+                    :disabled="!isOtpValid">
+                    {{ buttonText }}
+
+                </Button>
+            </div>
         </div>
 
 
     </div>
 
-   
+
 </template>
 
 <script setup>
@@ -56,7 +60,7 @@ const emailid = ref('')
 const rippleBtn = ref(null);
 const buttonText = ref("Verify OTP");
 let timer = null;
-const e_otp=ref('')
+const e_otp = ref('')
 const props = defineProps({
     data: {
         type: Object,
@@ -70,8 +74,8 @@ onMounted(() => {
         deviceHeight.value = window.innerHeight;
     });
 
-  
- timer = setInterval(() => {
+
+    timer = setInterval(() => {
         if (timeLeft.value > 0) {
             timeLeft.value -= 1;
         } else {
@@ -80,9 +84,9 @@ onMounted(() => {
     }, 1000);
 
 
-// Prevent browser/mobile back button from navigating away
-window.history.pushState(null, null, window.location.href);
-  window.addEventListener('popstate', handleBackButton);
+    // Prevent browser/mobile back button from navigating away
+    window.history.pushState(null, null, window.location.href);
+    window.addEventListener('popstate', handleBackButton);
 });
 
 onUnmounted(() => {
@@ -92,52 +96,50 @@ onUnmounted(() => {
 
 watchEffect(() => {
     const email = props.data || '';
- 
+
     emailid.value = email.length >= 10
         ? `${email.slice(0, 2)}******${email.slice(-3)}`
         : email;
 
-   
+
 });
 
-const isOtpValid = computed(() => 
-e_otp.value.length === 6
+const isOtpValid = computed(() =>
+    e_otp.value.length === 6
 );
-const router=useRouter()
-const nkyclist=()=>{
+const router = useRouter()
+const nkyclist = () => {
     const button = rippleBtn.value
-  const circle = document.createElement('span')
-  circle.classList.add('ripple')
+    const circle = document.createElement('span')
+    circle.classList.add('ripple')
 
-  const rect = button.$el.getBoundingClientRect()
-  const x = event.clientX - rect.left
-  const y = event.clientY - rect.top
+    const rect = button.$el.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
 
-  circle.style.left = `${x}px`
-  circle.style.top = `${y}px`
+    circle.style.left = `${x}px`
+    circle.style.top = `${y}px`
 
-  button.$el.appendChild(circle)
-  setTimeout(() => {
-    circle.remove()
-    router.push('/main')
-  }, 600)
-} 
-const back=()=>{
+    button.$el.appendChild(circle)
+    setTimeout(() => {
+        circle.remove()
+        router.push('/main')
+    }, 600)
+}
+const back = () => {
     emit('updateDiv', 'div3');
 }
 
 const handleBackButton = () => {
-  back();
-  // Prevent further back navigation
-  window.history.pushState(null, null, window.location.href);
+    back();
+    // Prevent further back navigation
+    window.history.pushState(null, null, window.location.href);
 };
 
-const resend_sh=ref(false)
-const resendotp=()=>{
-  resend_sh.value=true
+const resend_sh = ref(false)
+const resendotp = () => {
+    resend_sh.value = true
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

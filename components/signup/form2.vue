@@ -16,11 +16,12 @@
             </p>
             <div class="w-full mt-3">
                 <phoneOTP v-model="p_otp"/>
-                 <p class="text-lg font-medium text-center text-gray-500" v-if="resend_sh">OTP Resend Successfully +91 {{ phoneNumber }}</p>
-                <div class="w-full mt-1 flex justify-between items-center">
+                <div class="w-full h-8">
+                    <p class="text-lg font-medium text-center text-gray-500" v-if="resend_sh">OTP Resend Successfully +91 {{ phoneNumber }}</p>
+                </div>
+                <div class="w-full flex justify-between items-center">
                     <h2 class="font-medium text-md dark:text-gray-500">00:{{ timeLeft.toString().padStart(2, '0') }}s</h2>
-
-                   <span @click="resendotp" class="text-xl font-bold text-gray-500 ">Resend</span>
+                   <span @click="resendotp" class="text-xl font-medium text-blue-500 ">Resend</span>
                 </div>
             </div>
           </div>

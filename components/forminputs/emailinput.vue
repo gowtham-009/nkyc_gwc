@@ -2,8 +2,9 @@
   <div class="input-wrapper">
     <InputText
       id="email"
-      class="prime-input"
+      class="prime-input w-full border-2  dark:!bg-gray-800" 
       v-model="email"
+     
       variant="filled"
       placeholder="Your Email ID"
       size="large"
@@ -45,7 +46,7 @@ const validateEmail = () => {
   align-items: center;
   background-color: #e0e0e0;
   border-radius: 10px;
-  padding: 0 0.75rem;
+ 
   overflow: hidden;
 }
 
@@ -55,9 +56,9 @@ const validateEmail = () => {
   outline: none;
   font-size: 16px;
   flex: 1;
-  padding: 1rem 0;
+
   z-index: 1;
-  box-shadow: none !important;
+
 }
 
 .prime-input::placeholder {

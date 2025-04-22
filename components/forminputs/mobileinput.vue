@@ -1,8 +1,8 @@
 <template>
-  <div class="input-wrapper">
+  <div class="input-wrapper dark:!bg-gray-800">
     <span class="country-code">{{ countryphonenocode }}</span>
     <InputText
-      class="prime-input"
+      class="prime-input "
       v-model="localPhoneNo"
       inputmode="numeric"
       type="text"
