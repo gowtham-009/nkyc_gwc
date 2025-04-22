@@ -14,7 +14,7 @@
       />
       <Button
         label="Select PDF"
-        icon="pi pi-upload"
+        icon="pi pi-plus"
         class="p-button-outlined p-button-secondary w-full"
         @click="triggerFileInput"
       />
