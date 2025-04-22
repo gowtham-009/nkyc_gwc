@@ -138,13 +138,11 @@ import PHOTOPROCEED from '~/components/NKYC_Forms/photo&sign/pictureproceed.vue'
 import SIGNATURE from '~/components/NKYC_Forms/photo&sign/signature.vue'
 import SIGNDRAWING from '~/components/NKYC_Forms/photo&sign/signdraw.vue'
 import ADDITIONALINFO from '~/components/NKYC_Forms/photo&sign/documentconfirmation.vue'
-
 import THANKINGYOU from '~/components/thankyou.vue'
+
 const currentForm = ref('nkyclist') // default form
 const data = ref({})
 const formHistory = ref([{ form: 'nkyclist', formData: {} }]) // store form and its data
-
-
 
 const handleUpdateDiv = (value, newData = {}) => {
 

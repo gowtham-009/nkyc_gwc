@@ -109,7 +109,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 const emit = defineEmits(['updateDiv']);
 
 const buttonText = ref("Continue");
@@ -146,8 +146,12 @@ const handleButtonClick = () => {
 };
 
 const router = useRouter();
+const route = useRoute();
 function back() {
-    router.push('/');
+  router.push({
+    name: 'index',
+    query: { signup: 4 }
+  });
 }
 
 </script>

@@ -14,8 +14,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-
+import { ref, onMounted, onBeforeUnmount  } from 'vue';
+import { useRoute } from 'vue-router';
 import form1 from '~/components/signup/form1.vue';
 import form2 from '~/components/signup/form2.vue';
 import form3 from '~/components/signup/form3.vue';
@@ -25,12 +25,12 @@ const data = ref({});
 const currentForm = ref('div1');
 
 const formHistory = ref(['div1']); // History stack to track form flow
+const route = useRoute();
 
 const handleUpdateDiv = (value, newData = {}) => {
   currentForm.value = value;
   formHistory.value.push(value); // Push to history stack
   data.value = newData;
-
   history.pushState({ div: value }, '', '');
 };
 
@@ -46,7 +46,12 @@ const handleBackButton = () => {
 };
 
 onMounted(() => {
-  history.replaceState({ div: 'div1' }, '', '');
+  const initial = route.query.signup;
+  if (initial) {
+    currentForm.value = `div${initial}`;
+    formHistory.value = [`div${initial}`];
+  }
+  history.replaceState({ div: currentForm.value }, '', '');
   window.addEventListener('popstate', handleBackButton);
 });
 
