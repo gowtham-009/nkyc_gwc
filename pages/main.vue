@@ -117,12 +117,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 import NKYCList from '~/components/NKYC_Forms/nkyclist.vue'
 import PAN_d from '~/components/NKYC_Forms/pandetails/pandetails.vue'
 import EKYC from '~/components/NKYC_Forms/pandetails/e-kyc.vue'
-import DIGILOCKSUBMISSION from '~/components/NKYC_Forms/pandetails/digilock_submission.vue'
 import PARMANENTADDRESS from '~/components/NKYC_Forms/pandetails/parmanentaddress.vue'
 import FAILEDSTATUS from '~/components/NKYC_Forms/pandetails/faildstatus.vue'
 import COMMUNICATIONADDRESS from '~/components/NKYC_Forms/pandetails/communicationaddress.vue'
@@ -133,9 +133,9 @@ import CLIENTINFO from '~/components/NKYC_Forms/profiledetails/clientinfo.vue'
 import QUALIFICATION from '~/components/NKYC_Forms/profiledetails/qualification.vue'
 import OCCUPATION from '~/components/NKYC_Forms/profiledetails/occupationstatus.vue'
 import TRADINGEXPERIENCE from '~/components/NKYC_Forms/profiledetails/tradingexperience.vue'
-
 import INCOME from '~/components/NKYC_Forms/profiledetails/incomestatus.vue'
 import NOMINEE from '~/components/NKYC_Forms/profiledetails/nominee.vue'
+
 import BANK1 from '~/components/NKYC_Forms/bankdetails/bank1.vue'
 import BANK4 from '~/components/NKYC_Forms/bankdetails/bank4.vue'
 import TRADINGSEGMENT from '~/components/NKYC_Forms/account/tradingsegment.vue'
@@ -153,40 +153,56 @@ import SIGNDRAWING from '~/components/NKYC_Forms/photo&sign/signdraw.vue'
 import ADDITIONALINFO from '~/components/NKYC_Forms/photo&sign/documentconfirmation.vue'
 import THANKINGYOU from '~/components/thankyou.vue'
 
-const currentForm = ref('nkyclist') // default form
+const route = useRoute()
+const router = useRouter()
+
+const currentForm = ref(route.query.form || 'nkyclist')
 const data = ref({})
-const formHistory = ref([{ form: 'nkyclist', formData: {} }]) // store form and its data
+const formHistory = ref([{ form: currentForm.value, formData: {} }])
+
+// Update form when route query changes
+watch(() => route.query.form, (newForm) => {
+  if (newForm) {
+    currentForm.value = newForm
+    formHistory.value.push({ form: newForm, formData: {} })
+
+    // Remove query from URL after loading component
+    router.replace({ path: '/main' })
+  }
+})
+
 
 const handleUpdateDiv = (value, newData = {}) => {
-console.log("mydataval:", newData)
   currentForm.value = value
   data.value = newData
-  
-  // Store both form and data
+
+  // Clean URL without query
+  router.replace({ path: '/main' })
   formHistory.value.push({ form: value, formData: newData })
-  history.pushState({ div: value, formData: newData }, '', '')
 }
 
-const handleBackButton = (event) => {
+
+const handleBackButton = () => {
   if (formHistory.value.length > 1) {
     formHistory.value.pop()
     const previous = formHistory.value[formHistory.value.length - 1]
     currentForm.value = previous.form
     data.value = previous.formData || {}
+    router.replace({ query: { form: previous.form } })
   } else {
     history.back()
   }
 }
 
 onMounted(() => {
-// activepage()
-  history.replaceState({ div: 'nkyclist', formData: {} }, '', '')
+  history.replaceState({ div: currentForm.value, formData: {} }, '', '')
   window.addEventListener('popstate', handleBackButton)
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('popstate', handleBackButton)
 })
+
 </script>
 
 

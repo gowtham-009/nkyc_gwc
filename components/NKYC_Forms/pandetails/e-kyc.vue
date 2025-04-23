@@ -80,6 +80,9 @@
 <script setup>
 
 import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+const route=useRoute()
+const { url } = useUrlw3();
 
 const deviceHeight = ref(0);
 const rippleBtn = ref(null);
@@ -90,8 +93,11 @@ onMounted(() => {
     window.addEventListener('resize', () => {
         deviceHeight.value = window.innerHeight;
     });
-});
 
+    if(route.query.requestId){
+        digilocker_requestcheck()
+    }
+});
 
 
 
@@ -117,6 +123,106 @@ const back = () => {
 }
 
 
+const digilocker_create = async () => {
+  const apiurl = url.value + 'digilocker';
+  const url1 = 'http://localhost:3000/main?form=ekyc';
+  const url2 = 'http://localhost:3000/main?form=ekyc';
+
+  const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
+  const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
+
+  const redirecturl = JSON.stringify({
+    task: "url",
+    essentials: {
+      redirectTime: 1,
+      getScope: true,
+      docType: ["PANCR", "ADHAR"],
+      redirectUrl: url1,
+      callbackUrl: url2
+    }
+  });
+
+  const formData = new FormData();
+  formData.append('task', 'createUrl');
+  formData.append('brokerCode', 'UAT-KYC');
+  formData.append('appId', '1216');
+  formData.append('clientCode', 'gow001');
+  formData.append('rawPostData', redirecturl);
+
+  try {
+    const response = await fetch(apiurl, {
+      method: 'POST',
+      headers: {
+        'Authorization': authorization,
+        'Cookie': cookies
+      },
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    if(data.status=='ok'){
+        const url=data.metaData.result.url
+        window.location.href = url;
+    }
+
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+};
+
+
+const digilocker_requestcheck = async () => {
+  const apiurl = url.value + 'digilocker';
+  const requestqueryvalue = route.query.requestId;
+ 
+  const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
+  const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
+
+  const redirecturl = JSON.stringify({
+    task: "getDetails",
+    essentials: {
+        requestId: requestqueryvalue,
+     
+    }
+  });
+
+  const formData = new FormData();
+
+  formData.append('brokerCode', 'UAT-KYC');
+  formData.append('appId', '1216');
+  formData.append('clientCode', 'gow001');
+  formData.append('rawPostData', redirecturl);
+
+  try {
+    const response = await fetch(apiurl, {
+      method: 'POST',
+      headers: {
+        'Authorization': authorization,
+        'Cookie': cookies
+      },
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    if(data.status=='ok'){
+        const url=data.metaData.result.url
+        window.location.href = url;
+    }
+
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+};
+
+
 const handleButtonClick = () => {
     const button = rippleBtn.value
   const circle = document.createElement('span')
@@ -133,7 +239,8 @@ const handleButtonClick = () => {
 
   setTimeout(() => {
     circle.remove()
-    emit('updateDiv', 'pandetails');
+    digilocker_create()
+ //emit('updateDiv', 'pandetails');
   }, 600)
 };
 

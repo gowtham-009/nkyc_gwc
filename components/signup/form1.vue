@@ -59,7 +59,7 @@ import { ref, onMounted } from 'vue';
 import ThemeSwitch from '~/components/darkmode/darkmodesign.vue';
 import MobileInput from '~/components/forminputs/mobileinput.vue';
 import Checkbox from '~/components/forminputs/remembercheckbox.vue';
-const { url } = useUrl();
+const { ourl } = useUrl();
 
 
 
@@ -103,7 +103,7 @@ onMounted(() => {
 
 
 const sendmobileotp=async()=>{
-  const apiurl=url.value+'send-mobile-otp.php'
+  const apiurl=ourl.value+'send-mobile-otp.php'
 
   const formData=new FormData()
 

@@ -47,7 +47,7 @@ import ThemeSwitch from '~/components/darkmode/darkmodesign.vue';
 import EmailInput from '~/components/forminputs/emailinput.vue';
 import Button from 'primevue/button';
 
-const { url } = useUrl();
+const { ourl } = useUrl();
 
 const rippleBtn = ref(null)
 const emailid = ref('');
@@ -70,7 +70,7 @@ const isValidEmail = computed(() => {
 });
 
 const sendemailotp=async()=>{
-  const apiurl=url.value+'send-email-otp.php'
+  const apiurl=ourl.value+'send-email-otp.php'
  
   const formData=new FormData()
 

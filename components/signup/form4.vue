@@ -53,7 +53,7 @@ import emailOTP from '~/components/forminputs/otpinput.vue'
 import { ref, onMounted, watch, watchEffect, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-const { url } = useUrl();
+const { ourl } = useUrl();
 
 const deviceHeight = ref(0);
 const emit = defineEmits(['updateDiv']);
@@ -158,7 +158,7 @@ const handleBackButton = () => {
 
 const resend_sh = ref(false)
 const resendotp = async() => {
-    const apiurl=url.value+'send-email-otp.php'
+    const apiurl=ourl.value+'send-email-otp.php'
   const formData=new FormData()
 
   formData.append('emailId',props.data)

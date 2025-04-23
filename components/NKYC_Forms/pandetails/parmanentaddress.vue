@@ -91,6 +91,7 @@ const state = ref(props.data.KYC_DATA.APP_COR_STATE);
 const city = ref(props.data.KYC_DATA.APP_COR_CITY);
 const pincode = ref(props.data.KYC_DATA.APP_COR_PINCD);
 
+
 const commAddressRef = ref(null)
 onMounted(() => {
     deviceHeight.value = window.innerHeight;
@@ -98,6 +99,10 @@ onMounted(() => {
         deviceHeight.value = window.innerHeight;
     });
 });
+
+
+
+console.log(props.data.statelist)
 
 
 const handleButtonClick = () => {

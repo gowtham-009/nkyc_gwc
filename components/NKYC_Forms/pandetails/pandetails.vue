@@ -65,8 +65,8 @@ import Aadhar from '~/components/NKYC_Forms/pandetails/paninputs/aadhar.vue';
 import DOB from '~/components/NKYC_Forms/pandetails/paninputs/dateinput.vue'
 import Pancheck from '~/components/NKYC_Forms/pandetails/paninputs/pancheck.vue'
 
-const { url } = useUrl();
-
+const { ourl } = useUrl();
+const { url } = useUrlw3();
 const props = defineProps({
     data: {
         type: Object,
@@ -119,14 +119,22 @@ const back = () => {
 
 
 const panverification=async()=>{
-  const apiurl=url.value+'s-pan-verify.php'
+  const apiurl=url.value+'pan'
+  const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
+
   const formData=new FormData()
 
-  formData.append('pan',panno.value)
-  formData.append('name','')
+  formData.append('panNo',panno.value)
+  formData.append('panName','VIJAY')
+  formData.append('brokerCode','UAT-KYC')
+  formData.append('appId','1216')
+  formData.append('clientCode','W3VJ1')
   try {
     const response=await fetch(apiurl,{
       method:'POST',
+      headers: {
+        'Authorization':authorization,
+      },
       body:formData
       
     })
@@ -135,10 +143,10 @@ const panverification=async()=>{
     }
     else{
       const data=await response.json()
-      if(data.result.panStatus=='VALID'){
+      if(data.status=='ok'){
         pannameshow.value=true
         paninvalidshow.value=false
-        clientname.value=data.result.name
+        clientname.value=data.metaData.full_name
       }
      
     
@@ -168,10 +176,10 @@ const kraaddresssubmission=async()=>{
 
     const formattedDate = `${day}/${month}/${year}`;
   
-  const apiurl=url.value+'get-kra-data.php'
+  const apiurl=ourl.value+'get-kra-data.php'
   const formData=new FormData()
 
-  formData.append('pan',panno.value)
+  formData.append('pan','ESYPR8764J')
   formData.append('dob',formattedDate)
   try {
     const response=await fetch(apiurl,{
@@ -197,14 +205,7 @@ const kraaddresssubmission=async()=>{
 
 
 const handleButtonClick = () => {
-  let statusvalue
-   if(props.data=='failed'){
-        statusvalue=props.data
-   }
-   else{
-    statusvalue=''
-   }
-   const button = rippleBtn.value
+ const button = rippleBtn.value
   const circle = document.createElement('span')
   circle.classList.add('ripple')
 

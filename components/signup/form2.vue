@@ -50,7 +50,7 @@
 import ThemeSwitch from '~/components/darkmode/darkmodesign.vue';
 import phoneOTP from '~/components/forminputs/otpinput.vue'
 import { ref, onMounted, watch, watchEffect, onUnmounted } from 'vue';
-const { url } = useUrl();
+const { ourl } = useUrl();
 const deviceHeight = ref(0);
 const emit = defineEmits(['updateDiv']);
 const timeLeft = ref(60); // Start from 60 seconds
@@ -147,7 +147,7 @@ const back=()=>{
 
 const resend_sh=ref(false)
 const resendotp=async()=>{
-    const apiurl=url.value+'send-mobile-otp.php'
+    const apiurl=ourl.value+'send-mobile-otp.php'
 
   const formData=new FormData()
 
