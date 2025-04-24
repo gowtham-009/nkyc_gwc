@@ -140,7 +140,7 @@ const back = () => {
 
 
 const digilocker_create = async () => {
-    alert('on')
+   
     const apiurl = url.value + 'digilocker';
     const url1 = 'https://nkyc-gwc.vercel.app/loading';
     const url2 = 'https://nkyc-gwc.vercel.app/loading';
@@ -182,7 +182,7 @@ const digilocker_create = async () => {
 
         const data = await response.json();
         if (data.status == 'ok') {
-            alert('digi')
+        
             const url = data.metaData.result.url
             window.location.href = url;
         }
@@ -209,7 +209,7 @@ const digilocker_create = async () => {
 
         setTimeout(() => {
             circle.remove()
-            alert('handling')
+         
             digilocker_create()
             
         }, 600)
