@@ -138,11 +138,11 @@ const bankaccount=async()=>{
 }
 
 
-watch(panno,(newval)=>{
-    if(newval.length>9){
-        panverification()
-    }
-})
+// watch(panno,(newval)=>{
+//     if(newval.length>9){
+//         panverification()
+//     }
+// })
 
 
 
