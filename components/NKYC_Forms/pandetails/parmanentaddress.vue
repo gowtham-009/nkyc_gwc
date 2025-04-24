@@ -78,10 +78,10 @@
   });
   
 
-  const address = ref(props.data.KYC_DATA.APP_COR_ADD1 || '');
+  const address = ref(props.data.KYC_DATA.APP_COR_ADD1?props.data.KYC_DATA.APP_COR_ADD1 : '');
   const state = ref('');
-  const city = ref(props.data.KYC_DATA.APP_COR_CITY || '');
-  const pincode = ref(props.data.KYC_DATA.APP_COR_PINCD || '');
+  const city = ref(props.data.KYC_DATA.APP_COR_CITY?props.data.KYC_DATA.APP_COR_CITY : '');
+  const pincode = ref(props.data.KYC_DATA.APP_COR_PINCD?props.data.KYC_DATA.APP_COR_PINCD :'');
   const deviceHeight = ref(window.innerHeight);
   const commAddressRef = ref(null);
   
