@@ -193,8 +193,6 @@ const digilocker_create = async () => {
 };
 
 
-
-
     const handleButtonClick = () => {
         const button = rippleBtn.value
         const circle = document.createElement('span')
