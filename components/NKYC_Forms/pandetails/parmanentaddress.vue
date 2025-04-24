@@ -1,5 +1,6 @@
 <template>
     <div class="primary_color">
+      <!-- Header -->
       <div
         class="flex justify-between primary_color items-center px-3"
         :style="{ height: deviceHeight * 0.08 + 'px' }"
@@ -8,6 +9,7 @@
         <profile />
       </div>
   
+      <!-- Content Area -->
       <div
         class="flex justify-between p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
         :style="{ height: deviceHeight * 0.92 + 'px' }"
@@ -20,23 +22,14 @@
             Please confirm your address as per the documents you have uploaded.
           </p>
   
-          <div class="w-full mt-1">
-            <Address v-model="address" />
-          </div>
-          <div class="w-full mt-1">
-            <State v-model="state" />
-          </div>
-          <div class="w-full mt-1">
-            <City v-model="city" />
-          </div>
-          <div class="w-full mt-1">
-            <Pincode v-model="pincode" />
-          </div>
-          <div class="w-full mt-1">
-            <Addresscheck ref="commAddressRef" />
-          </div>
+          <div class="w-full mt-1"><Address v-model="address" /></div>
+          <div class="w-full mt-1"><State v-model="state" /></div>
+          <div class="w-full mt-1"><City v-model="city" /></div>
+          <div class="w-full mt-1"><Pincode v-model="pincode" /></div>
+          <div class="w-full mt-1"><Addresscheck ref="commAddressRef" /></div>
         </div>
   
+        <!-- Buttons -->
         <div class="w-full flex gap-2">
           <Button
             @click="back"
@@ -51,7 +44,7 @@
             @click="handleButtonClick"
             ref="rippleBtn"
             :disabled="!address || !state || !city || !pincode"
-            class="primary_color wave-btn text-white w-5/6 py-4 text-xl border-0"
+            class="primary_color wave-btn text-white w-5/6 py-4 text-xl border-0 relative overflow-hidden"
           >
             {{ buttonText }}
             <span v-if="isAnimating" class="wave"></span>
@@ -62,7 +55,7 @@
   </template>
   
   <script setup>
-  import { ref, onMounted } from 'vue';
+  import { ref, onMounted, onBeforeUnmount } from 'vue';
   import Address from '~/components/NKYC_Forms/pandetails/paninputs/address.vue';
   import State from '~/components/NKYC_Forms/pandetails/paninputs/state.vue';
   import City from '~/components/NKYC_Forms/pandetails/paninputs/city.vue';
@@ -73,43 +66,45 @@
   const props = defineProps({
     data: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   });
   
-
-  const address = ref(props.data.KYC_DATA.APP_COR_ADD1?props.data.KYC_DATA.APP_COR_ADD1 : '');
+  const address = ref(props.data?.KYC_DATA?.APP_COR_ADD1 || '');
+  const city = ref(props.data?.KYC_DATA?.APP_COR_CITY || '');
+  const pincode = ref(props.data?.KYC_DATA?.APP_COR_PINCD || '');
   const state = ref('');
-  const city = ref(props.data.KYC_DATA.APP_COR_CITY?props.data.KYC_DATA.APP_COR_CITY : '');
-  const pincode = ref(props.data.KYC_DATA.APP_COR_PINCD?props.data.KYC_DATA.APP_COR_PINCD :'');
   const deviceHeight = ref(window.innerHeight);
-  const commAddressRef = ref(null);
   
-  const buttonText = ref('Continue');
+  const commAddressRef = ref(null);
   const rippleBtn = ref(null);
   const rippleBtnback = ref(null);
+  const buttonText = ref('Continue');
   const isAnimating = ref(false);
   
-  if (props.data && props.data.KYC_DATA?.APP_COR_STATE) {
+  // Set state value from code
+  if (props.data?.KYC_DATA?.APP_COR_STATE) {
     const stateCode = String(props.data.KYC_DATA.APP_COR_STATE);
     state.value = props.data.statelist[stateCode] || '';
   }
   
+  // Resize listener
+  const updateHeight = () => {
+    deviceHeight.value = window.innerHeight;
+  };
   onMounted(() => {
-    const updateHeight = () => {
-      deviceHeight.value = window.innerHeight;
-    };
     window.addEventListener('resize', updateHeight);
   });
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', updateHeight);
+  });
   
+  // Navigation handlers
   const handleButtonClick = (event) => {
     animateRipple(rippleBtn.value, event);
     setTimeout(() => {
-      if (!commAddressRef.value?.confirm) {
-        emit('updateDiv', 'communicationaddress');
-      } else {
-        emit('updateDiv', 'submission', '1');
-      }
+      const isConfirmed = commAddressRef.value?.confirm;
+      emit('updateDiv', isConfirmed ? 'submission' : 'communicationaddress', isConfirmed ? '1' : undefined);
     }, 600);
   };
   
@@ -120,17 +115,18 @@
     }, 600);
   };
   
+  // Ripple animation
   function animateRipple(buttonRef, event) {
     const button = buttonRef?.$el || buttonRef;
-    const circle = document.createElement('span');
-    circle.classList.add('ripple');
+    const ripple = document.createElement('span');
+    ripple.classList.add('ripple');
   
     const rect = button.getBoundingClientRect();
-    circle.style.left = `${event.clientX - rect.left}px`;
-    circle.style.top = `${event.clientY - rect.top}px`;
+    ripple.style.left = `${event.clientX - rect.left}px`;
+    ripple.style.top = `${event.clientY - rect.top}px`;
   
-    button.appendChild(circle);
-    setTimeout(() => circle.remove(), 600);
+    button.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
   }
   </script>
   
@@ -144,6 +140,7 @@
     width: 100px;
     height: 100px;
     pointer-events: none;
+    z-index: 10;
   }
   
   @keyframes ripple-animation {
