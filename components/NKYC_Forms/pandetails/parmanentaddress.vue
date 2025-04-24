@@ -22,7 +22,9 @@
             Please confirm your address as per the documents you have uploaded.
           </p>
   
+
           <div class="w-full mt-1"><Address v-model="address" /></div>
+          <div class="w-full mt-1"><Address2 v-model="address2" /></div>
           <div class="w-full mt-1"><State v-model="state" /></div>
           <div class="w-full mt-1"><City v-model="city" /></div>
           <div class="w-full mt-1"><Pincode v-model="pincode" /></div>
@@ -57,6 +59,7 @@
   <script setup>
   import { ref, onMounted, onBeforeUnmount } from 'vue';
   import Address from '~/components/NKYC_Forms/pandetails/paninputs/address.vue';
+  import Address2 from '~/components/NKYC_Forms/pandetails/paninputs/address2.vue';
   import State from '~/components/NKYC_Forms/pandetails/paninputs/state.vue';
   import City from '~/components/NKYC_Forms/pandetails/paninputs/city.vue';
   import Pincode from '~/components/NKYC_Forms/pandetails/paninputs/pincode.vue';
@@ -71,6 +74,7 @@
   });
   
   const address = ref(props.data?.KYC_DATA?.APP_COR_ADD1 || '');
+  const address2 = ref('');
   const city = ref(props.data?.KYC_DATA?.APP_COR_CITY || '');
   const pincode = ref(props.data?.KYC_DATA?.APP_COR_PINCD || '');
   const state = ref('');
