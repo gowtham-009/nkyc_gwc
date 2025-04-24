@@ -170,7 +170,7 @@ function back() {
         emit('updateDiv', 'nominee')
     }
     else if (props.data == 3) {
-        emit('updateDiv', 'bank1')
+        emit('updateDiv', 'bank4')
     }
     else if (props.data == 4) {
         emit('updateDiv', 'uploadsign')
