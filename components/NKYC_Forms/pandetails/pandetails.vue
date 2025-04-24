@@ -5,7 +5,7 @@
             <logo style="width: 40px; height: 40px;"/>
             <profile/>
         </div>
-        <div class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
+        <div  v-if="content" class="flex justify-between  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
             :style="{ height: deviceHeight * 0.92 + 'px' }">
             <div class="w-full mt-2 p-1 px-2">
                 <p class="text-2xl  text-blue-950 font-medium dark:text-gray-400">
@@ -50,6 +50,11 @@
             </div>
 
         </div>
+
+        <div v-if="loading" class="flex justify-center items-center  p-2 flex-col bg-white rounded-t-3xl dark:bg-black"
+        :style="{ height: deviceHeight * 0.92 + 'px' }">
+          <ProgressSpinner />
+        </div>
     </div>
 
 
@@ -75,7 +80,8 @@ const props = defineProps({
     },
 });
 
-
+const content=ref(true)
+const loading=ref(false)
 const deviceHeight = ref(0);
 const rippleBtn = ref(null);
 const rippleBtnback = ref(null)
@@ -207,6 +213,9 @@ const kraaddresssubmission=async()=>{
 
 
 const digilocker_Pullfile = async () => {
+  content.value=false
+  loading.value=true
+
     const apiurl = url.value + 'digilocker';
     const requestqueryvalue = localStorage.getItem('requestid');
 
@@ -246,6 +255,7 @@ const digilocker_Pullfile = async () => {
         else {
             const successdata = await response.json()
             if(successdata.metaData.result.pdf){
+            
               kraaddresssubmission()
             }
 
