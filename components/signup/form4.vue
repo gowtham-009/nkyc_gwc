@@ -21,7 +21,7 @@
                     </div>
                     <div class="w-full mt-1 flex justify-between items-center">
                         <h2 class="font-medium text-md dark:text-gray-500">00:{{ timeLeft.toString().padStart(2, '0')
-                            }}s</h2>
+                        }}s</h2>
 
                         <span @click="resendotp" class="text-xl font-medium text-blue-500 cursor-pointer ">Resend</span>
                     </div>
@@ -50,7 +50,7 @@
 <script setup>
 import ThemeSwitch from '~/components/darkmode/darkmodesign.vue';
 import emailOTP from '~/components/forminputs/otpinput.vue'
-import { ref, onMounted, watch, watchEffect, onUnmounted } from 'vue';
+import { ref, onMounted, watchEffect, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const { ourl } = useUrl();
@@ -111,7 +111,16 @@ watchEffect(() => {
 const isOtpValid = computed(() =>
     e_otp.value.length === 6
 );
+
+const randomtoken = () => {
+    let token = ''
+    for (var i = 0; i <= 30; i++) {
+        token += Math.floor(Math.random() * 10)
+    }
+    return token
+}
 const router = useRouter()
+
 const nkyclist = () => {
     const button = rippleBtn.value
     const circle = document.createElement('span')
@@ -127,27 +136,33 @@ const nkyclist = () => {
     button.$el.appendChild(circle)
     setTimeout(() => {
         circle.remove()
+        let tokenval = randomtoken()
+        let response = new Response(JSON.stringify({ value: tokenval }));
+
+        caches.open("my-cache").then(cache => {
+            cache.put("/my-value", response);
+        });
         router.push('/main')
     }, 600)
 }
 const back = () => {
     const button = rippleBtnback.value
-  const circle = document.createElement('span')
-  circle.classList.add('ripple')
+    const circle = document.createElement('span')
+    circle.classList.add('ripple')
 
-  const rect = button.$el.getBoundingClientRect()
-  const x = event.clientX - rect.left
-  const y = event.clientY - rect.top
+    const rect = button.$el.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
 
-  circle.style.left = `${x}px`
-  circle.style.top = `${y}px`
-  button.$el.appendChild(circle)
+    circle.style.left = `${x}px`
+    circle.style.top = `${y}px`
+    button.$el.appendChild(circle)
 
-  setTimeout(() => {
-    circle.remove()
-    emit('updateDiv', 'div3');
-  }, 600)
-   
+    setTimeout(() => {
+        circle.remove()
+        emit('updateDiv', 'div3');
+    }, 600)
+
 }
 
 const handleBackButton = () => {
@@ -157,31 +172,31 @@ const handleBackButton = () => {
 };
 
 const resend_sh = ref(false)
-const resendotp = async() => {
-    const apiurl=ourl.value+'send-email-otp.php'
-  const formData=new FormData()
+const resendotp = async () => {
+    const apiurl = ourl.value + 'send-email-otp.php'
+    const formData = new FormData()
 
-  formData.append('emailId',props.data)
-  formData.append('otpCode','789564')
-  try {
-    const response=await fetch(apiurl,{
-      method:'POST',
-      body:formData
-      
-    })
-    if(!response.ok){
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    formData.append('emailId', props.data)
+    formData.append('otpCode', '789564')
+    try {
+        const response = await fetch(apiurl, {
+            method: 'POST',
+            body: formData
+
+        })
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        else {
+            const data = await response.json()
+            if (data.Message == 'OK') {
+                resend_sh.value = true
+            }
+        }
+    } catch (error) {
+        console.error(error.message)
     }
-    else{
-      const data=await response.json()
-      if(data.Message=='OK'){
-        resend_sh.value = true
-      }
-    }
-  } catch (error) {
-    console.error(error.message)
-  }
-   
+
 }
 </script>
 

@@ -1,5 +1,6 @@
 <template>
  
+   <div class="w-full" v-if='Authenticated'>
     <div v-if="currentForm === 'nkyclist'">
     <NKYCList @updateDiv="handleUpdateDiv" />
   </div>
@@ -11,9 +12,9 @@
     <EKYC @updateDiv="handleUpdateDiv" />
   </div>
   
-  <!-- <div v-if="currentForm === 'digilockersubmission'">
-    <DIGILOCKSUBMISSION @updateDiv="handleUpdateDiv" />
-  </div> -->
+  <div v-if="currentForm === 'digilockdata'">
+    <DIGILOCKDATA :data="data" @updateDiv="handleUpdateDiv" />
+  </div>
 
   
 
@@ -114,6 +115,7 @@
   <div v-if="currentForm === 'thankyou'">
     <THANKINGYOU @updateDiv="handleUpdateDiv" />
   </div>
+   </div>
 </template>
 
 <script setup>
@@ -123,6 +125,7 @@ import { useRoute, useRouter } from 'vue-router'
 import NKYCList from '~/components/NKYC_Forms/nkyclist.vue'
 import PAN_d from '~/components/NKYC_Forms/pandetails/pandetails.vue'
 import EKYC from '~/components/NKYC_Forms/pandetails/e-kyc.vue'
+import DIGILOCKDATA from '~/components/NKYC_Forms/pandetails/digilockdata.vue'
 import PARMANENTADDRESS from '~/components/NKYC_Forms/pandetails/parmanentaddress.vue'
 import FAILEDSTATUS from '~/components/NKYC_Forms/pandetails/faildstatus.vue'
 import COMMUNICATIONADDRESS from '~/components/NKYC_Forms/pandetails/communicationaddress.vue'
@@ -153,6 +156,7 @@ import SIGNDRAWING from '~/components/NKYC_Forms/photo&sign/signdraw.vue'
 import ADDITIONALINFO from '~/components/NKYC_Forms/photo&sign/documentconfirmation.vue'
 import THANKINGYOU from '~/components/thankyou.vue'
 
+const Authenticated=ref(false)
 const route = useRoute()
 const router = useRouter()
 
@@ -197,6 +201,21 @@ const handleBackButton = () => {
 onMounted(() => {
   history.replaceState({ div: currentForm.value, formData: {} }, '', '')
   window.addEventListener('popstate', handleBackButton)
+  caches.open("my-cache").then(cache => {
+  cache.match("/my-value").then(response => {
+    if (response) {
+      response.json().then(data => {
+      if(data.value){
+          Authenticated.value=true
+      }
+      
+      });
+    } else {
+      router.push('/');
+    }
+  });
+});
+
 })
 
 onBeforeUnmount(() => {

@@ -28,10 +28,12 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { useRouter } from 'vue-router'
 const gust = ref('Guest')
 const dropdownOpen = ref(false)
 const dropdownRef = ref(null)
 
+const router = useRouter()
 function toggleDropdown() {
     dropdownOpen.value = !dropdownOpen.value
 }
@@ -50,6 +52,19 @@ onMounted(() => {
 onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside)
 })
+
+function logout(){
+    caches.open("my-cache").then(cache => {
+  cache.delete("/my-value").then(success => {
+    if (success) {
+        router.push('/')
+    } else {
+      console.log("Cache entry not found or couldn't be removed.");
+    }
+  });
+});
+
+}
 </script>
 
 <style scoped>

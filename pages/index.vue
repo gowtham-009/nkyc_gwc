@@ -1,4 +1,5 @@
 <template>
+ <div class="w-full" v-if="Authenticated">
   <div v-if="currentForm === 'div1'">
     <form1 @updateDiv="handleUpdateDiv" />
   </div>
@@ -11,11 +12,12 @@
   <div v-if="currentForm === 'div4'">
     <form4 :data="data" @updateDiv="handleUpdateDiv" />
   </div>
+ </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount  } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import form1 from '~/components/signup/form1.vue';
 import form2 from '~/components/signup/form2.vue';
 import form3 from '~/components/signup/form3.vue';
@@ -23,7 +25,7 @@ import form4 from '~/components/signup/form4.vue';
 
 const data = ref({});
 const currentForm = ref('div1');
-
+const Authenticated=ref(false)
 const formHistory = ref(['div1']); // History stack to track form flow
 const route = useRoute();
 
@@ -45,6 +47,7 @@ const handleBackButton = () => {
   }
 };
 
+const router=useRouter()
 onMounted(() => {
   const initial = route.query.signup;
   if (initial) {
@@ -53,6 +56,25 @@ onMounted(() => {
   }
   history.replaceState({ div: currentForm.value }, '', '');
   window.addEventListener('popstate', handleBackButton);
+
+  caches.open("my-cache").then(cache => {
+  cache.match("/my-value").then(response => {
+    if (response) {
+      response.json().then(data => {
+       if(data.value){
+        Authenticated.value=false
+        router.push('/main')
+       }
+      });
+    } else {
+      router.push('/')
+      Authenticated.value=true
+    }
+  });
+});
+
+
+
 });
 
 onBeforeUnmount(() => {
