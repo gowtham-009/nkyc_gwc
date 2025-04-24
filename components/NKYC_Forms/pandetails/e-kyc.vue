@@ -141,8 +141,8 @@ const back = () => {
 
 const digilocker_create = async () => {
     const apiurl = url.value + 'digilocker';
-    const url1 = 'http://localhost:3000/loading';
-    const url2 = 'http://localhost:3000/loading';
+    const url1 = 'https://nkyc-gwc.vercel.app/main?form=ekyc';
+    const url2 = 'https://nkyc-gwc.vercel.app/main??form=ekyc';
 
     const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
     const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
@@ -190,6 +190,122 @@ const digilocker_create = async () => {
         console.error('Error:', error.message);
     }
 };
+
+
+
+const digilocker_requestcheck = async () => {
+
+    const apiurl = url.value + 'digilocker';
+    const requestqueryvalue = route.query.requestId;
+
+    const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
+    const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
+
+    const redirecturl = JSON.stringify({
+        task: "getDetails",
+        essentials: {
+            requestId: requestqueryvalue,
+
+        }
+    });
+
+    const formData = new FormData();
+
+    formData.append('brokerCode', 'UAT-KYC');
+    formData.append('appId', '1216');
+    formData.append('clientCode', 'gow001');
+    formData.append('rawPostData', redirecturl);
+
+    try {
+        const response = await fetch(apiurl, {
+            method: 'POST',
+            headers: {
+                'Authorization': authorization,
+                'Cookie': cookies
+            },
+            body: formData
+        });
+
+       
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        else {
+            const successdata = await response.json()
+
+            if(successdata.metaData.result.files[0].doctype){
+                const files_id=[]
+                successdata.metaData.result.files.forEach(element => {
+                  files_id.push(element.id)
+                });
+                
+                 digilockerGetFiles(files_id)
+            }
+        } 
+       
+    }
+
+    catch (error) {
+            console.error('Error:', error.message);
+            emit('updateDiv', 'ekyc');
+            content.value = true;
+            loading.value = false;
+        }
+
+}
+
+const digilockerGetFiles = async (id) => {
+   
+   const apiurl = url.value + 'digilocker';
+   const requestqueryvalue = route.query.requestId;
+
+   const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
+   const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
+
+   const redirecturl = JSON.stringify({
+       task: "getFiles",
+       essentials: {
+           requestId: requestqueryvalue,
+           fileIds: id
+
+       }
+   });
+
+   const formData = new FormData();
+
+   formData.append('brokerCode', 'UAT-KYC');
+   formData.append('appId', '1216');
+   formData.append('clientCode', 'gow001');
+   formData.append('rawPostData', redirecturl);
+
+   try {
+       const response = await fetch(apiurl, {
+           method: 'POST',
+           headers: {
+               'Authorization': authorization,
+               'Cookie': cookies
+           },
+           body: formData
+       });
+
+       if (!response.ok) {
+           throw new Error(`HTTP error! Status: ${response.status}`);
+       }
+       else {
+           const data = await response.json()
+           if(data.metaData.result.files[0].file){
+            emit('updateDiv', 'pandetails', route.query.requestId);
+           }
+         
+       } 
+      
+   }
+
+   catch (error) {
+           console.error('Error:', error.message);
+       }
+
+}
 
 
     const handleButtonClick = () => {

@@ -80,6 +80,7 @@ const props = defineProps({
     },
 });
 
+
 const content=ref(true)
 const loading=ref(false)
 const deviceHeight = ref(0);
@@ -95,7 +96,7 @@ const pannameshow=ref(false)
 const paninvalidshow=ref(false)
 const panerror=ref('')
 onMounted(() => {
-  console.log("requestid",route.query.form)
+
     deviceHeight.value = window.innerHeight;
     window.addEventListener('resize', () => {
         deviceHeight.value = window.innerHeight;
@@ -217,7 +218,7 @@ const digilocker_Pullfile = async () => {
   loading.value=true
 
     const apiurl = url.value + 'digilocker';
-    const requestqueryvalue = localStorage.getItem('requestid');
+    const requestqueryvalue = props.data;
 
     const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
     const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
