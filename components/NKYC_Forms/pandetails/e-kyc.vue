@@ -141,6 +141,8 @@ const back = () => {
 
 const digilocker_create = async () => {
     const apiurl = url.value + 'digilocker';
+    // const url1 = 'https://localhost:3000/main?form=ekyc';
+    // const url2 = 'https://localhost:3000/main??form=ekyc';
     const url1 = 'https://nkyc-gwc.vercel.app/main?form=ekyc';
     const url2 = 'https://nkyc-gwc.vercel.app/main??form=ekyc';
 

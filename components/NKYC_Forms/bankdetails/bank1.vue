@@ -98,7 +98,7 @@ onMounted(() => {
     });
 });
 
-const bankaccount=async()=>{
+const bankaccountverfication=async()=>{
   const apiurl=url.value+'bank'
   const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
   const formData=new FormData()
@@ -107,6 +107,9 @@ const bankaccount=async()=>{
   formData.append('appId','1216')
   formData.append('clientCode','W3VJ1')
   formData.append('bankAccNo',accno.value)
+  formData.append('bankIfsc',ifsc.value)
+  formData.append('clientName',localStorage.getItem('clientname'))
+  formData.append('clientMobile',localStorage.getItem('mobilenumber'))
   try {
     const response=await fetch(apiurl,{
       method:'POST',
@@ -121,11 +124,7 @@ const bankaccount=async()=>{
     }
     else{
       const data=await response.json()
-      if(data.status=='ok'){
-        pannameshow.value=true
-        paninvalidshow.value=false
-        clientname.value=data.metaData.full_name
-      }
+     
      
     
     }
@@ -138,12 +137,12 @@ const bankaccount=async()=>{
 }
 
 
-// watch(panno,(newval)=>{
-//     if(newval.length>9){
-//         panverification()
-//     }
-// })
-
+watch([accno, ifsc], ([newAccno, newIfsc]) => {
+  if (newAccno && newIfsc) {
+  
+    bankaccountverfication();
+  }}
+)
 
 
 const handleButtonClick = () => {

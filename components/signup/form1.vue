@@ -103,6 +103,7 @@ onMounted(() => {
 
 
 const sendmobileotp=async()=>{
+  localStorage.setItem('mobilenumber', mobileNumber.value)
   const apiurl=ourl.value+'send-mobile-otp.php'
 
   const formData=new FormData()

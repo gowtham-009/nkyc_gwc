@@ -69,7 +69,6 @@ import Aadhar from '~/components/NKYC_Forms/pandetails/paninputs/aadhar.vue';
 
 import DOB from '~/components/NKYC_Forms/pandetails/paninputs/dateinput.vue'
 import Pancheck from '~/components/NKYC_Forms/pandetails/paninputs/pancheck.vue'
-import { useRoute } from 'vue-router';
 
 const { url } = useUrlw3();
 const { ourl } = useUrl();
@@ -216,7 +215,7 @@ const kraaddresssubmission=async()=>{
 const digilocker_Pullfile = async () => {
   content.value=false
   loading.value=true
-
+  localStorage.getItem('clientname',clientname.value)
     const apiurl = url.value + 'digilocker';
     const requestqueryvalue = props.data;
 
