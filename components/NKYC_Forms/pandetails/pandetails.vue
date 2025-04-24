@@ -215,7 +215,7 @@ const kraaddresssubmission=async()=>{
 const digilocker_Pullfile = async () => {
   content.value=false
   loading.value=true
-  localStorage.getItem('clientname',clientname.value)
+ 
     const apiurl = url.value + 'digilocker';
     const requestqueryvalue = props.data;
 

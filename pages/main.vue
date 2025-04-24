@@ -202,7 +202,7 @@ const handleBackButton = () => {
 }
 
 onMounted(() => {
-  router.replace({ query: {} })
+  //router.replace({ query: {} })
   history.replaceState({ div: currentForm.value, formData: {} }, '', '')
   window.addEventListener('popstate', handleBackButton)
   caches.open("my-cache").then(cache => {
