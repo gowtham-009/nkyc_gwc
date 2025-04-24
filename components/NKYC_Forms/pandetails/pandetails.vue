@@ -70,7 +70,7 @@ import Aadhar from '~/components/NKYC_Forms/pandetails/paninputs/aadhar.vue';
 import DOB from '~/components/NKYC_Forms/pandetails/paninputs/dateinput.vue'
 import Pancheck from '~/components/NKYC_Forms/pandetails/paninputs/pancheck.vue'
 import { useRoute } from 'vue-router';
-const route=useRoute()
+
 const { url } = useUrlw3();
 const { ourl } = useUrl();
 const props = defineProps({

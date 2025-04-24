@@ -11,6 +11,8 @@
                 <p class="text-2xl text-blue-900 font-medium dark:text-gray-400">
                     Additional information
                 </p>
+                <p class="text-gray-500 leading-5 font-normal text-sm mt-2">These details are required by SEBI to open
+                    your Demat Account Document</p>
 
 
                 <Dialog v-model:visible="visible" modal header="Document" >
@@ -65,10 +67,20 @@
 
 
             </div>
-        </div>
-        <input type="file" ref="fileInput" @change="handleFileChange" accept="image/*" class="hidden" />
 
-    </div>
+            <div class="w-full flex gap-2" >
+                <Button @click="back()" ref="rippleBtnback"  class="primary_color cursor-pointer border-0 text-white w-1/6 dark:bg-slate-900">
+                <i class="pi pi-angle-left text-3xl dark:text-white"></i>
+            </Button>
+                <Button type="button" ref="rippleBtn"  @click="handleButton"
+                    class=" primary_color wave-btn text-white w-5/6 py-4 text-xl border-0  ">
+                    {{ buttonText }}
+                </Button>
+            </div>
+
+        </div>
+        </div>
+   
 </template>
 <script setup>
 
@@ -81,11 +93,13 @@ import Option5 from '~/components/NKYC_Forms/photo&sign/questionoption/radioques
 import Option6 from '~/components/NKYC_Forms/photo&sign/questionoption/radioquestionoption6.vue'
 import Option7 from '~/components/NKYC_Forms/photo&sign/questionoption/radioquestionoption7.vue'
 import Option8 from '~/components/NKYC_Forms/photo&sign/questionoption/radioquestionoption8.vue'
-
+const emit = defineEmits(['updateDiv']);
 const deviceHeight = ref(0);
 
 const visible = ref(true)
-
+const rippleBtn = ref(null);
+const rippleBtnback = ref(null)
+const buttonText = ref("Continue");
 const question1=ref('')
 const question2=ref('')
 const question3=ref('')
@@ -109,13 +123,28 @@ onMounted(() => {
 
 
 
-const emit = defineEmits(['updateDiv']);
+
+
+
 const back = () => {
+    const button = rippleBtnback.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
 
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
     emit('updateDiv', 'signdraw');
+  }, 600)
+   
 }
-
-
 
 
 
@@ -125,5 +154,26 @@ const handleButtonClick = () => {
     emit('updateDiv', 'submission', '5');
 };
 
+
+const handleButton = () => {
+ const button = rippleBtn.value
+  const circle = document.createElement('span')
+  circle.classList.add('ripple')
+
+  const rect = button.$el.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+
+  circle.style.left = `${x}px`
+  circle.style.top = `${y}px`
+
+  button.$el.appendChild(circle)
+
+  setTimeout(() => {
+    circle.remove()
+
+    emit('updateDiv', 'submission', '5');
+  }, 600)
+};
 
 </script>
