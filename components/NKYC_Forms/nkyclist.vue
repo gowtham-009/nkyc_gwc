@@ -162,6 +162,16 @@ function back() {
 
   setTimeout(() => {
     circle.remove()
+    caches.open("my-cache").then(cache => {
+  cache.delete("/my-value").then(success => {
+    if (success) {
+        console.log("Cache  removed.");
+    } else {
+      console.log("Cache entry not found or couldn't be removed.");
+    }
+  });
+});
+
     router.push({
         name: 'index',
         query: { signup: 4 }

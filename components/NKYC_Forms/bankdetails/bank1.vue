@@ -77,6 +77,8 @@ import IFSC from '~/components/NKYC_Forms/bankdetails/bankinputs/ifsc.vue'
 import MICR from '~/components/NKYC_Forms/bankdetails/bankinputs/micr.vue'
 import Address from '~/components/NKYC_Forms/bankdetails/bankinputs/address.vue'
 const emit = defineEmits(['updateDiv']);
+
+const { url } = useUrlw3();
 const deviceHeight = ref(0);
 const rippleBtn = ref(null);
 const rippleBtnback = ref(null)
@@ -96,7 +98,51 @@ onMounted(() => {
     });
 });
 
+const bankaccount=async()=>{
+  const apiurl=url.value+'bank'
+  const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
+  const formData=new FormData()
 
+  formData.append('brokerCode','UAT-KYC')
+  formData.append('appId','1216')
+  formData.append('clientCode','W3VJ1')
+  formData.append('bankAccNo',accno.value)
+  try {
+    const response=await fetch(apiurl,{
+      method:'POST',
+      headers: {
+        'Authorization':authorization,
+      },
+      body:formData
+      
+    })
+    if(!response.ok){
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    else{
+      const data=await response.json()
+      if(data.status=='ok'){
+        pannameshow.value=true
+        paninvalidshow.value=false
+        clientname.value=data.metaData.full_name
+      }
+     
+    
+    }
+  } catch (error) {
+    console.error(error.message)
+    paninvalidshow.value=true
+    pannameshow.value=false
+    panerror.value='PAN number is not valid!'
+  }
+}
+
+
+watch(panno,(newval)=>{
+    if(newval.length>9){
+        panverification()
+    }
+})
 
 
 

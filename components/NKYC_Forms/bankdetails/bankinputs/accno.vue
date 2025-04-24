@@ -10,7 +10,7 @@
         type="text" 
       
         @input="validateInput"
-        maxlength="10"
+        maxlength="18"
       />
     </div>
   </template>
@@ -26,7 +26,7 @@
   
   // Keep only numbers and limit to 10 digits
   const validateInput = (e) => {
-    let value = e.target.value.replace(/\D/g, '').slice(0, 17);
+    let value = e.target.value.replace(/\D/g, '').slice(0, 18);
     accno.value = value;
     e.target.value = value;
   };

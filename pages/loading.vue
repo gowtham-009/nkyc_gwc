@@ -20,66 +20,146 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-const emit = defineEmits(['updateDiv']);
+import { useRouter, useRoute } from 'vue-router';
 
-const buttonText = ref("Continue");
-const rippleBtn = ref(null);
-const rippleBtnback = ref(null)
+const { url } = useUrlw3();
+const router = useRouter();
+const route=useRoute()
 const deviceHeight = ref(0);
 onMounted(() => {
     deviceHeight.value = window.innerHeight;
     window.addEventListener('resize', () => {
         deviceHeight.value = window.innerHeight;
     });
+
+    if(route.query.requestId){
+        digilocker_requestcheck()
+    }
 });
 
 
 
-const handleButtonClick = () => {
-    const button = rippleBtn.value
-    const circle = document.createElement('span')
-    circle.classList.add('ripple')
 
-    const rect = button.$el.getBoundingClientRect()
-    const x = event.clientX - rect.left
-    const y = event.clientY - rect.top
+const digilocker_requestcheck = async () => {
+    const apiurl = url.value + 'digilocker';
+    const requestqueryvalue = route.query.requestId;
 
-    circle.style.left = `${x}px`
-    circle.style.top = `${y}px`
+    const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
+    const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
 
-    button.$el.appendChild(circle)
+    const redirecturl = JSON.stringify({
+        task: "getDetails",
+        essentials: {
+            requestId: requestqueryvalue,
 
-    setTimeout(() => {
-        circle.remove()
-        emit('updateDiv', 'ekyc');
-    }, 600)
-};
-
-const router = useRouter();
-
-function back() {
-
-    const button = rippleBtnback.value
-  const circle = document.createElement('span')
-  circle.classList.add('ripple')
-
-  const rect = button.$el.getBoundingClientRect()
-  const x = event.clientX - rect.left
-  const y = event.clientY - rect.top
-
-  circle.style.left = `${x}px`
-  circle.style.top = `${y}px`
-  button.$el.appendChild(circle)
-
-  setTimeout(() => {
-    circle.remove()
-    router.push({
-        name: 'index',
-        query: { signup: 4 }
+        }
     });
-  }, 600)
-   
+
+    const formData = new FormData();
+
+    formData.append('brokerCode', 'UAT-KYC');
+    formData.append('appId', '1216');
+    formData.append('clientCode', 'gow001');
+    formData.append('rawPostData', redirecturl);
+
+    try {
+        const response = await fetch(apiurl, {
+            method: 'POST',
+            headers: {
+                'Authorization': authorization,
+                'Cookie': cookies
+            },
+            body: formData
+        });
+
+       
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        else {
+            const successdata = await response.json()
+
+            if(successdata.metaData.result.files[0].doctype){
+                const files_id=[]
+                successdata.metaData.result.files.forEach(element => {
+                  files_id.push(element.id)
+                });
+                digilockerGetFiles(files_id)
+            }
+        } 
+       
+    }
+
+    catch (error) {
+            console.error('Error:', error.message);
+            router.push({
+        name: 'main',
+        query: { form: 'ekyc' }
+    });
+        }
+
 }
+
+
+
+const digilockerGetFiles = async (id) => {
+   
+   const apiurl = url.value + 'digilocker';
+   const requestqueryvalue = route.query.requestId;
+
+   const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
+   const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
+
+   const redirecturl = JSON.stringify({
+       task: "getFiles",
+       essentials: {
+           requestId: requestqueryvalue,
+           fileIds: id
+
+       }
+   });
+
+   const formData = new FormData();
+
+   formData.append('brokerCode', 'UAT-KYC');
+   formData.append('appId', '1216');
+   formData.append('clientCode', 'gow001');
+   formData.append('rawPostData', redirecturl);
+
+   try {
+       const response = await fetch(apiurl, {
+           method: 'POST',
+           headers: {
+               'Authorization': authorization,
+               'Cookie': cookies
+           },
+           body: formData
+       });
+
+       if (!response.ok) {
+           throw new Error(`HTTP error! Status: ${response.status}`);
+       }
+       else {
+           const data = await response.json()
+           if(data.metaData.result.files[0].file){
+            localStorage.setItem('requestid', route.query.requestId)
+            router.push({
+        name: 'main',
+        query: { form: 'pandetails'}
+    });
+           }
+         
+       } 
+      
+   }
+
+   catch (error) {
+           console.error('Error:', error.message);
+       }
+
+}
+
+
+
 
 </script>

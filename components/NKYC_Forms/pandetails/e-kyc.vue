@@ -89,7 +89,7 @@
 </template>
 <script setup>
 
-import { data } from 'autoprefixer';
+
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute()
@@ -141,8 +141,8 @@ const back = () => {
 
 const digilocker_create = async () => {
     const apiurl = url.value + 'digilocker';
-    const url1 = 'http://localhost:3000/main?form=ekyc';
-    const url2 = 'http://localhost:3000/main?form=ekyc';
+    const url1 = 'http://localhost:3000/loading';
+    const url2 = 'http://localhost:3000/loading';
 
     const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
     const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
@@ -191,176 +191,7 @@ const digilocker_create = async () => {
 };
 
 
-const digilocker_requestcheck = async () => {
-    const apiurl = url.value + 'digilocker';
-    const requestqueryvalue = route.query.requestId;
 
-    const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
-    const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
-
-    const redirecturl = JSON.stringify({
-        task: "getDetails",
-        essentials: {
-            requestId: requestqueryvalue,
-
-        }
-    });
-
-    const formData = new FormData();
-
-    formData.append('brokerCode', 'UAT-KYC');
-    formData.append('appId', '1216');
-    formData.append('clientCode', 'gow001');
-    formData.append('rawPostData', redirecturl);
-
-    try {
-        const response = await fetch(apiurl, {
-            method: 'POST',
-            headers: {
-                'Authorization': authorization,
-                'Cookie': cookies
-            },
-            body: formData
-        });
-
-       
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        else {
-            const successdata = await response.json()
-
-            if(successdata.metaData.result.files[0].doctype){
-                content.value=false
-                loading.value=true
-                const files_id=[]
-                successdata.metaData.result.files.forEach(element => {
-                  files_id.push(element.id)
-                });
-                digilockerGetFiles(files_id)
-            }
-        } 
-       
-    }
-
-    catch (error) {
-            console.error('Error:', error.message);
-  
-        }
-
-}
-
-
-const digilockerGetFiles = async (id) => {
-   
-    const apiurl = url.value + 'digilocker';
-    const requestqueryvalue = route.query.requestId;
-
-    const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
-    const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
-
-    const redirecturl = JSON.stringify({
-        task: "getFiles",
-        essentials: {
-            requestId: requestqueryvalue,
-            fileIds: id
-
-        }
-    });
-
-    const formData = new FormData();
-
-    formData.append('brokerCode', 'UAT-KYC');
-    formData.append('appId', '1216');
-    formData.append('clientCode', 'gow001');
-    formData.append('rawPostData', redirecturl);
-
-    try {
-        const response = await fetch(apiurl, {
-            method: 'POST',
-            headers: {
-                'Authorization': authorization,
-                'Cookie': cookies
-            },
-            body: formData
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        else {
-            const data = await response.json()
-            if(data.metaData.result.files[0].file){
-             emit('updateDiv', 'pandetails', data);
-            }
-          
-        } 
-       
-    }
-
-    catch (error) {
-            console.error('Error:', error.message);
-        }
-
-}
-
-
-
-const digilockerpulldocument = async (id) => {
-   
-   const apiurl = url.value + 'digilocker';
-   const requestqueryvalue = route.query.requestId;
-
-   const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
-   const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
-
-   const redirecturl = JSON.stringify({
-       task: "pullDocumentsV2",
-       essentials: {
-           requestId: requestqueryvalue,
-           docType: "PANCR",
-           orgid: "001891",
-           consent: "Y",
-           searchParameters: { 
-            "panno": "BPLPV5157E", 
-            "PANFullName": "BHARATHI VIJAY"
-         }
-       }
-   });
-
-   const formData = new FormData();
-
-   formData.append('brokerCode', 'UAT-KYC');
-   formData.append('appId', '1216');
-   formData.append('clientCode', 'gow001');
-   formData.append('rawPostData', redirecturl);
-
-   try {
-       const response = await fetch(apiurl, {
-           method: 'POST',
-           headers: {
-               'Authorization': authorization,
-               'Cookie': cookies
-           },
-           body: formData
-       });
-
-       if (!response.ok) {
-           throw new Error(`HTTP error! Status: ${response.status}`);
-       }
-       else {
-           const data = await response.json()
-         
-         
-       } 
-      
-   }
-
-   catch (error) {
-           console.error('Error:', error.message);
-       }
-
-}
 
     const handleButtonClick = () => {
         const button = rippleBtn.value
@@ -386,9 +217,7 @@ const digilockerpulldocument = async (id) => {
 
 
 
-    const onClose = () => {
-    visible.value = false;
-}
+   
 
 
 

@@ -64,9 +64,10 @@ import Aadhar from '~/components/NKYC_Forms/pandetails/paninputs/aadhar.vue';
 
 import DOB from '~/components/NKYC_Forms/pandetails/paninputs/dateinput.vue'
 import Pancheck from '~/components/NKYC_Forms/pandetails/paninputs/pancheck.vue'
-
-const { ourl } = useUrl();
+import { useRoute } from 'vue-router';
+const route=useRoute()
 const { url } = useUrlw3();
+const { ourl } = useUrl();
 const props = defineProps({
     data: {
         type: Object,
@@ -88,6 +89,7 @@ const pannameshow=ref(false)
 const paninvalidshow=ref(false)
 const panerror=ref('')
 onMounted(() => {
+  console.log("requestid",route.query.form)
     deviceHeight.value = window.innerHeight;
     window.addEventListener('resize', () => {
         deviceHeight.value = window.innerHeight;
@@ -204,6 +206,62 @@ const kraaddresssubmission=async()=>{
 }
 
 
+const digilocker_Pullfile = async () => {
+    const apiurl = url.value + 'digilocker';
+    const requestqueryvalue = localStorage.getItem('requestid');
+
+    const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
+    const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
+
+    const redirecturl = JSON.stringify({
+       task: "pullDocumentsV2",
+        essentials: { 
+          requestId: requestqueryvalue, 
+          docType: "PANCR",
+          orgid: "001891",
+          consent: "Y", 
+          searchParameters: { panno: panno.value, PANFullName: clientname.value } } });
+
+    const formData = new FormData();
+
+    formData.append('brokerCode', 'UAT-KYC');
+    formData.append('appId', '1216');
+    formData.append('clientCode', 'gow001');
+    formData.append('rawPostData', redirecturl);
+
+    try {
+        const response = await fetch(apiurl, {
+            method: 'POST',
+            headers: {
+                'Authorization': authorization,
+                'Cookie': cookies
+            },
+            body: formData
+        });
+
+       
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        else {
+            const successdata = await response.json()
+            if(successdata.metaData.result.pdf){
+              kraaddresssubmission()
+            }
+
+           
+        } 
+       
+    }
+
+    catch (error) {
+            console.error('Error:', error.message);
+         
+        }
+
+}
+
+
 const handleButtonClick = () => {
  const button = rippleBtn.value
   const circle = document.createElement('span')
@@ -220,11 +278,12 @@ const handleButtonClick = () => {
 
   setTimeout(() => {
     circle.remove()
+
    if(!panno.value || !dateval.value || !clientname.value || !aadhar.value ){
-    alert('Pan invalid')
+    alert('Please fill all required')
    }
    else{
-    kraaddresssubmission()
+    digilocker_Pullfile()
    }
  
   }, 600)

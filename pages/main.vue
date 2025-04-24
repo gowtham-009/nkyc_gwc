@@ -177,6 +177,7 @@ watch(() => route.query.form, (newForm) => {
 
 
 const handleUpdateDiv = (value, newData = {}) => {
+ 
   currentForm.value = value
   data.value = newData
 
@@ -185,6 +186,61 @@ const handleUpdateDiv = (value, newData = {}) => {
   formHistory.value.push({ form: value, formData: newData })
 }
 
+const digilockerpulldocument = async () => {
+   
+   const apiurl = url.value + 'digilocker';
+   const requestqueryvalue = route.query.requestId;
+
+   const authorization = 'F2CB3616F1EC269F0BF328CB77FEE4EFCDF5450D7BD21A94721C2F4E49E88F83A4FCE196070903C1BDCAA25F08F037538567D785FC56D139C09A6EC7927D5EFE';
+   const cookies = 'PHPSESSID=m89vmdhtu75tts1jr79ddk1ekl';
+
+   const redirecturl = JSON.stringify({
+       task: "pullDocumentsV2",
+       essentials: {
+           requestId: requestqueryvalue,
+           docType: "PANCR",
+           orgid: "001891",
+           consent: "Y",
+           searchParameters: { 
+            "panno": "BPLPV5157E", 
+            "PANFullName": "BHARATHI VIJAY"
+         }
+       }
+   });
+
+   const formData = new FormData();
+
+   formData.append('brokerCode', 'UAT-KYC');
+   formData.append('appId', '1216');
+   formData.append('clientCode', 'gow001');
+   formData.append('rawPostData', redirecturl);
+
+   try {
+       const response = await fetch(apiurl, {
+           method: 'POST',
+           headers: {
+               'Authorization': authorization,
+               'Cookie': cookies
+           },
+           body: formData
+       });
+
+       if (!response.ok) {
+           throw new Error(`HTTP error! Status: ${response.status}`);
+       }
+       else {
+           const data = await response.json()
+         
+         
+       } 
+      
+   }
+
+   catch (error) {
+           console.error('Error:', error.message);
+       }
+
+}
 
 const handleBackButton = () => {
   if (formHistory.value.length > 1) {
@@ -199,6 +255,7 @@ const handleBackButton = () => {
 }
 
 onMounted(() => {
+  router.replace({ query: {} })
   history.replaceState({ div: currentForm.value, formData: {} }, '', '')
   window.addEventListener('popstate', handleBackButton)
   caches.open("my-cache").then(cache => {
@@ -221,6 +278,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('popstate', handleBackButton)
 })
+
 
 </script>
 
