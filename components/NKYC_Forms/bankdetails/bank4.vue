@@ -95,19 +95,19 @@ import { ref, onMounted, defineProps } from 'vue';
 
 const emit = defineEmits(['updateDiv']);
 
-const props = defineProps({
-  data: {
-    type: Array,
-    required: true
-  }
-})
+// const props = defineProps({
+//   data: {
+//     type: Array,
+//     required: true
+//   }
+// })
 
 
-const bankname = ref(props.data[0].bankname || '');
-const accno = ref(props.data[0].accno || '');
-const ifsccode = ref(props.data[0].ifsc || '');
-const MICR = ref(props.data[0].micr || '');
-const address = ref(props.data[0].address || '');
+const bankname = ref('Canarabank');
+const accno = ref('*****6666');
+const ifsccode = ref('IOBA0003');
+const MICR = ref('IOBAKJERNV');
+const address = ref('EVNEIN');
 
 
 
